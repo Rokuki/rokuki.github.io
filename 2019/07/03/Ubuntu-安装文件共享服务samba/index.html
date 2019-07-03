@@ -16,7 +16,7 @@
 
   <!--Open Graph Title-->
   
-      <meta property="og:title" content="Multiple-label Image Recognition">
+      <meta property="og:title" content="Ubuntu 安装文件共享服务samba">
   
   <!--Open Graph Description-->
   
@@ -33,7 +33,7 @@
 
   <!-- Title -->
   
-  <title>Multiple-label Image Recognition - BouSeng</title>
+  <title>Ubuntu 安装文件共享服务samba - BouSeng</title>
 
 
   <link rel="shortcut icon" href="https://s2.ax1x.com/2019/07/02/ZGbeET.jpg">
@@ -113,21 +113,21 @@
         <!-- Title date & tags -->
         <div class="post-header">
           <h1 class="entry-title">
-            Multiple-label Image Recognition
+            Ubuntu 安装文件共享服务samba
             
           </h1>
           <p class="posted-on">
-          2019-07-02
+          2019-07-03
           </p>
           <div class="tags-links">
             
               
-                <a href="/tags/PyTorch/" rel="tag">
-                  PyTorch
+                <a href="/tags/ubuntu/" rel="tag">
+                  ubuntu
                 </a>
               
-                <a href="/tags/Multiple-label/" rel="tag">
-                  Multiple-label
+                <a href="/tags/samba/" rel="tag">
+                  samba
                 </a>
               
             
@@ -135,22 +135,37 @@
         </div>
         <!-- Post Main Content -->
         <div class="entry-content has_line_number">
-          <h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
-<li>Python 3.7.3</li>
-<li>PyTorch 1.1.0</li>
-</ul>
-<h2 id="Dataset"><a href="#Dataset" class="headerlink" title="Dataset"></a>Dataset</h2><p>train.txt  格式：</p>
-<ol>
-<li>age: number</li>
-<li>sex: male/female</li>
-<li>mood: happy/calm/sad/angry</li>
+          <ol>
+<li><p>安装samba</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apitude install samba</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/samba/smb.conf</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在末尾加入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[share]</span><br><span class="line">    comment = samba home directory</span><br><span class="line">    path = /home/cbc/Download</span><br><span class="line">    public = yes</span><br><span class="line">    browseable = yes</span><br><span class="line">    public = yes</span><br><span class="line">    read only = no</span><br><span class="line">    valid users = root</span><br><span class="line">    create mask = 0777</span><br><span class="line">    directory mask = 0777</span><br><span class="line">    force user = nobody</span><br><span class="line">    force group = nogroup</span><br><span class="line">    available = yes</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">testparm</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加用户root并设置密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo smbpasswd -a root</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重启samba</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/smbd restart</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看ip</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifconfig</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试访问:smb://局域网ip</p>
+</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1.jpg   25  male    happy   </span><br><span class="line">2.jpg   30  female  happy</span><br><span class="line">3.jpg   20  male    calm   </span><br><span class="line">4.jpg   26  male    sad</span><br><span class="line">5.jpg   60  female  angry</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>假如拒绝连接,log(/var/log/samba)出现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[2016/10/16 11:53:26.411122,  0] ../lib/util/fault.c:79(fault_report)</span><br><span class="line">  INTERNAL ERROR: Signal 11 in pid 5251 (4.5.0)</span><br><span class="line">  Please read the Trouble-Shooting section of the Samba HOWTO</span><br><span class="line">[2016/10/16 11:53:26.411150,  0] ../lib/util/fault.c:81(fault_report)</span><br></pre></td></tr></table></figure>
 
-<p>目录结构</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">--Dataset</span><br><span class="line">------train.txt</span><br><span class="line">------test.txt</span><br><span class="line">------val.txt</span><br><span class="line">------images</span><br><span class="line">----------1.jpg</span><br><span class="line">----------2.jpg</span><br><span class="line">----------3.jpg</span><br><span class="line">----------...</span><br></pre></td></tr></table></figure>
-
-<h2 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>fix: 降级libtevent</p>
+<p><a href="https://packages.ubuntu.com/trusty/amd64/libtevent0/download" target="_blank" rel="noopener">https://packages.ubuntu.com/trusty/amd64/libtevent0/download</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg -i libtevent0_0.9.28-0ubuntu0.14.04.1_amd64.deb</span><br></pre></td></tr></table></figure>
 
 
         </div>
@@ -170,13 +185,9 @@
     <!-- Pre or Next -->
     <div class="nav-links">
       
-        <div class="nav-previous">
-          <a href="/2019/07/02/使用TensorboardX可视化PyTorch网络结构/" rel="prev"><span class="meta-arraw meta-arraw-left"></span> 上一页</a>
-        </div>
-      
       
         <div class="nav-next">
-          <a href="/2019/07/02/Annoying-PyTorch-Error/" rel="prev">下一页 <span class="meta-arraw meta-arraw-right"></span></a>
+          <a href="/2019/07/02/使用TensorboardX可视化PyTorch网络结构/" rel="prev">下一页 <span class="meta-arraw meta-arraw-right"></span></a>
         </div>
       
     </div>

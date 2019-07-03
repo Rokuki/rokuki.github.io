@@ -16,7 +16,7 @@
 
   <!--Open Graph Title-->
   
-      <meta property="og:title" content="BouSeng">
+      <meta property="og:title" content="使用TensorboardX可视化PyTorch网络结构">
   
   <!--Open Graph Description-->
   
@@ -24,7 +24,7 @@
   <meta property="og:site_name" content="BouSeng">
   <!--Type page-->
   
-      <meta property="og:type" content="website">
+      <meta property="og:type" content="article">
   
   <!--Page Cover-->
   
@@ -33,7 +33,7 @@
 
   <!-- Title -->
   
-  <title>BouSeng - Let&#39;s agree to disagree</title>
+  <title>使用TensorboardX可视化PyTorch网络结构 - BouSeng</title>
 
 
   <link rel="shortcut icon" href="https://s2.ax1x.com/2019/07/02/ZGbeET.jpg">
@@ -105,195 +105,72 @@
 
 
   <!-- Main Content -->
-  <div class="site-content home">
-  <main class="content-area">
-    
-      
-        <div class="even">
-          
+  <div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    <div class="container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            使用TensorboardX可视化PyTorch网络结构
+            
+          </h1>
+          <p class="posted-on">
+          2019-07-02
+          </p>
+          <div class="tags-links">
+            
+              
+                <a href="/tags/PyTorch/" rel="tag">
+                  PyTorch
+                </a>
+              
+                <a href="/tags/tensorboardX/" rel="tag">
+                  tensorboardX
+                </a>
+              
+            
+          </div>
+        </div>
+        <!-- Post Main Content -->
+        <div class="entry-content has_line_number">
+          <h2 id="安装TensorboardX"><a href="#安装TensorboardX" class="headerlink" title="安装TensorboardX"></a>安装TensorboardX</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install tensorboardX</span><br></pre></td></tr></table></figure>
 
-<!-- 首页模板 -->
-<div class="container">
-  <article class="post">
-    
-      
-      
+<h2 id="可视化resnet18"><a href="#可视化resnet18" class="headerlink" title="可视化resnet18"></a>可视化resnet18</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">from</span> tensorboardX <span class="keyword">import</span> SummaryWriter</span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> models                        <span class="comment"># 导入模型</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">dummy_input = torch.rand(<span class="number">13</span>, <span class="number">1</span>, <span class="number">28</span>, <span class="number">28</span>)     <span class="comment"># 假设输入13张1*28*28的图片</span></span><br><span class="line">model = models.resnet18(pretrained=<span class="literal">False</span>)</span><br><span class="line"><span class="keyword">with</span> SummaryWriter(comment=<span class="string">'mixNet'</span>) <span class="keyword">as</span> w:</span><br><span class="line">    w.add_graph(model, (dummy_input, ))</span><br></pre></td></tr></table></figure>
 
-      <a href="/2019/07/03/Ubuntu-安装文件共享服务samba/">
-          <img src="https://s2.ax1x.com/2019/07/03/ZtZAUK.png" alt="Ubuntu 安装文件共享服务samba" class="attachment-post-thumbnail">
-        </a>
-    
-    <h1 class="entry-title">
-      <a href="/2019/07/03/Ubuntu-安装文件共享服务samba/" rel="bookmark">
-        Ubuntu 安装文件共享服务samba
-      </a>
-    </h1>
-    
 
-    <p class="posted-on">
-    2019-07-03
-    </p>
-    <div class="tags-links">
-      
-      <a href="/tags/ubuntu/" rel="tag">
-        ubuntu
-      </a>
-      
-      <a href="/tags/samba/" rel="tag">
-        samba
-      </a>
-      
+        </div>
+      </article>
     </div>
-  </article>
-</div>
-        </div> 
+    <!-- Comments -->
+    <div class="container">
       
-    
-      
-        <div class="odd">
-          
+<section id="comment">
+  <!-- <h1 class="title">留言</h1> -->
 
-<!-- 首页模板 -->
-<div class="container">
-  <article class="post">
-    
-    <h1 class="entry-title">
-      <a href="/2019/07/02/使用TensorboardX可视化PyTorch网络结构/" rel="bookmark">
-        使用TensorboardX可视化PyTorch网络结构
-      </a>
-    </h1>
-    
+  
+</section>
 
-    <p class="posted-on">
-    2019-07-02
-    </p>
-    <div class="tags-links">
-      
-      <a href="/tags/PyTorch/" rel="tag">
-        PyTorch
-      </a>
-      
-      <a href="/tags/tensorboardX/" rel="tag">
-        tensorboardX
-      </a>
-      
+
     </div>
-  </article>
-</div>
+    <!-- Pre or Next -->
+    <div class="nav-links">
+      
+        <div class="nav-previous">
+          <a href="/2019/07/03/Ubuntu-安装文件共享服务samba/" rel="prev"><span class="meta-arraw meta-arraw-left"></span> 上一页</a>
         </div>
       
-    
       
-        <div class="even">
-          
-
-<!-- 首页模板 -->
-<div class="container">
-  <article class="post">
-    
-    <h1 class="entry-title">
-      <a href="/2019/07/02/Multiple-label-Image-Recognition/" rel="bookmark">
-        Multiple-label Image Recognition
-      </a>
-    </h1>
-    
-
-    <p class="posted-on">
-    2019-07-02
-    </p>
-    <div class="tags-links">
-      
-      <a href="/tags/PyTorch/" rel="tag">
-        PyTorch
-      </a>
-      
-      <a href="/tags/Multiple-label/" rel="tag">
-        Multiple-label
-      </a>
-      
-    </div>
-  </article>
-</div>
-        </div> 
-      
-    
-      
-        <div class="odd">
-          
-
-<!-- 首页模板 -->
-<div class="container">
-  <article class="post">
-    
-      
-      
-
-      <a href="/2019/07/02/Annoying-PyTorch-Error/">
-          <img src="https://s2.ax1x.com/2019/07/02/ZGqesI.png" alt="Annoying PyTorch's Error" class="attachment-post-thumbnail">
-        </a>
-    
-    <h1 class="entry-title">
-      <a href="/2019/07/02/Annoying-PyTorch-Error/" rel="bookmark">
-        Annoying PyTorch's Error
-      </a>
-    </h1>
-    
-    <div class="entry-content">
-      <p>
-        <p>记录使用PyTorch过程中出现的error以及fix方法</p>
-      </p>
-    </div>
-    
-
-    <p class="posted-on">
-    2019-07-02
-    </p>
-    <div class="tags-links">
-      
-    </div>
-  </article>
-</div>
+        <div class="nav-next">
+          <a href="/2019/07/02/Multiple-label-Image-Recognition/" rel="prev">下一页 <span class="meta-arraw meta-arraw-right"></span></a>
         </div>
       
-    
-      
-        <div class="even">
-          
-
-<!-- 首页模板 -->
-<div class="container">
-  <article class="post">
-    
-      
-      
-
-      <a href="/2019/07/01/necklace/">
-          <img src="https://s2.ax1x.com/2019/07/02/ZGbQ29.jpg" alt="necklace" class="attachment-post-thumbnail">
-        </a>
-    
-    <h1 class="entry-title">
-      <a href="/2019/07/01/necklace/" rel="bookmark">
-        necklace
-      </a>
-    </h1>
-    
-
-    <p class="posted-on">
-    2019-07-01
-    </p>
-    <div class="tags-links">
-      
     </div>
-  </article>
-</div>
-        </div> 
-      
-    
 
-    
-
-  </main>
+  </div>
 </div>
+
 
   <!-- Footer -->
   <!-- Footer-widgets -->
