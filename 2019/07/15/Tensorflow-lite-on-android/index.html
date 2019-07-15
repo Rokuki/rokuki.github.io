@@ -141,6 +141,12 @@
 
 <h2 id="tflite-graph-pb-转-detect-tflite"><a href="#tflite-graph-pb-转-detect-tflite" class="headerlink" title="tflite_graph.pb 转 detect.tflite"></a>tflite_graph.pb 转 detect.tflite</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">bazel run -c opt tensorflow/lite/toco:toco -- \</span><br><span class="line">--input_file=/home/cbc/disk2/tensorflow-models/research/object_detection/inference_graph/face_organs_ssd_tflite_18704/tflite_graph.pb \</span><br><span class="line">--output_file=/home/cbc/detect.tflite \</span><br><span class="line">--input_shapes=1,300,300,3 \</span><br><span class="line">--input_arrays=normalized_input_image_tensor \</span><br><span class="line">--output_arrays='TFLite_Detection_PostProcess','TFLite_Detection_PostProcess:1','TFLite_Detection_PostProcess:2','TFLite_Detection_PostProcess:3' \</span><br><span class="line">--inference_type=FLOAT \</span><br><span class="line">--mean_values=128 \</span><br><span class="line">--std_values=128 \</span><br><span class="line">--change_concat_input_ranges=false \</span><br><span class="line">--allow_custom_ops</span><br></pre></td></tr></table></figure>
 
+<p>取消下载coco_ssd_mobilenet</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 在Module:app的build.gradle里，注释掉  apply from:&apos;download_model.gradle&apos;</span><br><span class="line">//apply from:&apos;download_model.gradle&apos;</span><br></pre></td></tr></table></figure>
+
+<p>修改DetectorActivity.java的<code>TF_OD_API_IS_QUANTIZED</code>为false</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private static final boolean TF_OD_API_IS_QUANTIZED = false;</span><br></pre></td></tr></table></figure>
+
 
         </div>
       </article>
