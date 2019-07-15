@@ -16,7 +16,7 @@
 
   <!--Open Graph Title-->
   
-      <meta property="og:title" content="树莓派控制舵机">
+      <meta property="og:title" content="Tensorflow lite on android">
   
   <!--Open Graph Description-->
   
@@ -33,7 +33,7 @@
 
   <!-- Title -->
   
-  <title>树莓派控制舵机 - BouSeng</title>
+  <title>Tensorflow lite on android - BouSeng</title>
 
 
   <link rel="shortcut icon" href="https://s2.ax1x.com/2019/07/02/ZGbeET.jpg">
@@ -113,17 +113,21 @@
         <!-- Title date & tags -->
         <div class="post-header">
           <h1 class="entry-title">
-            树莓派控制舵机
+            Tensorflow lite on android
             
           </h1>
           <p class="posted-on">
-          2019-07-11
+          2019-07-15
           </p>
           <div class="tags-links">
             
               
-                <a href="/tags/树莓派/" rel="tag">
-                  树莓派
+                <a href="/tags/tensorflow lite/" rel="tag">
+                  tensorflow lite
+                </a>
+              
+                <a href="/tags/android/" rel="tag">
+                  android
                 </a>
               
             
@@ -131,12 +135,12 @@
         </div>
         <!-- Post Main Content -->
         <div class="entry-content has_line_number">
-          <h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><ul>
-<li>树莓派3</li>
-<li>舵机SG90 x 2<br><img src="https://s2.ax1x.com/2019/07/11/ZRiHld.jpg" alt="ZRiHld.jpg"></li>
-<li>16路PWM舵机驱动板PCA9685<br><img src="https://s2.ax1x.com/2019/07/11/ZRib6A.png" alt="ZRib6A.png"></li>
-<li>杜邦线若干<br><img src="https://s2.ax1x.com/2019/07/11/ZRFc4S.jpg" alt="ZRFc4S.jpg"></li>
-</ul>
+          <h2 id="导出tflite-graph-pb"><a href="#导出tflite-graph-pb" class="headerlink" title="导出tflite_graph.pb"></a>导出tflite_graph.pb</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">object_detection/export_tflite_ssd_graph.py \</span><br><span class="line">--pipeline_config_path=$CONFIG_FILE \</span><br><span class="line">--trained_checkpoint_prefix=$CHECKPOINT_PATH \</span><br><span class="line">--output_directory=$OUTPUT_DIR \</span><br><span class="line">--add_postprocessing_op=true</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装bazel"><a href="#安装bazel" class="headerlink" title="安装bazel"></a>安装bazel</h2><h2 id="编译转换工具"><a href="#编译转换工具" class="headerlink" title="编译转换工具"></a>编译转换工具</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd tensorflow/   </span><br><span class="line">bazel build tensorflow/python/tools:freeze_graph</span><br><span class="line">bazel build tensorflow/contrib/lite/toco:toco</span><br></pre></td></tr></table></figure>
+
+<h2 id="tflite-graph-pb-转-detect-tflite"><a href="#tflite-graph-pb-转-detect-tflite" class="headerlink" title="tflite_graph.pb 转 detect.tflite"></a>tflite_graph.pb 转 detect.tflite</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">bazel run -c opt tensorflow/lite/toco:toco -- \</span><br><span class="line">--input_file=/home/cbc/disk2/tensorflow-models/research/object_detection/inference_graph/face_organs_ssd_tflite_18704/tflite_graph.pb \</span><br><span class="line">--output_file=/home/cbc/detect.tflite \</span><br><span class="line">--input_shapes=1,300,300,3 \</span><br><span class="line">--input_arrays=normalized_input_image_tensor \</span><br><span class="line">--output_arrays='TFLite_Detection_PostProcess','TFLite_Detection_PostProcess:1','TFLite_Detection_PostProcess:2','TFLite_Detection_PostProcess:3' \</span><br><span class="line">--inference_type=FLOAT \</span><br><span class="line">--mean_values=128 \</span><br><span class="line">--std_values=128 \</span><br><span class="line">--change_concat_input_ranges=false \</span><br><span class="line">--allow_custom_ops</span><br></pre></td></tr></table></figure>
+
 
         </div>
       </article>
@@ -155,13 +159,9 @@
     <!-- Pre or Next -->
     <div class="nav-links">
       
-        <div class="nav-previous">
-          <a href="/2019/07/15/Tensorflow-lite-on-android/" rel="prev"><span class="meta-arraw meta-arraw-left"></span> 上一页</a>
-        </div>
-      
       
         <div class="nav-next">
-          <a href="/2019/07/09/BeautifulSoup简要/" rel="prev">下一页 <span class="meta-arraw meta-arraw-right"></span></a>
+          <a href="/2019/07/11/树莓派控制舵机/" rel="prev">下一页 <span class="meta-arraw meta-arraw-right"></span></a>
         </div>
       
     </div>
