@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="BouSeng Chan">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="发布代码到pypi">
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="BouSeng">
+  <!--Type page-->
+  
+      <meta property="og:type" content="article">
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- Title -->
+  
+  <title>发布代码到pypi - BouSeng</title>
+
+
+  <link rel="shortcut icon" href="https://s2.ax1x.com/2019/07/02/ZGbeET.jpg">
+
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!----------------------------
+  https://github.com/GallenHu/hexo-theme-Daily
+
+ _____            _   _
+|  __ \          (_) | |
+| |  | |   __ _   _  | |  _   _
+| |  | |  / _` | | | | | | | | |
+| |__| | | (_| | | | | | | |_| |
+|_____/   \__,_| |_| |_|  \__, |
+                          __/ |
+                         |___/
+
+    --------------------------->
+
+</head>
+
+
+<body>
+
+  <!-- Nav -->
+  <header class="site-header">
+  <div class="header-inside">
+    <div class="logo">
+      <a href="/" rel="home">
+        
+        <img src="https://s2.ax1x.com/2019/07/02/ZGbeET.jpg" alt="BouSeng" height="60">
+        
+      </a>
+    </div>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse">
+        <ul class="navbar-nav">
+          
+          
+            <li>
+              <a href="/.">
+                
+                  home
+                
+              </a>
+            </li>
+          
+            <li>
+              <a href="/archives">
+                
+                  archive
+                
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+    <div class="button-wrap">
+      <button class="menu-toggle">Primary Menu</button>
+    </div>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  <div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    <div class="container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            发布代码到pypi
+            
+          </h1>
+          <p class="posted-on">
+          2019-07-17
+          </p>
+          <div class="tags-links">
+            
+              
+                <a href="/tags/pypi/" rel="tag">
+                  pypi
+                </a>
+              
+            
+          </div>
+        </div>
+        <!-- Post Main Content -->
+        <div class="entry-content has_line_number">
+          <h2 id="创建项目根目录"><a href="#创建项目根目录" class="headerlink" title="创建项目根目录"></a>创建项目根目录</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir bouseng_package</span><br><span class="line">cd bouseng_package</span><br></pre></td></tr></table></figure>
+
+<p>创建代码存放目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir bouseng</span><br><span class="line">cd bouseng</span><br></pre></td></tr></table></figure>
+
+<h2 id="代码格式"><a href="#代码格式" class="headerlink" title="代码格式"></a>代码格式</h2><p>编写主运行文件<code>bouseng.py</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch bouseng.py</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_f</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'This is pypi project——bouseng'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>编写<code>__init__.py</code>文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch __init__.py</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> absolute_import</span><br><span class="line"><span class="keyword">from</span> .bouseng <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">name = <span class="string">'bouseng'</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="setup-py"><a href="#setup-py" class="headerlink" title="setup.py"></a>setup.py</h2><p>主要写项目信息，如项目版本、作者邮箱、作者名字等等。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> setuptools</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'README.md'</span>, <span class="string">'r'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    long_description = f.read()</span><br><span class="line"></span><br><span class="line">setuptools.setup(</span><br><span class="line">    name = <span class="string">'bouseng'</span>,</span><br><span class="line">    version = <span class="string">'0.0.1'</span>,</span><br><span class="line">    author = <span class="string">'bouseng'</span>,</span><br><span class="line">    author_email = <span class="string">'c@bouseng.com'</span>,</span><br><span class="line">    description = <span class="string">'pypi project demo'</span>,</span><br><span class="line">    long_description = long_description</span><br><span class="line">    long_description_content_type = <span class="string">'text/markdown'</span>,</span><br><span class="line">    url = <span class="string">'https://github.com/rokuki'</span></span><br><span class="line">    packages = setuptools.find_packages(),</span><br><span class="line">    classifiers = [</span><br><span class="line">        <span class="string">'Programming Language :: Python :: 3'</span>,</span><br><span class="line">        <span class="string">'Lincense :: OSI Approved :: MIT Lincense'</span>,</span><br><span class="line">        <span class="string">'Operating System :: OS Independent'</span></span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+      </article>
+    </div>
+    <!-- Comments -->
+    <div class="container">
+      
+<section id="comment">
+  <!-- <h1 class="title">留言</h1> -->
+
+  
+</section>
+
+
+    </div>
+    <!-- Pre or Next -->
+    <div class="nav-links">
+      
+      
+        <div class="nav-next">
+          <a href="/2019/07/15/Tensorflow-lite-on-android/" rel="prev">下一页 <span class="meta-arraw meta-arraw-right"></span></a>
+        </div>
+      
+    </div>
+
+  </div>
+</div>
+
+
+  <!-- Footer -->
+  <!-- Footer-widgets -->
+<div class="footer-widgets">
+  <div class="row inside-wrapper">
+    <div class="col-1-3">
+      <aside>
+        <h1 class="widget-title">Wechat</h1>
+        <div class="custom-widget-content">
+          
+          mkind-cbc <script type="text/javascript" src="//js.users.51.la/20159999.js"></script>
+        </div>
+      </aside>
+    </div>
+    <div class="col-1-3">
+      <aside>
+        <h1 class="widget-title">与我联系</h1>
+        <div class="widget-text">
+          
+            
+              <a href="https://github.com/rokuki" class="icon icon-github" target="_blank">github</a>
+            
+              <a href="mailto:c@bouseng.com" class="icon icon-mail" target="_blank">mail</a>
+            
+          
+        </div>
+      </aside>
+    </div>
+    <div class="col-1-3">
+      <aside>
+        <h1 class="widget-title">站内搜索</h1>
+        <div class="widget-text">
+          <form onSubmit="return appDaily.submitSearch('')">
+            <p>
+              <input type="text" placeholder="search..." id="homeSearchInput">
+            </p>
+            <!-- <input type="submit" value="GO"> -->
+          </form>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+<!-- Footer -->
+<footer class="site-info">
+  <p>
+    <span>BouSeng &copy; 2019</span>
+    
+      <span class="split">|</span>
+      <span>BouSeng's Blog</span>
+    
+  </p>
+</footer>
+
+
+  <!-- After footer scripts -->
+  <!-- scripts -->
+<script src="/js/app.js"></script>
+
+
+
+
+
+</body>
+
+</html>
