@@ -16,7 +16,7 @@
 
   <!--Open Graph Title-->
   
-      <meta property="og:title" content="Kaggle cometition —— APTOS 2019 Blindness Detection">
+      <meta property="og:title" content="百度网盘图片爬虫">
   
   <!--Open Graph Description-->
   
@@ -33,7 +33,7 @@
 
   <!-- Title -->
   
-  <title>Kaggle cometition —— APTOS 2019 Blindness Detection - BouSeng</title>
+  <title>百度网盘图片爬虫 - BouSeng</title>
 
 
   <link rel="shortcut icon" href="https://s2.ax1x.com/2019/07/02/ZGbeET.jpg">
@@ -113,21 +113,17 @@
         <!-- Title date & tags -->
         <div class="post-header">
           <h1 class="entry-title">
-            Kaggle cometition —— APTOS 2019 Blindness Detection
+            百度网盘图片爬虫
             
           </h1>
           <p class="posted-on">
-          2019-07-20
+          2019-08-13
           </p>
           <div class="tags-links">
             
               
-                <a href="/tags/kaggle/" rel="tag">
-                  kaggle
-                </a>
-              
-                <a href="/tags/computer vision/" rel="tag">
-                  computer vision
+                <a href="/tags/爬虫/" rel="tag">
+                  爬虫
                 </a>
               
             
@@ -135,87 +131,12 @@
         </div>
         <!-- Post Main Content -->
         <div class="entry-content has_line_number">
-          <h2 id="Data"><a href="#Data" class="headerlink" title="Data"></a>Data</h2><ul>
-<li>train.csv</li>
-<li>test.csv</li>
-<li>images</li>
-</ul>
-<p>类别：<br>0 - No DR<br>1 - Mild<br>2 - Moderate<br>3 - Severe<br>4 - Proliferative DR</p>
-<p>带类别的训练集：3662<br>测试集：1928</p>
-<h2 id="Train"><a href="#Train" class="headerlink" title="Train"></a>Train</h2><table>
-<thead>
-<tr>
-<th align="center">model</th>
-<th align="center">lr</th>
-<th align="center">batch_size</th>
-<th align="center">epoch</th>
-<th align="center">optimizer</th>
-<th align="center">image size</th>
-<th align="center">Score</th>
-<th align="center">LB_Score</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">efficientnet-b1</td>
-<td align="center">0.001</td>
-<td align="center">32</td>
-<td align="center">15</td>
-<td align="center">Adam</td>
-<td align="center">224</td>
-<td align="center">0.84</td>
-<td align="center">0.651</td>
-</tr>
-<tr>
-<td align="center">efficientnet-b1</td>
-<td align="center">0.001</td>
-<td align="center">32</td>
-<td align="center">15</td>
-<td align="center">Adam</td>
-<td align="center">256</td>
-<td align="center">0.84</td>
-<td align="center">0.745</td>
-</tr>
-<tr>
-<td align="center">efficientnet-b1</td>
-<td align="center">0.001</td>
-<td align="center">32</td>
-<td align="center">15</td>
-<td align="center">Adam</td>
-<td align="center">300</td>
-<td align="center">0.84</td>
-<td align="center">0.734</td>
-</tr>
-<tr>
-<td align="center">efficientnet-b5</td>
-<td align="center">0.001</td>
-<td align="center">8</td>
-<td align="center">15</td>
-<td align="center">Adam</td>
-<td align="center">456</td>
-<td align="center"></td>
-<td align="center">0.725</td>
-</tr>
-<tr>
-<td align="center">efficientnet-b4</td>
-<td align="center">0.001</td>
-<td align="center">8</td>
-<td align="center">12</td>
-<td align="center">Adam</td>
-<td align="center">300</td>
-<td align="center">0.82</td>
-<td align="center">0.708</td>
-</tr>
-<tr>
-<td align="center">efficientnet-b4</td>
-<td align="center">0.001</td>
-<td align="center">8</td>
-<td align="center">30</td>
-<td align="center">SGD</td>
-<td align="center">380</td>
-<td align="center">0.81</td>
-<td align="center">0.538</td>
-</tr>
-</tbody></table>
+          <blockquote>
+<p>百度网盘限制了下载数量，在下载超过一定数量的图片时，会阻止用户下载，遂写脚本以应之。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> tqdm</span><br><span class="line"></span><br><span class="line">sess = requests.session()</span><br><span class="line">content = <span class="string">''</span></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'动漫.html'</span>, <span class="string">'rb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    content = f.read().decode(<span class="string">'utf-8'</span>)</span><br><span class="line"></span><br><span class="line">soup = BeautifulSoup(content, <span class="string">'lxml'</span>)</span><br><span class="line">imgs = soup.find_all(<span class="string">'img'</span>, &#123;<span class="string">'class'</span>: <span class="string">'thumb'</span>&#125;)</span><br><span class="line"></span><br><span class="line">save_path = <span class="string">'/home/cbc/disk2/dataset/动漫数据集/pretty/'</span></span><br><span class="line"></span><br><span class="line">count = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> tqdm(imgs):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">if</span> i.get(<span class="string">'_src'</span>) <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            count += <span class="number">1</span></span><br><span class="line">            img_url = i.get(<span class="string">'_src'</span>).replace(<span class="string">'c180_u194'</span>,<span class="string">'c1920_u1080'</span>)</span><br><span class="line">            resp = sess.get(img_url, timeout=<span class="number">5</span>).content</span><br><span class="line">            <span class="keyword">with</span> open(save_path + <span class="string">'%d.jpg'</span> % count, <span class="string">'wb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">                f.write(resp)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">continue</span></span><br></pre></td></tr></table></figure>
+
+<p>注：动漫.html需要手动到网盘获取并保存下载。</p>
 
         </div>
       </article>
@@ -234,13 +155,9 @@
     <!-- Pre or Next -->
     <div class="nav-links">
       
-        <div class="nav-previous">
-          <a href="/2019/07/24/Speed-up-the-dataloader/" rel="prev"><span class="meta-arraw meta-arraw-left"></span> 上一页</a>
-        </div>
-      
       
         <div class="nav-next">
-          <a href="/2019/07/19/PyTorch-C-扩展/" rel="prev">下一页 <span class="meta-arraw meta-arraw-right"></span></a>
+          <a href="/2019/07/24/保存图片数据集为hdf5格式/" rel="prev">下一页 <span class="meta-arraw meta-arraw-right"></span></a>
         </div>
       
     </div>
