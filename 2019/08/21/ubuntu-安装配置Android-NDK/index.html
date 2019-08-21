@@ -16,7 +16,7 @@
 
   <!--Open Graph Title-->
   
-      <meta property="og:title" content="BouSeng">
+      <meta property="og:title" content="ubuntu 安装配置Android NDK">
   
   <!--Open Graph Description-->
   
@@ -24,7 +24,7 @@
   <meta property="og:site_name" content="BouSeng">
   <!--Type page-->
   
-      <meta property="og:type" content="website">
+      <meta property="og:type" content="article">
   
   <!--Page Cover-->
   
@@ -33,7 +33,7 @@
 
   <!-- Title -->
   
-  <title>归档：2019/7 - BouSeng</title>
+  <title>ubuntu 安装配置Android NDK - BouSeng</title>
 
 
   <link rel="shortcut icon" href="https://s2.ax1x.com/2019/07/02/ZGbeET.jpg">
@@ -105,164 +105,65 @@
 
 
   <!-- Main Content -->
-  
-
-<!-- Main Content -->
-<div class="archive content-area">
-  <div class="container">
-    <h1 class="entry-title">2019/7</h1>
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <!-- Use lodash to classify posts. See https://lodash.com/docs#groupBy
-          1. group site.posts by year
-          2. sort posts-in-one-year by Month and Day
-        -->
-        
-
-        
-          <h2 class="year">2019</h2>
-          <ul class="list">
+  <div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    <div class="container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            ubuntu 安装配置Android NDK
             
-  <li>
-    <span class="date">
-      2019-08-21
-    </span>
-    <a href="/2019/08/21/ubuntu-安装配置Android-NDK/" class="title">
-      ubuntu 安装配置Android NDK
-    </a>
-  </li>
+          </h1>
+          <p class="posted-on">
+          2019-08-21
+          </p>
+          <div class="tags-links">
+            
+              
+            
+          </div>
+        </div>
+        <!-- Post Main Content -->
+        <div class="entry-content has_line_number">
+          <h2 id="下载NDK"><a href="#下载NDK" class="headerlink" title="下载NDK"></a>下载NDK</h2><p><a href="http://dl.google.com/android/ndk/android-ndk-r10e-linux-x86_64.bin" target="_blank" rel="noopener">http://dl.google.com/android/ndk/android-ndk-r10e-linux-x86_64.bin</a></p>
+<h2 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x android-ndk-r10e-linux-x86_64.bin</span><br><span class="line">sudo ./android-ndk-r10c-linux-x86_64.bin</span><br></pre></td></tr></table></figure>
 
-  <li>
-    <span class="date">
-      2019-08-13
-    </span>
-    <a href="/2019/08/13/百度网盘图片爬虫/" class="title">
-      百度网盘图片爬虫
-    </a>
-  </li>
+<h2 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/profile</span><br></pre></td></tr></table></figure>
 
-  <li>
-    <span class="date">
-      2019-07-24
-    </span>
-    <a href="/2019/07/24/保存图片数据集为hdf5格式/" class="title">
-      保存图片数据集为hdf5格式
-    </a>
-  </li>
+<p>加入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export ANDROID_NDK=/home/cbc/android-ndk-r19c</span><br><span class="line">export PATH=$ANDROID_NDK:$PATH</span><br></pre></td></tr></table></figure>
 
-  <li>
-    <span class="date">
-      2019-07-24
-    </span>
-    <a href="/2019/07/24/Speed-up-the-dataloader/" class="title">
-      Speed up the dataloader
-    </a>
-  </li>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
 
-  <li>
-    <span class="date">
-      2019-07-20
-    </span>
-    <a href="/2019/07/20/Kaggle-cometition-APTOS-2019-Blindness-Detection/" class="title">
-      Kaggle cometition —— APTOS 2019 Blindness Detection
-    </a>
-  </li>
-
-  <li>
-    <span class="date">
-      2019-07-19
-    </span>
-    <a href="/2019/07/19/PyTorch-C-扩展/" class="title">
-      PyTorch C++扩展
-    </a>
-  </li>
-
-  <li>
-    <span class="date">
-      2019-07-17
-    </span>
-    <a href="/2019/07/17/发布代码到pypi/" class="title">
-      发布代码到pypi
-    </a>
-  </li>
-
-  <li>
-    <span class="date">
-      2019-07-15
-    </span>
-    <a href="/2019/07/15/Tensorflow-lite-on-android/" class="title">
-      Tensorflow lite on android
-    </a>
-  </li>
-
-  <li>
-    <span class="date">
-      2019-07-11
-    </span>
-    <a href="/2019/07/11/树莓派控制舵机/" class="title">
-      树莓派控制舵机
-    </a>
-  </li>
-
-  <li>
-    <span class="date">
-      2019-07-09
-    </span>
-    <a href="/2019/07/09/BeautifulSoup简要/" class="title">
-      BeautifulSoup简要
-    </a>
-  </li>
-
-  <li>
-    <span class="date">
-      2019-07-03
-    </span>
-    <a href="/2019/07/03/Ubuntu-安装文件共享服务samba/" class="title">
-      Ubuntu 安装文件共享服务samba
-    </a>
-  </li>
-
-  <li>
-    <span class="date">
-      2019-07-02
-    </span>
-    <a href="/2019/07/02/使用TensorboardX可视化PyTorch网络结构/" class="title">
-      使用TensorboardX可视化PyTorch网络结构
-    </a>
-  </li>
-
-  <li>
-    <span class="date">
-      2019-07-02
-    </span>
-    <a href="/2019/07/02/Multiple-label-Image-Recognition/" class="title">
-      Multiple-label Image Recognition
-    </a>
-  </li>
-
-  <li>
-    <span class="date">
-      2019-07-02
-    </span>
-    <a href="/2019/07/02/Annoying-PyTorch-Error/" class="title">
-      Annoying PyTorch's Error
-    </a>
-  </li>
-
-  <li>
-    <span class="date">
-      2019-07-01
-    </span>
-    <a href="/2019/07/01/necklace/" class="title">
-      necklace
-    </a>
-  </li>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ANDROID_NDK/ndk-build -C $ANDROID_NDK/samples/hello-jni/jni</span><br></pre></td></tr></table></figure>
 
 
-          </ul>
-        
-      </div>
+        </div>
+      </article>
     </div>
+    <!-- Comments -->
+    <div class="container">
+      
+<section id="comment">
+  <!-- <h1 class="title">留言</h1> -->
+
+  
+</section>
+
+
+    </div>
+    <!-- Pre or Next -->
+    <div class="nav-links">
+      
+      
+        <div class="nav-next">
+          <a href="/2019/08/13/百度网盘图片爬虫/" rel="prev">下一页 <span class="meta-arraw meta-arraw-right"></span></a>
+        </div>
+      
+    </div>
+
   </div>
 </div>
 
