@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="BouSeng Chan">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="IOU">
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="BouSeng">
+  <!--Type page-->
+  
+      <meta property="og:type" content="article">
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- Title -->
+  
+  <title>IOU - BouSeng</title>
+
+
+  <link rel="shortcut icon" href="https://s2.ax1x.com/2019/07/02/ZGbeET.jpg">
+
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!----------------------------
+  https://github.com/GallenHu/hexo-theme-Daily
+
+ _____            _   _
+|  __ \          (_) | |
+| |  | |   __ _   _  | |  _   _
+| |  | |  / _` | | | | | | | | |
+| |__| | | (_| | | | | | | |_| |
+|_____/   \__,_| |_| |_|  \__, |
+                          __/ |
+                         |___/
+
+    --------------------------->
+
+</head>
+
+
+<body>
+
+  <!-- Nav -->
+  <header class="site-header">
+  <div class="header-inside">
+    <div class="logo">
+      <a href="/" rel="home">
+        
+        <img src="https://s2.ax1x.com/2019/07/02/ZGbeET.jpg" alt="BouSeng" height="60">
+        
+      </a>
+    </div>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse">
+        <ul class="navbar-nav">
+          
+          
+            <li>
+              <a href="/.">
+                
+                  home
+                
+              </a>
+            </li>
+          
+            <li>
+              <a href="/archives">
+                
+                  archive
+                
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+    <div class="button-wrap">
+      <button class="menu-toggle">Primary Menu</button>
+    </div>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  <div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    <div class="container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            IOU
+            
+          </h1>
+          <p class="posted-on">
+          2019-08-27
+          </p>
+          <div class="tags-links">
+            
+              
+            
+          </div>
+        </div>
+        <!-- Post Main Content -->
+        <div class="entry-content has_line_number">
+          <ul>
+<li>bbox = [top, left, bottom, right]</li>
+<li>red: [393, 367, 1392, 2371]</li>
+<li>green: [454, 300, 1461, 2300]</li>
+</ul>
+<p><img src="https://s2.ax1x.com/2019/08/27/m5bTaV.png" alt="m5bTaV.png"></p>
+<p>S_red:（1392 - 393） * （2371 - 367） = 2001996<br>S_green : (1461 - 454) * (2300 - 300) = 2014000</p>
+<p>sum_area = 2001996 + 2014000 = 4015996</p>
+<p>重叠部分：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">left = max(<span class="number">367</span>,<span class="number">300</span>)         <span class="comment"># = 367</span></span><br><span class="line">top = max(<span class="number">393</span>,<span class="number">454</span>)          <span class="comment"># = 454</span></span><br><span class="line">bottom = min(<span class="number">1392</span>, <span class="number">1461</span>)    <span class="comment"># = 1392</span></span><br><span class="line">right = min(<span class="number">2371</span>, <span class="number">2300</span>)     <span class="comment"># = 2300</span></span><br></pre></td></tr></table></figure>
+
+<p>交叉部分面积：</p>
+<p>S_overlapping = （1392 - 454） * （2300 - 367）=  1813154</p>
+<p>计算IOU：<br>iou = (S_overlapping / sum_area - S_overlapping) * 1.0<br>    = (1813154 / 4015996 - 1813154) * 1.0<br>    = 0.82309</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">compute_iou</span><span class="params">(rec1, rec2)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    computing IoU</span></span><br><span class="line"><span class="string">    :param rec1: (y0, x0, y1, x1), which reflects</span></span><br><span class="line"><span class="string">            (top, left, bottom, right)</span></span><br><span class="line"><span class="string">    :param rec2: (y0, x0, y1, x1)</span></span><br><span class="line"><span class="string">    :return: scala value of IoU</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="comment"># computing area of each rectangles</span></span><br><span class="line">    S_rec1 = (rec1[<span class="number">2</span>] - rec1[<span class="number">0</span>]) * (rec1[<span class="number">3</span>] - rec1[<span class="number">1</span>])</span><br><span class="line">    S_rec2 = (rec2[<span class="number">2</span>] - rec2[<span class="number">0</span>]) * (rec2[<span class="number">3</span>] - rec2[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">    <span class="comment"># computing the sum_area</span></span><br><span class="line">    sum_area = S_rec1 + S_rec2</span><br><span class="line"></span><br><span class="line">    <span class="comment"># find the each edge of intersect rectangle</span></span><br><span class="line">    left_line = max(rec1[<span class="number">1</span>], rec2[<span class="number">1</span>])</span><br><span class="line">    right_line = min(rec1[<span class="number">3</span>], rec2[<span class="number">3</span>])</span><br><span class="line">    top_line = max(rec1[<span class="number">0</span>], rec2[<span class="number">0</span>])</span><br><span class="line">    bottom_line = min(rec1[<span class="number">2</span>], rec2[<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line">    <span class="comment"># judge if there is an intersect</span></span><br><span class="line">    <span class="keyword">if</span> left_line &gt;= right_line <span class="keyword">or</span> top_line &gt;= bottom_line:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        intersect = (right_line - left_line) * (bottom_line - top_line)</span><br><span class="line">        <span class="keyword">return</span> (intersect / (sum_area - intersect))*<span class="number">1.0</span></span><br></pre></td></tr></table></figure>
+
+
+        </div>
+      </article>
+    </div>
+    <!-- Comments -->
+    <div class="container">
+      
+<section id="comment">
+  <!-- <h1 class="title">留言</h1> -->
+
+  
+</section>
+
+
+    </div>
+    <!-- Pre or Next -->
+    <div class="nav-links">
+      
+      
+        <div class="nav-next">
+          <a href="/2019/08/27/（一）数学基础/" rel="prev">下一页 <span class="meta-arraw meta-arraw-right"></span></a>
+        </div>
+      
+    </div>
+
+  </div>
+</div>
+
+
+  <!-- Footer -->
+  <!-- Footer-widgets -->
+<div class="footer-widgets">
+  <div class="row inside-wrapper">
+    <div class="col-1-3">
+      <aside>
+        <h1 class="widget-title">Wechat</h1>
+        <div class="custom-widget-content">
+          
+          mkind-cbc <script type="text/javascript" src="//js.users.51.la/20159999.js"></script>
+        </div>
+      </aside>
+    </div>
+    <div class="col-1-3">
+      <aside>
+        <h1 class="widget-title">与我联系</h1>
+        <div class="widget-text">
+          
+            
+              <a href="https://github.com/rokuki" class="icon icon-github" target="_blank">github</a>
+            
+              <a href="mailto:c@bouseng.com" class="icon icon-mail" target="_blank">mail</a>
+            
+          
+        </div>
+      </aside>
+    </div>
+    <div class="col-1-3">
+      <aside>
+        <h1 class="widget-title">站内搜索</h1>
+        <div class="widget-text">
+          <form onSubmit="return appDaily.submitSearch('')">
+            <p>
+              <input type="text" placeholder="search..." id="homeSearchInput">
+            </p>
+            <!-- <input type="submit" value="GO"> -->
+          </form>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+<!-- Footer -->
+<footer class="site-info">
+  <p>
+    <span>BouSeng &copy; 2019</span>
+    
+      <span class="split">|</span>
+      <span>BouSeng's Blog</span>
+    
+  </p>
+</footer>
+
+
+  <!-- After footer scripts -->
+  <!-- scripts -->
+<script src="/js/app.js"></script>
+
+
+
+
+
+</body>
+
+</html>
