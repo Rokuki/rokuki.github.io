@@ -16,7 +16,7 @@
 
   <!--Open Graph Title-->
   
-      <meta property="og:title" content="深度学习100问（1-5）">
+      <meta property="og:title" content="深度学习100问（6-10）">
   
   <!--Open Graph Description-->
   
@@ -33,7 +33,7 @@
 
   <!-- Title -->
   
-  <title>深度学习100问（1-5） - BouSeng</title>
+  <title>深度学习100问（6-10） - BouSeng</title>
 
 
   <link rel="shortcut icon" href="https://s2.ax1x.com/2019/07/02/ZGbeET.jpg">
@@ -113,11 +113,11 @@
         <!-- Title date & tags -->
         <div class="post-header">
           <h1 class="entry-title">
-            深度学习100问（1-5）
+            深度学习100问（6-10）
             
           </h1>
           <p class="posted-on">
-          2019-08-29
+          2019-08-31
           </p>
           <div class="tags-links">
             
@@ -127,42 +127,8 @@
         </div>
         <!-- Post Main Content -->
         <div class="entry-content has_line_number">
-          <h2 id="1-什么是交叉验证？"><a href="#1-什么是交叉验证？" class="headerlink" title="1. 什么是交叉验证？"></a>1. 什么是交叉验证？</h2><p>将原始数据集分为K（通常K大于3）组不同的子集，每次选K-1组子集进行训练，剩下一组子集作为验证集，如此进行K次训练并得到K个模型。这K个模型在各自验证集上的错误率的平均作为对分类器的评价。</p>
-<h2 id="2-如何选择训练样本个数？"><a href="#2-如何选择训练样本个数？" class="headerlink" title="2. 如何选择训练样本个数？"></a>2. 如何选择训练样本个数？</h2><p>PAC（Probably Approximate Correct）学习理论。</p>
-<h2 id="3-衡量模型的评价指标有哪些？"><a href="#3-衡量模型的评价指标有哪些？" class="headerlink" title="3. 衡量模型的评价指标有哪些？"></a>3. 衡量模型的评价指标有哪些？</h2><ol>
-<li>正确率：正确率是我们最常见的评价指标，accuracy = （TP+TN）/(P+N)，这个很容易理解，就是被分对的样本数除以所有的样本数，通常来说，正确率越高，分类器越好；</li>
-<li>精度：精度是精确性的度量，表示被分为正例的示例中实际为正例的比例，precision=TP/（TP+FP）</li>
-<li>召回率：召回率是覆盖面的度量，度量有多个正例被分为正例，recall=TP/(TP+FN)=TP/P=sensitive，可以看到召回率与灵敏度是一样的。<br>对于类别C来说，模型在测试集上的结果可以分为：</li>
-</ol>
-<ul>
-<li>真正例(TP，True Positive)，一个样本的真实类别为C并被模型正确预测为C。</li>
-<li>假负例(FP，False Negative)，一个样本的真实类别为C并被模型错误预测为其他类。</li>
-<li>假正例(FP, False Positive), 一个样本的真实类别为其他类，模型预测为C。</li>
-<li>真负例(TN, True Negative), 一个样本的真实类别为其他类并被模型预测为其他类。</li>
-</ul>
-<h2 id="4-混淆矩阵"><a href="#4-混淆矩阵" class="headerlink" title="4. 混淆矩阵"></a>4. 混淆矩阵</h2><table>
-    <tr>
-        <td rowspan="2">真实情况</td>
-        <td colspan="2" style="text-align:center">预测结果</td>
-   </tr>
-   <tr>
-        <td>Positive</td>
-        <td>Negative</td>
-   </tr>
-    <tr>
-        <td>正例</td>    
-        <td>TP (真正例)</td>
-        <td>FN (假负例)</td>
-    </tr>
-    <tr>
-        <td>负例</td>    
-        <td>FP (假正例)</td>  
-        <td>TN (真负例)</td>
-    </tr>
-</table>
-
-<h2 id="5-什么是提前终止（Early-Stopping）"><a href="#5-什么是提前终止（Early-Stopping）" class="headerlink" title="5.什么是提前终止（Early Stopping）"></a>5.什么是提前终止（Early Stopping）</h2><p>在训练的的每次迭代时，将得到的模型在验证集上进行测试，并计算错误率，当在验证集上的错误率不再下降，就停止迭代。作用是防止过拟合。</p>
-
+          <h2 id="6-什么是梯度消失问题？"><a href="#6-什么是梯度消失问题？" class="headerlink" title="6.什么是梯度消失问题？"></a>6.什么是梯度消失问题？</h2><p>sigmod型函数的饱和性，使得饱和区的导数接近0.误差经过每一层传递不断衰减，当网络层级很深时候，梯度不断衰减，甚至消失，使得网络很难训练，这就是梯度消失问题，也叫梯度弥散问题。可通过使用ReLU等导数较大的激活函数。</p>
+<h2 id="7"><a href="#7" class="headerlink" title="7."></a>7.</h2>
         </div>
       </article>
     </div>
@@ -181,12 +147,12 @@
     <div class="nav-links">
       
         <div class="nav-previous">
-          <a href="/2019/08/31/深度学习100问（6-10）/" rel="prev"><span class="meta-arraw meta-arraw-left"></span> 上一页</a>
+          <a href="/2019/08/31/标签平滑-Label-Smoothing/" rel="prev"><span class="meta-arraw meta-arraw-left"></span> 上一页</a>
         </div>
       
       
         <div class="nav-next">
-          <a href="/2019/08/28/nms/" rel="prev">下一页 <span class="meta-arraw meta-arraw-right"></span></a>
+          <a href="/2019/08/29/深度学习100问（1-5）/" rel="prev">下一页 <span class="meta-arraw meta-arraw-right"></span></a>
         </div>
       
     </div>
