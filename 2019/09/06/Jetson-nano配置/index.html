@@ -16,7 +16,7 @@
 
   <!--Open Graph Title-->
   
-      <meta property="og:title" content="PyTorch自定义卷积核对图像进行卷积操作">
+      <meta property="og:title" content="Jetson nano配置">
   
   <!--Open Graph Description-->
   
@@ -33,7 +33,7 @@
 
   <!-- Title -->
   
-  <title>PyTorch自定义卷积核对图像进行卷积操作 - BouSeng</title>
+  <title>Jetson nano配置 - BouSeng</title>
 
 
   <link rel="shortcut icon" href="https://s2.ax1x.com/2019/07/02/ZGbeET.jpg">
@@ -113,11 +113,11 @@
         <!-- Title date & tags -->
         <div class="post-header">
           <h1 class="entry-title">
-            PyTorch自定义卷积核对图像进行卷积操作
+            Jetson nano配置
             
           </h1>
           <p class="posted-on">
-          2019-09-03
+          2019-09-06
           </p>
           <div class="tags-links">
             
@@ -127,8 +127,29 @@
         </div>
         <!-- Post Main Content -->
         <div class="entry-content has_line_number">
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在PyTorch中，卷积操作一般使用<code>torch.nn.Conv2d(in_channels, out_channels, kernel_size, stride=1, padding=0, dilation=1, groups=1, bias=True)</code>,其中权重weight通过梯度进行更新，无法使用自定义卷积核。假如需要自定义卷积核，高斯模糊、图像锐化、边缘检测等等，<code>torch.nn.Conv2d</code>是无法提供支持的。那么就需要用到另外一个<code>torch.nn.functional.conv2d(input, weight, bias=None, stride=1, padding=0, dilation=1, groups=1)</code>，其中的weight参数就支持我们自定义卷积核。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EdgeDetection</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super(GaussianBlur, self).__init__()</span><br><span class="line">        kernel = [[<span class="number">-1</span></span><br><span class="line">        , <span class="number">-1</span>, <span class="number">-1</span>],</span><br><span class="line">                  [<span class="number">-1</span>, <span class="number">8</span>, <span class="number">-1</span>],</span><br><span class="line">                  [<span class="number">-1</span>, <span class="number">-1</span>, <span class="number">-1</span>]]</span><br><span class="line">        kernel = torch.FloatTensor(kernel).unsqueeze(<span class="number">0</span>).unsqueeze(<span class="number">0</span>)</span><br><span class="line">        self.weight = nn.Parameter(data=kernel, requires_grad=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        x1 = x[:, <span class="number">0</span>]</span><br><span class="line">        x2 = x[:, <span class="number">1</span>]</span><br><span class="line">        x3 = x[:, <span class="number">2</span>]</span><br><span class="line">        x1 = F.conv2d(x1.unsqueeze(<span class="number">1</span>), self.weight, padding=<span class="number">2</span>)</span><br><span class="line">        x2 = F.conv2d(x2.unsqueeze(<span class="number">1</span>), self.weight, padding=<span class="number">2</span>)</span><br><span class="line">        x3 = F.conv2d(x3.unsqueeze(<span class="number">1</span>), self.weight, padding=<span class="number">2</span>)</span><br><span class="line">        x = torch.cat([x1, x2, x3], dim=<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
+          <h2 id="安装必要软件"><a href="#安装必要软件" class="headerlink" title="安装必要软件"></a>安装必要软件</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git cmake</span><br><span class="line">sudo apt-get install libatlas-base-dev gfortran</span><br><span class="line">sudo apt-get install libhdf5-serial-dev hdf5-tools</span><br><span class="line">sudo apt-get install python3-dev</span><br></pre></td></tr></table></figure>
+
+<p>pip</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ wget https://bootstrap.pypa.io/get-pip.py</span><br><span class="line">$ sudo python3 get-pip.py</span><br><span class="line">$ rm get-pip.py</span><br></pre></td></tr></table></figure>
+
+<h2 id="python虚拟环境"><a href="#python虚拟环境" class="headerlink" title="python虚拟环境"></a>python虚拟环境</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install virtualenvwrapper</span><br></pre></td></tr></table></figure>
+
+<p>添加以下内容到<code>~/.bashrc</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export WORKON_HOME=$HOME/.virtualenvs</span><br><span class="line">export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python</span><br><span class="line">source /usr/share/virtualenvwrapper/virtualenvwrapper.sh</span><br></pre></td></tr></table></figure>
+
+<p>创建虚拟环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkvirtualenv -p /usr/bin/python3 --system-site-package deep_learning</span><br></pre></td></tr></table></figure>
+
+<p>激活虚拟环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">workon deep_learning</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装PyTorch"><a href="#安装PyTorch" class="headerlink" title="安装PyTorch"></a>安装PyTorch</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://nvidia.box.com/shared/static/06vlvedmqpqstu1dym49fo7aapgfyyu9.whl -O torch-1.2.0a0+8554416-cp36-cp36m-linux_aarch64.whl</span><br><span class="line">pip3 install numpy torch-1.2.0a0+8554416-cp36-cp36m-linux_aarch64.whl</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装opencv"><a href="#安装opencv" class="headerlink" title="安装opencv"></a>安装opencv</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/jkjung-avt/jetson_nano.git</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo nvpmodel -m 0</span><br><span class="line">sudo jetson_clocks</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd jetson_nano</span><br><span class="line">./install_opencv-3.4.6.sh</span><br></pre></td></tr></table></figure>
 
 
         </div>
@@ -148,13 +169,9 @@
     <!-- Pre or Next -->
     <div class="nav-links">
       
-        <div class="nav-previous">
-          <a href="/2019/09/06/Jetson-nano配置/" rel="prev"><span class="meta-arraw meta-arraw-left"></span> 上一页</a>
-        </div>
-      
       
         <div class="nav-next">
-          <a href="/2019/09/03/深度学习100问（11-15）/" rel="prev">下一页 <span class="meta-arraw meta-arraw-right"></span></a>
+          <a href="/2019/09/03/PyTorch自定义卷积核对图像进行卷积操作/" rel="prev">下一页 <span class="meta-arraw meta-arraw-right"></span></a>
         </div>
       
     </div>
