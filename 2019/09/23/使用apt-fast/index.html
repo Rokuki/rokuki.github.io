@@ -16,7 +16,7 @@
 
   <!--Open Graph Title-->
   
-      <meta property="og:title" content="PyTorch计算网络参数">
+      <meta property="og:title" content="使用apt-fast">
   
   <!--Open Graph Description-->
   
@@ -33,7 +33,7 @@
 
   <!-- Title -->
   
-  <title>PyTorch计算网络参数 - BouSeng</title>
+  <title>使用apt-fast - BouSeng</title>
 
 
   <link rel="shortcut icon" href="https://s2.ax1x.com/2019/07/02/ZGbeET.jpg">
@@ -113,11 +113,11 @@
         <!-- Title date & tags -->
         <div class="post-header">
           <h1 class="entry-title">
-            PyTorch计算网络参数
+            使用apt-fast
             
           </h1>
           <p class="posted-on">
-          2019-09-20
+          2019-09-23
           </p>
           <div class="tags-links">
             
@@ -127,10 +127,10 @@
         </div>
         <!-- Post Main Content -->
         <div class="entry-content has_line_number">
-          <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">model_parm_nums</span><span class="params">(model)</span>:</span></span><br><span class="line">    total = sum([param.nelement() <span class="keyword">for</span> param <span class="keyword">in</span> model.parameters()])</span><br><span class="line">    <span class="keyword">return</span> (<span class="string">'  + Number of params: %.2fM'</span> % (total / <span class="number">1e6</span>))</span><br></pre></td></tr></table></figure>
+          <p><img src="https://s2.ax1x.com/2019/09/23/uPfPij.png" alt="uPfPij.png"></p>
+<h2 id="install"><a href="#install" class="headerlink" title="install"></a>install</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A2166B8DE8BDC3367D1901C11EE2FF37CA8DA16B</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install apt-fast</span><br></pre></td></tr></table></figure>
 
-<p>Sample out:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.......</span><br><span class="line">(bn4): BatchNorm2d(<span class="number">512</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">(dropout): Dropout(p=<span class="number">0.5</span>)</span><br><span class="line">(fc5): Linear(in_features=<span class="number">32768</span>, out_features=<span class="number">512</span>, bias=<span class="literal">True</span>)</span><br><span class="line">(bn5): BatchNorm1d(<span class="number">512</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">)</span><br><span class="line">+ Number of params: <span class="number">25.72</span>M</span><br></pre></td></tr></table></figure>
+<h2 id="quick-install"><a href="#quick-install" class="headerlink" title="quick install"></a>quick install</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/bash -c &quot;$(curl -sL https://git.io/vokNn)&quot;</span><br></pre></td></tr></table></figure>
 
 
         </div>
@@ -150,13 +150,9 @@
     <!-- Pre or Next -->
     <div class="nav-links">
       
-        <div class="nav-previous">
-          <a href="/2019/09/23/使用apt-fast/" rel="prev"><span class="meta-arraw meta-arraw-left"></span> 上一页</a>
-        </div>
-      
       
         <div class="nav-next">
-          <a href="/2019/09/17/CentOS开启BBR加速/" rel="prev">下一页 <span class="meta-arraw meta-arraw-right"></span></a>
+          <a href="/2019/09/20/PyTorch计算网络参数/" rel="prev">下一页 <span class="meta-arraw meta-arraw-right"></span></a>
         </div>
       
     </div>
