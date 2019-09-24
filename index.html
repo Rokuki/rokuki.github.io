@@ -1,454 +1,707 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-<!-- Head tag -->
+<html>
 <head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
 
-  <!--Description-->
-  
+    
 
-  <!--Author-->
-  
-  <meta name="author" content="BouSeng Chan">
-  
-
-  <!--Open Graph Title-->
-  
-      <meta property="og:title" content="BouSeng">
-  
-  <!--Open Graph Description-->
-  
-  <!--Open Graph Site Name-->
-  <meta property="og:site_name" content="BouSeng">
-  <!--Type page-->
-  
-      <meta property="og:type" content="website">
-  
-  <!--Page Cover-->
-  
-
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-  <!-- Title -->
-  
-  <title>BouSeng - What I cannot create, I do not understand</title>
+    
 
 
-  <link rel="shortcut icon" href="https://s2.ax1x.com/2019/07/02/ZGbeET.jpg">
 
-  <!-- Custom CSS/Sass -->
-  <link rel="stylesheet" href="/css/style.css">
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>BouSeng | What I cannot create, I do not understand</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="deep learning, PyTorch, Python, Computer vision">
+    <meta name="keywords" content="deep learning, PyTorch, Python, Computer vision">
+<meta property="og:type" content="website">
+<meta property="og:title" content="BouSeng">
+<meta property="og:url" content="bouseng.com/index.html">
+<meta property="og:site_name" content="BouSeng">
+<meta property="og:locale" content="zh-CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="BouSeng">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
 
-  <!----------------------------
-  https://github.com/GallenHu/hexo-theme-Daily
-
- _____            _   _
-|  __ \          (_) | |
-| |  | |   __ _   _  | |  _   _
-| |  | |  / _` | | | | | | | | |
-| |__| | | (_| | | | | | | |_| |
-|_____/   \__,_| |_| |_|  \__, |
-                          __/ |
-                         |___/
-
-    --------------------------->
+    <!-- custom head -->
+    
 
 </head>
 
-
 <body>
+    <div id="loading" class="active"></div>
 
-  <!-- Nav -->
-  <header class="site-header">
-  <div class="header-inside">
-    <div class="logo">
-      <a href="/" rel="home">
-        
-        <img src="https://s2.ax1x.com/2019/07/02/ZGbeET.jpg" alt="BouSeng" height="60">
-        
-      </a>
-    </div>
-    <!-- Navigation -->
-    <nav class="navbar">
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse">
-        <ul class="navbar-nav">
-          
-          
-            <li>
-              <a href="/.">
-                
-                  home
-                
-              </a>
-            </li>
-          
-            <li>
-              <a href="/archives">
-                
-                  archive
-                
-              </a>
-            </li>
-          
-        </ul>
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/feynman.png)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">BouSeng Chan</h5>
+          <a href="mailto:c@bouseng.com" title="c@bouseng.com" class="mail">c@bouseng.com</a>
+        </hgroup>
       </div>
-      <!-- /.navbar-collapse -->
-    </nav>
-    <div class="button-wrap">
-      <button class="menu-toggle">Primary Menu</button>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect active">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/yscoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
     </div>
   </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">BouSeng</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header index-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">BouSeng</h1>
+        <h5 class="subtitle">
+            
+                What I cannot create, I do not understand
+            
+        </h5>
+    </div>
+
+    
+
+
 </header>
 
+<div class="container body-wrap">
 
-  <!-- Main Content -->
-  <div class="site-content home">
-  <main class="content-area">
+    <ul class="post-list">
     
-      
-        <div class="even">
-          
+        <li class="post-list-item fade">
+            <article id="post-使用apt-fast"
+  class="article-card article-type-post" itemprop="blogPost">
 
-<!-- 首页模板 -->
-<div class="container">
-  <article class="post">
-    
-    <h1 class="entry-title">
-      <a href="/2019/09/23/使用apt-fast/" rel="bookmark">
-        使用apt-fast
-      </a>
-    </h1>
-    
+    <div class="post-meta">
+        <time class="post-time" title="2019-09-23 14:09:53" datetime="2019-09-23T06:09:53.000Z"  itemprop="datePublished">2019-09-23</time>
 
-    <p class="posted-on">
-    2019-09-23
-    </p>
-    <div class="tags-links">
-      
+        
+
+
     </div>
-  </article>
-</div>
-        </div> 
-      
-    
-      
-        <div class="odd">
-          
-
-<!-- 首页模板 -->
-<div class="container">
-  <article class="post">
-    
-    <h1 class="entry-title">
-      <a href="/2019/09/20/PyTorch计算网络参数/" rel="bookmark">
-        PyTorch计算网络参数
-      </a>
-    </h1>
-    
-
-    <p class="posted-on">
-    2019-09-20
-    </p>
-    <div class="tags-links">
-      
-    </div>
-  </article>
-</div>
-        </div>
-      
-    
-      
-        <div class="even">
-          
-
-<!-- 首页模板 -->
-<div class="container">
-  <article class="post">
-    
-    <h1 class="entry-title">
-      <a href="/2019/09/17/CentOS开启BBR加速/" rel="bookmark">
-        CentOS开启BBR加速
-      </a>
-    </h1>
-    
-
-    <p class="posted-on">
-    2019-09-17
-    </p>
-    <div class="tags-links">
-      
-    </div>
-  </article>
-</div>
-        </div> 
-      
-    
-      
-        <div class="odd">
-          
-
-<!-- 首页模板 -->
-<div class="container">
-  <article class="post">
-    
-    <h1 class="entry-title">
-      <a href="/2019/09/17/一键部署SS/" rel="bookmark">
-        一键部署SS
-      </a>
-    </h1>
-    
-
-    <p class="posted-on">
-    2019-09-17
-    </p>
-    <div class="tags-links">
-      
-    </div>
-  </article>
-</div>
-        </div>
-      
-    
-      
-        <div class="even">
-          
-
-<!-- 首页模板 -->
-<div class="container">
-  <article class="post">
-    
-    <h1 class="entry-title">
-      <a href="/2019/09/06/Jetson-nano配置/" rel="bookmark">
-        Jetson nano配置
-      </a>
-    </h1>
-    
-
-    <p class="posted-on">
-    2019-09-06
-    </p>
-    <div class="tags-links">
-      
-    </div>
-  </article>
-</div>
-        </div> 
-      
-    
-      
-        <div class="odd">
-          
-
-<!-- 首页模板 -->
-<div class="container">
-  <article class="post">
-    
-    <h1 class="entry-title">
-      <a href="/2019/09/03/PyTorch自定义卷积核对图像进行卷积操作/" rel="bookmark">
-        PyTorch自定义卷积核对图像进行卷积操作
-      </a>
-    </h1>
-    
-
-    <p class="posted-on">
-    2019-09-03
-    </p>
-    <div class="tags-links">
-      
-    </div>
-  </article>
-</div>
-        </div>
-      
-    
-      
-        <div class="even">
-          
-
-<!-- 首页模板 -->
-<div class="container">
-  <article class="post">
-    
-    <h1 class="entry-title">
-      <a href="/2019/09/03/深度学习100问（11-15）/" rel="bookmark">
-        深度学习100问（11-15）
-      </a>
-    </h1>
-    
-
-    <p class="posted-on">
-    2019-09-03
-    </p>
-    <div class="tags-links">
-      
-    </div>
-  </article>
-</div>
-        </div> 
-      
-    
-      
-        <div class="odd">
-          
-
-<!-- 首页模板 -->
-<div class="container">
-  <article class="post">
-    
-    <h1 class="entry-title">
-      <a href="/2019/08/31/残差块/" rel="bookmark">
-        残差块
-      </a>
-    </h1>
-    
-
-    <p class="posted-on">
-    2019-08-31
-    </p>
-    <div class="tags-links">
-      
-    </div>
-  </article>
-</div>
-        </div>
-      
-    
-      
-        <div class="even">
-          
-
-<!-- 首页模板 -->
-<div class="container">
-  <article class="post">
-    
-    <h1 class="entry-title">
-      <a href="/2019/08/31/标签平滑-Label-Smoothing/" rel="bookmark">
-        标签平滑(Label Smoothing)
-      </a>
-    </h1>
-    
-
-    <p class="posted-on">
-    2019-08-31
-    </p>
-    <div class="tags-links">
-      
-    </div>
-  </article>
-</div>
-        </div> 
-      
-    
-      
-        <div class="odd">
-          
-
-<!-- 首页模板 -->
-<div class="container">
-  <article class="post">
-    
-    <h1 class="entry-title">
-      <a href="/2019/08/31/深度学习100问（6-10）/" rel="bookmark">
-        深度学习100问（6-10）
-      </a>
-    </h1>
-    
-
-    <p class="posted-on">
-    2019-08-31
-    </p>
-    <div class="tags-links">
-      
-    </div>
-  </article>
-</div>
-        </div>
-      
-    
 
     
-<div class="container" >
-  <ul class="pager">
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/09/23/使用apt-fast/">使用apt-fast</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
     
+        
+                
+                    
+                    
+                
+                uPfPij.png
+            
+install123sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A2166B8D...
     
-      <li class="next">
-        <a href="/page/2/">
-          <span class="meta-arraw meta-arraw-left"> </span>上一页
+
+        <a href="/2019/09/23/使用apt-fast/" class="post-more waves-effect waves-button">
+            阅读全文…
         </a>
-      </li>
+    </div>
     
-  </ul>
-</div>
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-PyTorch计算网络参数"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-09-20 16:15:51" datetime="2019-09-20T08:15:51.000Z"  itemprop="datePublished">2019-09-20</time>
+
+        
 
 
-  </main>
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/09/20/PyTorch计算网络参数/">PyTorch计算网络参数</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        123def model_parm_nums(model):    total = sum([param.nelement() for param in model.parameters()])    return ('  + Number of params: %.2fM' % (total / 1e6))
+
+Sample out:
+1234567.......(bn4): BatchNo...
+    
+
+        <a href="/2019/09/20/PyTorch计算网络参数/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-CentOS开启BBR加速"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-09-17 10:25:16" datetime="2019-09-17T02:25:16.000Z"  itemprop="datePublished">2019-09-17</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/09/17/CentOS开启BBR加速/">CentOS开启BBR加速</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        BBR需要Linux 4.9及以上内核支持，首先查看内核
+123$ uname -r3.10.0-327.22.2.el7.x86_64
+
+升级内核123sudo rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.orgsudo rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2....
+    
+
+        <a href="/2019/09/17/CentOS开启BBR加速/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-一键部署SS"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-09-17 09:48:15" datetime="2019-09-17T01:48:15.000Z"  itemprop="datePublished">2019-09-17</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/09/17/一键部署SS/">一键部署SS</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        下载脚本
+1wget --no-check-certificate -O shadowsocks-all.sh https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-all.sh
+
+权限
+1chmod +x shadowsocks-all.sh
+
+1./shadowsocks-all...
+    
+
+        <a href="/2019/09/17/一键部署SS/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-Jetson-nano配置"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-09-06 17:30:10" datetime="2019-09-06T09:30:10.000Z"  itemprop="datePublished">2019-09-06</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/09/06/Jetson-nano配置/">Jetson nano配置</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        安装必要软件1234sudo apt-get install git cmakesudo apt-get install libatlas-base-dev gfortransudo apt-get install libhdf5-serial-dev hdf5-toolssudo apt-get install python3-dev
+
+pip
+123$ wget https://boot...
+    
+
+        <a href="/2019/09/06/Jetson-nano配置/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-PyTorch自定义卷积核对图像进行卷积操作"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-09-03 17:36:55" datetime="2019-09-03T09:36:55.000Z"  itemprop="datePublished">2019-09-03</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/09/03/PyTorch自定义卷积核对图像进行卷积操作/">PyTorch自定义卷积核对图像进行卷积操作</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        前言在PyTorch中，卷积操作一般使用torch.nn.Conv2d(in_channels, out_channels, kernel_size, stride=1, padding=0, dilation=1, groups=1, bias=True),其中权重weight通过梯度进行更新，无法使用自定义卷积核。假如需要自定义卷积核，高斯模糊、图像锐化、边缘检测等等，torch.nn....
+    
+
+        <a href="/2019/09/03/PyTorch自定义卷积核对图像进行卷积操作/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-深度学习100问（11-15）"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-09-03 10:18:22" datetime="2019-09-03T02:18:22.000Z"  itemprop="datePublished">2019-09-03</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/09/03/深度学习100问（11-15）/">深度学习100问（11-15）</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        11.深度学习解决什么问题？深度学习解决的关键问题是贡献度分配问题（Credit Assignment Problem, CAP）,即一个系统中不同组件或其参数对最终系统输出结果的贡献或影响。
+12. 神经网络训练和预测的基本流程是？训练：输入数据 -&gt; 网络层前向传播 -&gt; 计算损失 -&gt; 网络层反向传播梯度 -&gt; 更新参数预测：输入数据 -&gt; 网络层前向传播...
+    
+
+        <a href="/2019/09/03/深度学习100问（11-15）/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-残差块"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-08-31 17:43:35" datetime="2019-08-31T09:43:35.000Z"  itemprop="datePublished">2019-08-31</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/08/31/残差块/">残差块</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        
+                
+                    
+                    
+                
+                mxbsH0.png
+            
+
+123456789101112131415161718192021222324252627282930313233343536class BasicBlock...
+    
+
+        <a href="/2019/08/31/残差块/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-标签平滑-Label-Smoothing"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-08-31 14:53:53" datetime="2019-08-31T06:53:53.000Z"  itemprop="datePublished">2019-08-31</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/08/31/标签平滑-Label-Smoothing/">标签平滑(Label Smoothing)</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        12345678910111213141516class LabelSmoothingLoss(nn.Module):    def __init__(self, classes, smoothing=0.0, dim=-1):        super(LabelSmoothingLoss, self).__init__()        self.confidence = 1.0 - s...
+    
+
+        <a href="/2019/08/31/标签平滑-Label-Smoothing/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-深度学习100问（6-10）"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-08-31 09:49:15" datetime="2019-08-31T01:49:15.000Z"  itemprop="datePublished">2019-08-31</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/08/31/深度学习100问（6-10）/">深度学习100问（6-10）</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        6.什么是梯度消失问题？sigmod型函数的饱和性，使得饱和区的导数接近0.误差经过每一层传递不断衰减，当网络层级很深时候，梯度不断衰减，甚至消失，使得网络很难训练，这就是梯度消失问题，也叫梯度弥散问题。可通过使用ReLU等导数较大的激活函数。
+7.卷积神经网络中如何减少特征维度？① 池化层② 增加卷积步长
+8.什么是死亡ReLU问题？如果参数在一次不恰当的更新后，第一个隐藏层中的某个ReL...
+    
+
+        <a href="/2019/08/31/深度学习100问（6-10）/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+</article>
+
+        </li>
+    
+    </ul>
+
+    
+<nav id="page-nav">
+    <div class="inner">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
+    </div>
+</nav>
+
+
 </div>
 
-  <!-- Footer -->
-  <!-- Footer-widgets -->
-<div class="footer-widgets">
-  <div class="row inside-wrapper">
-    <div class="col-1-3">
-      <aside>
-        <h1 class="widget-title">Wechat</h1>
-        <div class="custom-widget-content">
-          
-          mkind-cbc <script type="text/javascript" src="//js.users.51.la/20159999.js"></script>
-        </div>
-      </aside>
-    </div>
-    <div class="col-1-3">
-      <aside>
-        <h1 class="widget-title">与我联系</h1>
-        <div class="widget-text">
-          
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
             
-              <a href="https://github.com/rokuki" class="icon icon-github" target="_blank">github</a>
-            
-              <a href="mailto:c@bouseng.com" class="icon icon-mail" target="_blank">mail</a>
-            
-          
-        </div>
-      </aside>
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
     </div>
-    <div class="col-1-3">
-      <aside>
-        <h1 class="widget-title">站内搜索</h1>
-        <div class="widget-text">
-          <form onSubmit="return appDaily.submitSearch('')">
-            <p>
-              <input type="text" placeholder="search..." id="homeSearchInput">
-            </p>
-            <!-- <input type="submit" value="GO"> -->
-          </form>
-        </div>
-      </aside>
+    <div class="bottom">
+        <p><span>BouSeng Chan &copy; 2015 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
     </div>
-  </div>
-</div>
-<!-- Footer -->
-<footer class="site-info">
-  <p>
-    <span>BouSeng &copy; 2019</span>
-    
-      <span class="split">|</span>
-      <span>BouSeng's Blog</span>
-    
-  </p>
 </footer>
 
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
 
-  <!-- After footer scripts -->
-  <!-- scripts -->
-<script src="/js/app.js"></script>
 
 
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=bouseng.com/&title=BouSeng&pic=bouseng.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=bouseng.com/&title=BouSeng&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=bouseng.com/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=BouSeng&url=bouseng.com/&via=bouseng.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=bouseng.com/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=bouseng.com/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '已离线';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '在线';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
 
 
 
 </body>
-
 </html>

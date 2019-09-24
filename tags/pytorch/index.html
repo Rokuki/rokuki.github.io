@@ -1,206 +1,380 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-<!-- Head tag -->
+<html>
 <head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
 
-  <!--Description-->
-  
+    
 
-  <!--Author-->
-  
-  <meta name="author" content="BouSeng Chan">
-  
-
-  <!--Open Graph Title-->
-  
-      <meta property="og:title" content="BouSeng">
-  
-  <!--Open Graph Description-->
-  
-  <!--Open Graph Site Name-->
-  <meta property="og:site_name" content="BouSeng">
-  <!--Type page-->
-  
-      <meta property="og:type" content="website">
-  
-  <!--Page Cover-->
-  
-
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-  <!-- Title -->
-  
-  <title>pytorch - BouSeng</title>
+    
 
 
-  <link rel="shortcut icon" href="https://s2.ax1x.com/2019/07/02/ZGbeET.jpg">
 
-  <!-- Custom CSS/Sass -->
-  <link rel="stylesheet" href="/css/style.css">
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Tags: pytorch | BouSeng | What I cannot create, I do not understand</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="deep learning, PyTorch, Python, Computer vision">
+    <meta name="keywords" content="deep learning, PyTorch, Python, Computer vision">
+<meta property="og:type" content="website">
+<meta property="og:title" content="BouSeng">
+<meta property="og:url" content="bouseng.com/tags/pytorch/index.html">
+<meta property="og:site_name" content="BouSeng">
+<meta property="og:locale" content="zh-CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="BouSeng">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
 
-  <!----------------------------
-  https://github.com/GallenHu/hexo-theme-Daily
-
- _____            _   _
-|  __ \          (_) | |
-| |  | |   __ _   _  | |  _   _
-| |  | |  / _` | | | | | | | | |
-| |__| | | (_| | | | | | | |_| |
-|_____/   \__,_| |_| |_|  \__, |
-                          __/ |
-                         |___/
-
-    --------------------------->
+    <!-- custom head -->
+    
 
 </head>
 
-
 <body>
+    <div id="loading" class="active"></div>
 
-  <!-- Nav -->
-  <header class="site-header">
-  <div class="header-inside">
-    <div class="logo">
-      <a href="/" rel="home">
-        
-        <img src="https://s2.ax1x.com/2019/07/02/ZGbeET.jpg" alt="BouSeng" height="60">
-        
-      </a>
-    </div>
-    <!-- Navigation -->
-    <nav class="navbar">
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse">
-        <ul class="navbar-nav">
-          
-          
-            <li>
-              <a href="/.">
-                
-                  home
-                
-              </a>
-            </li>
-          
-            <li>
-              <a href="/archives">
-                
-                  archive
-                
-              </a>
-            </li>
-          
-        </ul>
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/feynman.png)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">BouSeng Chan</h5>
+          <a href="mailto:c@bouseng.com" title="c@bouseng.com" class="mail">c@bouseng.com</a>
+        </hgroup>
       </div>
-      <!-- /.navbar-collapse -->
-    </nav>
-    <div class="button-wrap">
-      <button class="menu-toggle">Primary Menu</button>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/yscoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
     </div>
   </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Tags: pytorch</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header tags-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Tags: pytorch</h1>
+        <h5 class="subtitle">
+            
+        </h5>
+    </div>
+
+    
+<div class="tabs-bar container">
+    <nav class="tags-list">
+        <a href="/tags" style="-webkit-order:-1;order:-1" class="tags-list-item waves-effect waves-button waves-light
+            ">全部</a>
+        
+
+            <a href="/tags/BeautifulSoup/" style="-webkit-order:11;order:11" class="tags-list-item waves-effect waves-button waves-light">BeautifulSoup</a>
+
+        
+
+            <a href="/tags/PyTorch/" style="-webkit-order:12;order:12" class="tags-list-item waves-effect waves-button waves-light">PyTorch</a>
+
+        
+
+            <a href="/tags/Multiple-label/" style="-webkit-order:13;order:13" class="tags-list-item waves-effect waves-button waves-light">Multiple-label</a>
+
+        
+
+            <a href="/tags/kaggle/" style="-webkit-order:14;order:14" class="tags-list-item waves-effect waves-button waves-light">kaggle</a>
+
+        
+
+            <a href="/tags/computer-vision/" style="-webkit-order:0;order:0" class="tags-list-item waves-effect waves-button waves-light">computer vision</a>
+
+        
+
+            <a href="/tags/pytorch/" style="-webkit-order:1;order:1" class="tags-list-item waves-effect waves-button waves-light active">pytorch</a>
+
+        
+
+            <a href="/tags/tricks/" style="-webkit-order:2;order:2" class="tags-list-item waves-effect waves-button waves-light">tricks</a>
+
+        
+
+            <a href="/tags/tensorflow-lite/" style="-webkit-order:3;order:3" class="tags-list-item waves-effect waves-button waves-light">tensorflow lite</a>
+
+        
+
+            <a href="/tags/android/" style="-webkit-order:4;order:4" class="tags-list-item waves-effect waves-button waves-light">android</a>
+
+        
+
+            <a href="/tags/ubuntu/" style="-webkit-order:5;order:5" class="tags-list-item waves-effect waves-button waves-light">ubuntu</a>
+
+        
+
+            <a href="/tags/samba/" style="-webkit-order:6;order:6" class="tags-list-item waves-effect waves-button waves-light">samba</a>
+
+        
+
+            <a href="/tags/tensorboardX/" style="-webkit-order:7;order:7" class="tags-list-item waves-effect waves-button waves-light">tensorboardX</a>
+
+        
+
+            <a href="/tags/pypi/" style="-webkit-order:8;order:8" class="tags-list-item waves-effect waves-button waves-light">pypi</a>
+
+        
+
+            <a href="/tags/树莓派/" style="-webkit-order:9;order:9" class="tags-list-item waves-effect waves-button waves-light">树莓派</a>
+
+        
+
+            <a href="/tags/爬虫/" style="-webkit-order:10;order:10" class="tags-list-item waves-effect waves-button waves-light">爬虫</a>
+
+        
+    </nav>
+    <!-- PC show more-->
+    <div class="tags-list-more">
+        <a href="javascript:;" onclick="BLOG.tabBar(this)" class="action tags-list-item waves-effect waves-circle waves-light"><i class="icon icon-ellipsis-h"></i></a>
+    </div>
+</div>
+
+
+
 </header>
 
+<div class="container body-wrap fade">
+    
+            <div class="waterfall">
+          
 
-  <!-- Main Content -->
+            <div class="waterfall-item">
+  <article class="article-card archive-article">
+    <div class="post-meta">
+      <time class="post-time" title="2019-07-24 09:45:37" datetime="2019-07-24T01:45:37.000Z"  itemprop="datePublished">2019-07-24</time>
+
+      
+
+
+    </div>
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/07/24/Speed-up-the-dataloader/">Speed up the dataloader</a>
+    </h3>
   
 
-<!-- Main Content -->
-<div class="archive content-area">
-  <div class="container">
-    <h1 class="entry-title">#pytorch</h1>
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <!-- Use lodash to classify posts. See https://lodash.com/docs#groupBy -->
+
+
+    
+    <div class="post-footer">
         
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pytorch/">pytorch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tricks/">tricks</a></li></ul>
+
+    </div>
+    
+  </article>
+</div>
+
         
-          <h2 class="year">2019</h2>
-          <ul class="list">
-            
-  <li>
-    <span class="date">
-      2019-07-24
+            </div>
+        
+    
+</div>
+
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
     </span>
-    <a href="/2019/07/24/Speed-up-the-dataloader/" class="title">
-      Speed up the dataloader
-    </a>
-  </li>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
 
 
-          </ul>
-        
-      </div>
-    </div>
-  </div>
-  
-
-</div>
-
-
-  <!-- Footer -->
-  <!-- Footer-widgets -->
-<div class="footer-widgets">
-  <div class="row inside-wrapper">
-    <div class="col-1-3">
-      <aside>
-        <h1 class="widget-title">Wechat</h1>
-        <div class="custom-widget-content">
-          
-          mkind-cbc <script type="text/javascript" src="//js.users.51.la/20159999.js"></script>
-        </div>
-      </aside>
-    </div>
-    <div class="col-1-3">
-      <aside>
-        <h1 class="widget-title">与我联系</h1>
-        <div class="widget-text">
-          
+        <p>
             
-              <a href="https://github.com/rokuki" class="icon icon-github" target="_blank">github</a>
-            
-              <a href="mailto:c@bouseng.com" class="icon icon-mail" target="_blank">mail</a>
-            
-          
-        </div>
-      </aside>
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
     </div>
-    <div class="col-1-3">
-      <aside>
-        <h1 class="widget-title">站内搜索</h1>
-        <div class="widget-text">
-          <form onSubmit="return appDaily.submitSearch('')">
-            <p>
-              <input type="text" placeholder="search..." id="homeSearchInput">
-            </p>
-            <!-- <input type="submit" value="GO"> -->
-          </form>
-        </div>
-      </aside>
+    <div class="bottom">
+        <p><span>BouSeng Chan &copy; 2015 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
     </div>
-  </div>
-</div>
-<!-- Footer -->
-<footer class="site-info">
-  <p>
-    <span>BouSeng &copy; 2019</span>
-    
-      <span class="split">|</span>
-      <span>BouSeng's Blog</span>
-    
-  </p>
 </footer>
 
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
 
-  <!-- After footer scripts -->
-  <!-- scripts -->
-<script src="/js/app.js"></script>
 
 
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=bouseng.com/tags/pytorch/&title=BouSeng&pic=bouseng.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=bouseng.com/tags/pytorch/&title=BouSeng&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=bouseng.com/tags/pytorch/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=BouSeng&url=bouseng.com/tags/pytorch/&via=bouseng.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=bouseng.com/tags/pytorch/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=bouseng.com/tags/pytorch/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '已离线';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '在线';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
 
 
 
 </body>
-
 </html>
