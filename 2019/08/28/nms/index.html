@@ -21,19 +21,19 @@
     
     
     <meta name="keywords" content>
-    <meta name="description" content="NMS即non maximum suppression即非极大抑制，顾名思义就是抑制不是极大值的元素，搜索局部的极大值。在物体检测中，NMS 应用十分广泛，其目的是为了清除多余的框，找到最佳的物体检测的位置。   dets: 123456789import numpy as np# (x0, y0, x1, y1, score)dets = np.array([    [56, 24, 230,">
+    <meta name="description" content="NMS即non maximum suppression即非极大抑制，顾名思义就是抑制不是极大值的元素，搜索局部的极大值。在物体检测中，NMS 应用十分广泛，其目的是为了清除多余的框，找到最佳的物体检测的位置。">
 <meta name="keywords" content="deep learning, PyTorch, Python, Computer vision">
 <meta property="og:type" content="article">
 <meta property="og:title" content="nms">
 <meta property="og:url" content="bouseng.com/2019/08/28/nms/index.html">
 <meta property="og:site_name" content="BouSeng">
-<meta property="og:description" content="NMS即non maximum suppression即非极大抑制，顾名思义就是抑制不是极大值的元素，搜索局部的极大值。在物体检测中，NMS 应用十分广泛，其目的是为了清除多余的框，找到最佳的物体检测的位置。   dets: 123456789import numpy as np# (x0, y0, x1, y1, score)dets = np.array([    [56, 24, 230,">
+<meta property="og:description" content="NMS即non maximum suppression即非极大抑制，顾名思义就是抑制不是极大值的元素，搜索局部的极大值。在物体检测中，NMS 应用十分广泛，其目的是为了清除多余的框，找到最佳的物体检测的位置。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s2.ax1x.com/2019/08/28/mTNLp4.png">
 <meta property="og:updated_time" content="2019-08-28T08:37:46.965Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nms">
-<meta name="twitter:description" content="NMS即non maximum suppression即非极大抑制，顾名思义就是抑制不是极大值的元素，搜索局部的极大值。在物体检测中，NMS 应用十分广泛，其目的是为了清除多余的框，找到最佳的物体检测的位置。   dets: 123456789import numpy as np# (x0, y0, x1, y1, score)dets = np.array([    [56, 24, 230,">
+<meta name="twitter:description" content="NMS即non maximum suppression即非极大抑制，顾名思义就是抑制不是极大值的元素，搜索局部的极大值。在物体检测中，NMS 应用十分广泛，其目的是为了清除多余的框，找到最佳的物体检测的位置。">
 <meta name="twitter:image" content="https://s2.ax1x.com/2019/08/28/mTNLp4.png">
     
     <link rel="shortcut icon" href="/favicon.ico">
@@ -164,7 +164,14 @@
             <blockquote>
 <p>NMS即non maximum suppression即非极大抑制，顾名思义就是抑制不是极大值的元素，搜索局部的极大值。在物体检测中，NMS 应用十分广泛，其目的是为了清除多余的框，找到最佳的物体检测的位置。</p>
 </blockquote>
-<p><img src="https://s2.ax1x.com/2019/08/28/mTNLp4.png" alt="mTNLp4.png"></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://s2.ax1x.com/2019/08/28/mTNLp4.png" alt="mTNLp4.png" title>
+                </div>
+                <div class="image-caption">mTNLp4.png</div>
+            </figure>
+
 <p>dets:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># (x0, y0, x1, y1, score)</span></span><br><span class="line">dets = np.array([</span><br><span class="line">    [<span class="number">56</span>, <span class="number">24</span>, <span class="number">230</span>, <span class="number">210</span>, <span class="number">0.97</span>],</span><br><span class="line">    [<span class="number">50</span>, <span class="number">18</span>, <span class="number">222</span>, <span class="number">200</span>, <span class="number">0.88</span>],</span><br><span class="line">    [<span class="number">42</span>, <span class="number">30</span>, <span class="number">250</span>, <span class="number">240</span>, <span class="number">0.73</span>],</span><br><span class="line">    [<span class="number">82</span>, <span class="number">44</span>, <span class="number">310</span>, <span class="number">190</span>, <span class="number">0.5</span>]</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
 
