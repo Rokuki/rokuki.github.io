@@ -14,27 +14,25 @@
     
     
     
-    <title>使用apt-fast | BouSeng | What I cannot create, I do not understand</title>
+    <title>Jetson nano 安装 mxnet | BouSeng | What I cannot create, I do not understand</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
     <meta name="keywords" content>
-    <meta name="description" content="uPfPij.png              install123sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A2166B8DE8B">
+    <meta name="description" content="Allocate swap1234fallocate -l 8G swapfilesudo chmod 600 swapfilesudo mkswap swapfilesudo swapon swapfile  Install dependencies123456sudo apt-get updatesudo apt-get install -y git build-essential libat">
 <meta name="keywords" content="deep learning, PyTorch, Python, Computer vision">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用apt-fast">
-<meta property="og:url" content="bouseng.com/2019/09/23/使用apt-fast/index.html">
+<meta property="og:title" content="Jetson nano 安装 mxnet">
+<meta property="og:url" content="bouseng.com/2019/09/25/Jetson-nano-安装-mxnet/index.html">
 <meta property="og:site_name" content="BouSeng">
-<meta property="og:description" content="uPfPij.png              install123sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A2166B8DE8B">
+<meta property="og:description" content="Allocate swap1234fallocate -l 8G swapfilesudo chmod 600 swapfilesudo mkswap swapfilesudo swapon swapfile  Install dependencies123456sudo apt-get updatesudo apt-get install -y git build-essential libat">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://s2.ax1x.com/2019/09/23/uPfPij.png">
-<meta property="og:updated_time" content="2019-09-23T06:12:24.075Z">
+<meta property="og:updated_time" content="2019-09-25T08:00:10.966Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用apt-fast">
-<meta name="twitter:description" content="uPfPij.png              install123sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A2166B8DE8B">
-<meta name="twitter:image" content="https://s2.ax1x.com/2019/09/23/uPfPij.png">
+<meta name="twitter:title" content="Jetson nano 安装 mxnet">
+<meta name="twitter:description" content="Allocate swap1234fallocate -l 8G swapfilesudo chmod 600 swapfilesudo mkswap swapfilesudo swapon swapfile  Install dependencies123456sudo apt-get updatesudo apt-get install -y git build-essential libat">
     
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
@@ -99,7 +97,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">使用apt-fast</div>
+        <div class="flex-col header-title ellipsis">Jetson nano 安装 mxnet</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -121,11 +119,11 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">使用apt-fast</h1>
+        <h1 class="title">Jetson nano 安装 mxnet</h1>
         <h5 class="subtitle">
             
-                <time datetime="2019-09-23T06:09:53.000Z" itemprop="datePublished" class="page-time">
-  2019-09-23
+                <time datetime="2019-09-25T07:51:09.000Z" itemprop="datePublished" class="page-time">
+  2019-09-25
 </time>
 
 
@@ -144,18 +142,18 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#install"><span class="post-toc-number">1.</span> <span class="post-toc-text">install</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#quick-install"><span class="post-toc-number">2.</span> <span class="post-toc-text">quick install</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Allocate-swap"><span class="post-toc-number">1.</span> <span class="post-toc-text">Allocate swap</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Install-dependencies"><span class="post-toc-number">2.</span> <span class="post-toc-text">Install dependencies</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Build-MXNet-on-Nano"><span class="post-toc-number">3.</span> <span class="post-toc-text">Build MXNet on Nano</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Install-MXNet"><span class="post-toc-number">4.</span> <span class="post-toc-text">Install MXNet</span></a></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-使用apt-fast"
+<article id="post-Jetson-nano-安装-mxnet"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">使用apt-fast</h1>
+        <h1 class="post-card-title">Jetson nano 安装 mxnet</h1>
         <div class="post-meta">
-            <time class="post-time" title="2019-09-23 14:09:53" datetime="2019-09-23T06:09:53.000Z"  itemprop="datePublished">2019-09-23</time>
+            <time class="post-time" title="2019-09-25 15:51:09" datetime="2019-09-25T07:51:09.000Z"  itemprop="datePublished">2019-09-25</time>
 
             
 
@@ -168,16 +166,13 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="https://s2.ax1x.com/2019/09/23/uPfPij.png" alt="uPfPij.png" title>
-                </div>
-                <div class="image-caption">uPfPij.png</div>
-            </figure>
-<h2 id="install"><a href="#install" class="headerlink" title="install"></a>install</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A2166B8DE8BDC3367D1901C11EE2FF37CA8DA16B</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install apt-fast</span><br></pre></td></tr></table></figure>
+            <h2 id="Allocate-swap"><a href="#Allocate-swap" class="headerlink" title="Allocate swap"></a>Allocate swap</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fallocate -l 8G swapfile</span><br><span class="line">sudo chmod 600 swapfile</span><br><span class="line">sudo mkswap swapfile</span><br><span class="line">sudo swapon swapfile</span><br></pre></td></tr></table></figure>
 
-<h2 id="quick-install"><a href="#quick-install" class="headerlink" title="quick install"></a>quick install</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/bash -c &quot;$(curl -sL https://git.io/vokNn)&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="Install-dependencies"><a href="#Install-dependencies" class="headerlink" title="Install dependencies"></a>Install dependencies</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install -y git build-essential libatlas-base-dev libopencv-dev graphviz python-pip</span><br><span class="line">sudo pip install --upgrade pip</span><br><span class="line">sudo pip install --upgrade setuptools</span><br><span class="line">sudo pip install numpy==1.15.2</span><br><span class="line">sudo pip install graphviz jupyter</span><br></pre></td></tr></table></figure>
+
+<h2 id="Build-MXNet-on-Nano"><a href="#Build-MXNet-on-Nano" class="headerlink" title="Build MXNet on Nano"></a>Build MXNet on Nano</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/apache/incubator-mxnet.git --branch v1.4.x --recursive</span><br><span class="line">cd incubator-mxnet/</span><br><span class="line"></span><br><span class="line">cp make/config.mk .</span><br><span class="line">sed -i &apos;s/USE_CUDA = 0/USE_CUDA = 1/&apos; config.mk</span><br><span class="line">sed -i &apos;s/USE_CUDA_PATH = NONE/USE_CUDA_PATH = \/usr\/local\/cuda/&apos; config.mk</span><br><span class="line">sed -i &apos;s/USE_CUDNN = 0/USE_CUDNN = 1/&apos; config.mk</span><br><span class="line">sed -i &apos;/USE_CUDNN/a CUDA_ARCH := -gencode arch=compute_53,code=sm_53&apos; config.mk</span><br><span class="line"></span><br><span class="line">make -j3</span><br></pre></td></tr></table></figure>
+
+<h2 id="Install-MXNet"><a href="#Install-MXNet" class="headerlink" title="Install MXNet"></a>Install MXNet</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd python</span><br><span class="line">sudo python setup.py install</span><br><span class="line">cd ..</span><br><span class="line">export MXNET_HOME=$(pwd)</span><br><span class="line">echo &quot;export PYTHONPATH=$MXNET_HOME/python:$PYTHONPATH&quot; &gt;&gt; ~/.bashrc</span><br></pre></td></tr></table></figure>
 
 
         </div>
@@ -187,12 +182,12 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-09-23T06:12:24.075Z" itemprop="dateUpdated">2019-09-23 14:12:24</time>
+    最后更新时间：<time datetime="2019-09-25T08:00:10.966Z" itemprop="dateUpdated">2019-09-25 16:00:10</time>
 </span><br>
 
 
         
-        <a href="/2019/09/23/使用apt-fast/" target="_blank" rel="external">bouseng.com/2019/09/23/使用apt-fast/</a>
+        <a href="/2019/09/25/Jetson-nano-安装-mxnet/" target="_blank" rel="external">bouseng.com/2019/09/25/Jetson-nano-安装-mxnet/</a>
         
     </div>
     
@@ -217,7 +212,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=bouseng.com/2019/09/23/使用apt-fast/&title=《使用apt-fast》 — BouSeng&pic=bouseng.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=bouseng.com/2019/09/25/Jetson-nano-安装-mxnet/&title=《Jetson nano 安装 mxnet》 — BouSeng&pic=bouseng.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -227,22 +222,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=bouseng.com/2019/09/23/使用apt-fast/&title=《使用apt-fast》 — BouSeng&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=bouseng.com/2019/09/25/Jetson-nano-安装-mxnet/&title=《Jetson nano 安装 mxnet》 — BouSeng&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=bouseng.com/2019/09/23/使用apt-fast/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=bouseng.com/2019/09/25/Jetson-nano-安装-mxnet/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《使用apt-fast》 — BouSeng&url=bouseng.com/2019/09/23/使用apt-fast/&via=bouseng.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Jetson nano 安装 mxnet》 — BouSeng&url=bouseng.com/2019/09/25/Jetson-nano-安装-mxnet/&via=bouseng.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=bouseng.com/2019/09/23/使用apt-fast/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=bouseng.com/2019/09/25/Jetson-nano-安装-mxnet/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -262,21 +257,14 @@
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/2019/09/25/Jetson-nano-安装-mxnet/" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">Jetson nano 安装 mxnet</h4>
-      </a>
-    </div>
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2019/09/20/PyTorch计算网络参数/" id="post-next" class="post-nav-link">
+      <a href="/2019/09/23/使用apt-fast/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">PyTorch计算网络参数</h4>
+        <h4 class="title">使用apt-fast</h4>
       </a>
     </div>
   
@@ -348,7 +336,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=bouseng.com/2019/09/23/使用apt-fast/&title=《使用apt-fast》 — BouSeng&pic=bouseng.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=bouseng.com/2019/09/25/Jetson-nano-安装-mxnet/&title=《Jetson nano 安装 mxnet》 — BouSeng&pic=bouseng.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -358,22 +346,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=bouseng.com/2019/09/23/使用apt-fast/&title=《使用apt-fast》 — BouSeng&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=bouseng.com/2019/09/25/Jetson-nano-安装-mxnet/&title=《Jetson nano 安装 mxnet》 — BouSeng&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=bouseng.com/2019/09/23/使用apt-fast/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=bouseng.com/2019/09/25/Jetson-nano-安装-mxnet/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《使用apt-fast》 — BouSeng&url=bouseng.com/2019/09/23/使用apt-fast/&via=bouseng.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Jetson nano 安装 mxnet》 — BouSeng&url=bouseng.com/2019/09/25/Jetson-nano-安装-mxnet/&via=bouseng.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=bouseng.com/2019/09/23/使用apt-fast/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=bouseng.com/2019/09/25/Jetson-nano-安装-mxnet/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -384,7 +372,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=bouseng.com/2019/09/23/使用apt-fast/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=bouseng.com/2019/09/25/Jetson-nano-安装-mxnet/" alt="微信分享二维码">
 </div>
 
 
