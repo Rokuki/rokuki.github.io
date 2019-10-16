@@ -14,25 +14,25 @@
     
     
     
-    <title>Speed up the dataloader | BouSeng | What I cannot create, I do not understand</title>
+    <title>Train faster(PyTorch) | BouSeng | What I cannot create, I do not understand</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="tricks,pytorch">
-    <meta name="description" content="Build HDF5 file with all the imagesh5py dataset12345678910111213class dataset_h5(torch.utils.data.Dataset):    def __init__(self, in_file):        super(dataset_h5, self).__init__()        self.file =">
-<meta name="keywords" content="tricks,pytorch">
+    <meta name="keywords" content="PyTorch,tricks">
+    <meta name="description" content="Data StorageIf you have an SSD, then you can store your data on the SSD instead of HDD. Loading from .npy files can also be faster than from .png because it avoids CPU conversion. You can preprocess t">
+<meta name="keywords" content="PyTorch,tricks">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Speed up the dataloader">
-<meta property="og:url" content="bouseng.com/2019/07/24/Speed-up-the-dataloader/index.html">
+<meta property="og:title" content="Train faster(PyTorch)">
+<meta property="og:url" content="bouseng.com/2019/10/16/Train-faster-PyTorch/index.html">
 <meta property="og:site_name" content="BouSeng">
-<meta property="og:description" content="Build HDF5 file with all the imagesh5py dataset12345678910111213class dataset_h5(torch.utils.data.Dataset):    def __init__(self, in_file):        super(dataset_h5, self).__init__()        self.file =">
+<meta property="og:description" content="Data StorageIf you have an SSD, then you can store your data on the SSD instead of HDD. Loading from .npy files can also be faster than from .png because it avoids CPU conversion. You can preprocess t">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-25T01:11:29.458Z">
+<meta property="og:updated_time" content="2019-10-16T01:45:24.773Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Speed up the dataloader">
-<meta name="twitter:description" content="Build HDF5 file with all the imagesh5py dataset12345678910111213class dataset_h5(torch.utils.data.Dataset):    def __init__(self, in_file):        super(dataset_h5, self).__init__()        self.file =">
+<meta name="twitter:title" content="Train faster(PyTorch)">
+<meta name="twitter:description" content="Data StorageIf you have an SSD, then you can store your data on the SSD instead of HDD. Loading from .npy files can also be faster than from .png because it avoids CPU conversion. You can preprocess t">
     
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
@@ -97,7 +97,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">Speed up the dataloader</div>
+        <div class="flex-col header-title ellipsis">Train faster(PyTorch)</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -119,11 +119,11 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">Speed up the dataloader</h1>
+        <h1 class="title">Train faster(PyTorch)</h1>
         <h5 class="subtitle">
             
-                <time datetime="2019-07-24T01:45:37.000Z" itemprop="datePublished" class="page-time">
-  2019-07-24
+                <time datetime="2019-10-16T01:39:46.000Z" itemprop="datePublished" class="page-time">
+  2019-10-16
 </time>
 
 
@@ -142,18 +142,18 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Build-HDF5-file-with-all-the-images"><span class="post-toc-number">1.</span> <span class="post-toc-text">Build HDF5 file with all the images</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#dataset"><span class="post-toc-number">2.</span> <span class="post-toc-text">dataset</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Data-Storage"><span class="post-toc-number">1.</span> <span class="post-toc-text">Data Storage</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Code-writing-style"><span class="post-toc-number">2.</span> <span class="post-toc-text">Code writing style</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ReLU"><span class="post-toc-number">3.</span> <span class="post-toc-text">ReLU</span></a></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-Speed-up-the-dataloader"
+<article id="post-Train-faster-PyTorch"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">Speed up the dataloader</h1>
+        <h1 class="post-card-title">Train faster(PyTorch)</h1>
         <div class="post-meta">
-            <time class="post-time" title="2019-07-24 09:45:37" datetime="2019-07-24T01:45:37.000Z"  itemprop="datePublished">2019-07-24</time>
+            <time class="post-time" title="2019-10-16 09:39:46" datetime="2019-10-16T01:39:46.000Z"  itemprop="datePublished">2019-10-16</time>
 
             
 
@@ -166,10 +166,14 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h2 id="Build-HDF5-file-with-all-the-images"><a href="#Build-HDF5-file-with-all-the-images" class="headerlink" title="Build HDF5 file with all the images"></a>Build HDF5 file with all the images</h2><p><a href="http://docs.h5py.org/en/latest/" target="_blank" rel="noopener">h5py</a></p>
-<h2 id="dataset"><a href="#dataset" class="headerlink" title="dataset"></a>dataset</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">dataset_h5</span><span class="params">(torch.utils.data.Dataset)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, in_file)</span>:</span></span><br><span class="line">        super(dataset_h5, self).__init__()</span><br><span class="line"></span><br><span class="line">        self.file = h5py.File(in_file, <span class="string">'r'</span>)</span><br><span class="line">        self.n_images, self.nx, self.ny = self.file[<span class="string">'images'</span>].shape</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self, index)</span>:</span></span><br><span class="line">        input = self.file[<span class="string">'images'</span>][index,:,:]</span><br><span class="line">        <span class="keyword">return</span> input.astype(<span class="string">'float32'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.n_images</span><br></pre></td></tr></table></figure>
+            <h2 id="Data-Storage"><a href="#Data-Storage" class="headerlink" title="Data Storage"></a>Data Storage</h2><p>If you have an SSD, then you can store your data on the SSD instead of HDD. Loading from <code>.npy</code> files can also be faster than from <code>.png</code> because it avoids CPU conversion. You can preprocess the dataset into some <code>.npy</code> matrix before training.</p>
+<h2 id="Code-writing-style"><a href="#Code-writing-style" class="headerlink" title="Code writing style"></a>Code writing style</h2><p>Use</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(x)</span>:</span></span><br><span class="line">  x = conv1(x)</span><br><span class="line">  x = conv2(x)</span><br><span class="line">  ...</span><br><span class="line">  <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
 
-<p>参考：<br><a href="https://discuss.pytorch.org/t/how-to-speed-up-the-data-loader/13740" target="_blank" rel="noopener">How to speed up the data loader</a></p>
+<p>instead of</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(x)</span>:</span></span><br><span class="line">  x1 = conv1(x)</span><br><span class="line">  x2 = conv2(x1)</span><br><span class="line">  ... <span class="keyword">return</span> x34</span><br></pre></td></tr></table></figure>
+
+<h2 id="ReLU"><a href="#ReLU" class="headerlink" title="ReLU"></a>ReLU</h2><p>Using <code>nn.ReLU(inplace=True)</code> might reduce memory usage, but it might also introduce an extra step of gradient calculation.</p>
 
         </div>
 
@@ -178,12 +182,12 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-07-25T01:11:29.458Z" itemprop="dateUpdated">2019-07-25 09:11:29</time>
+    最后更新时间：<time datetime="2019-10-16T01:45:24.773Z" itemprop="dateUpdated">2019-10-16 09:45:24</time>
 </span><br>
 
 
         
-        <a href="/2019/07/24/Speed-up-the-dataloader/" target="_blank" rel="external">bouseng.com/2019/07/24/Speed-up-the-dataloader/</a>
+        <a href="/2019/10/16/Train-faster-PyTorch/" target="_blank" rel="external">bouseng.com/2019/10/16/Train-faster-PyTorch/</a>
         
     </div>
     
@@ -200,7 +204,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pytorch/">pytorch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tricks/">tricks</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PyTorch/">PyTorch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tricks/">tricks</a></li></ul>
 
 
             
@@ -210,7 +214,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=bouseng.com/2019/07/24/Speed-up-the-dataloader/&title=《Speed up the dataloader》 — BouSeng&pic=bouseng.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=bouseng.com/2019/10/16/Train-faster-PyTorch/&title=《Train faster(PyTorch)》 — BouSeng&pic=bouseng.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -220,22 +224,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=bouseng.com/2019/07/24/Speed-up-the-dataloader/&title=《Speed up the dataloader》 — BouSeng&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=bouseng.com/2019/10/16/Train-faster-PyTorch/&title=《Train faster(PyTorch)》 — BouSeng&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=bouseng.com/2019/07/24/Speed-up-the-dataloader/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=bouseng.com/2019/10/16/Train-faster-PyTorch/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Speed up the dataloader》 — BouSeng&url=bouseng.com/2019/07/24/Speed-up-the-dataloader/&via=bouseng.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Train faster(PyTorch)》 — BouSeng&url=bouseng.com/2019/10/16/Train-faster-PyTorch/&via=bouseng.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=bouseng.com/2019/07/24/Speed-up-the-dataloader/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=bouseng.com/2019/10/16/Train-faster-PyTorch/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -255,21 +259,14 @@
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/2019/07/24/保存图片数据集为hdf5格式/" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">保存图片数据集为hdf5格式</h4>
-      </a>
-    </div>
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2019/07/20/Kaggle-cometition-APTOS-2019-Blindness-Detection/" id="post-next" class="post-nav-link">
+      <a href="/2019/10/10/Tensorflow-2-0/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Kaggle cometition —— APTOS 2019 Blindness Detection</h4>
+        <h4 class="title">Tensorflow 2.0</h4>
       </a>
     </div>
   
@@ -341,7 +338,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=bouseng.com/2019/07/24/Speed-up-the-dataloader/&title=《Speed up the dataloader》 — BouSeng&pic=bouseng.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=bouseng.com/2019/10/16/Train-faster-PyTorch/&title=《Train faster(PyTorch)》 — BouSeng&pic=bouseng.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -351,22 +348,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=bouseng.com/2019/07/24/Speed-up-the-dataloader/&title=《Speed up the dataloader》 — BouSeng&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=bouseng.com/2019/10/16/Train-faster-PyTorch/&title=《Train faster(PyTorch)》 — BouSeng&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=bouseng.com/2019/07/24/Speed-up-the-dataloader/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=bouseng.com/2019/10/16/Train-faster-PyTorch/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Speed up the dataloader》 — BouSeng&url=bouseng.com/2019/07/24/Speed-up-the-dataloader/&via=bouseng.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Train faster(PyTorch)》 — BouSeng&url=bouseng.com/2019/10/16/Train-faster-PyTorch/&via=bouseng.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=bouseng.com/2019/07/24/Speed-up-the-dataloader/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=bouseng.com/2019/10/16/Train-faster-PyTorch/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -377,7 +374,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=bouseng.com/2019/07/24/Speed-up-the-dataloader/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=bouseng.com/2019/10/16/Train-faster-PyTorch/" alt="微信分享二维码">
 </div>
 
 

@@ -133,6 +133,200 @@
     <ul class="post-list">
     
         <li class="post-list-item fade">
+            <article id="post-Ubuntu-安装文件共享服务samba"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-07-03 14:39:21" datetime="2019-07-03T06:39:21.000Z"  itemprop="datePublished">2019-07-03</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/07/03/Ubuntu-安装文件共享服务samba/">Ubuntu 安装文件共享服务samba</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        
+安装samba
+1sudo apitude install samba
+
+修改配置文件
+1sudo nano /etc/samba/smb.conf
+
+在末尾加入
+12345678910111213[share]    comment = samba home directory    path = /home/cbc/Download    public = yes    browsea...
+    
+
+        <a href="/2019/07/03/Ubuntu-安装文件共享服务samba/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/samba/">samba</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ubuntu/">ubuntu</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-使用TensorboardX可视化PyTorch网络结构"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-07-02 16:24:05" datetime="2019-07-02T08:24:05.000Z"  itemprop="datePublished">2019-07-02</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/07/02/使用TensorboardX可视化PyTorch网络结构/">使用TensorboardX可视化PyTorch网络结构</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        安装TensorboardX1pip install tensorboardX
+
+可视化resnet1812345678910import torchimport torch.nn as nnfrom tensorboardX import SummaryWriterfrom torchvision import models                        # 导入模型dum...
+    
+
+        <a href="/2019/07/02/使用TensorboardX可视化PyTorch网络结构/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PyTorch/">PyTorch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorboardX/">tensorboardX</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-Multiple-label-Image-Recognition"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-07-02 14:52:12" datetime="2019-07-02T06:52:12.000Z"  itemprop="datePublished">2019-07-02</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/07/02/Multiple-label-Image-Recognition/">Multiple-label Image Recognition</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        环境
+Python 3.7.3
+PyTorch 1.1.0
+
+Datasettrain.txt  格式：
+
+age: number
+sex: male/female
+mood: happy/calm/sad/angry
+
+1234561.jpg   25  male    happy   2.jpg   30  female  happy3.jpg   20  male    calm   ...
+    
+
+        <a href="/2019/07/02/Multiple-label-Image-Recognition/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Multiple-label/">Multiple-label</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PyTorch/">PyTorch</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-Annoying-PyTorch-Error"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-07-02 10:58:04" datetime="2019-07-02T02:58:04.000Z"  itemprop="datePublished">2019-07-02</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/07/02/Annoying-PyTorch-Error/">Annoying PyTorch&#39;s Error</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        记录使用PyTorch过程中出现的error以及fix方法
+    
+
+        <a href="/2019/07/02/Annoying-PyTorch-Error/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
             <article id="post-necklace"
   class="article-card article-type-post" itemprop="blogPost">
 
