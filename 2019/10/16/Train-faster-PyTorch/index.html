@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="BouSeng">
 <meta property="og:description" content="Data StorageIf you have an SSD, then you can store your data on the SSD instead of HDD. Loading from .npy files can also be faster than from .png because it avoids CPU conversion. You can preprocess t">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-16T01:45:24.773Z">
+<meta property="og:updated_time" content="2019-10-16T01:58:42.270Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Train faster(PyTorch)">
 <meta name="twitter:description" content="Data StorageIf you have an SSD, then you can store your data on the SSD instead of HDD. Loading from .npy files can also be faster than from .png because it avoids CPU conversion. You can preprocess t">
@@ -142,7 +142,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Data-Storage"><span class="post-toc-number">1.</span> <span class="post-toc-text">Data Storage</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Code-writing-style"><span class="post-toc-number">2.</span> <span class="post-toc-text">Code writing style</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ReLU"><span class="post-toc-number">3.</span> <span class="post-toc-text">ReLU</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Data-Storage"><span class="post-toc-number">1.</span> <span class="post-toc-text">Data Storage</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Code-writing-style"><span class="post-toc-number">2.</span> <span class="post-toc-text">Code writing style</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ReLU"><span class="post-toc-number">3.</span> <span class="post-toc-text">ReLU</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Half-Precision-Training"><span class="post-toc-number">4.</span> <span class="post-toc-text">Half Precision Training</span></a></li></ol>
         </nav>
     </aside>
 
@@ -174,6 +174,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(x)</span>:</span></span><br><span class="line">  x1 = conv1(x)</span><br><span class="line">  x2 = conv2(x1)</span><br><span class="line">  ... <span class="keyword">return</span> x34</span><br></pre></td></tr></table></figure>
 
 <h2 id="ReLU"><a href="#ReLU" class="headerlink" title="ReLU"></a>ReLU</h2><p>Using <code>nn.ReLU(inplace=True)</code> might reduce memory usage, but it might also introduce an extra step of gradient calculation.</p>
+<h2 id="Half-Precision-Training"><a href="#Half-Precision-Training" class="headerlink" title="Half Precision Training"></a>Half Precision Training</h2><p>Use <code>APEX</code> for FP16 training: <a href="https://github.com/NVIDIA/apex" target="_blank" rel="noopener">https://github.com/NVIDIA/apex</a><br>APEX also supports multi-GPU parallel.</p>
 
         </div>
 
@@ -182,7 +183,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-10-16T01:45:24.773Z" itemprop="dateUpdated">2019-10-16 09:45:24</time>
+    最后更新时间：<time datetime="2019-10-16T01:58:42.270Z" itemprop="dateUpdated">2019-10-16 09:58:42</time>
 </span><br>
 
 
@@ -259,7 +260,14 @@
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/10/18/深度学习习题/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">深度学习习题</h4>
+      </a>
+    </div>
   
 
   
