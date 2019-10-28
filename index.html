@@ -133,6 +133,49 @@
     <ul class="post-list">
     
         <li class="post-list-item fade">
+            <article id="post-编译安装C-库-boost"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-10-28 16:54:04" datetime="2019-10-28T08:54:04.000Z"  itemprop="datePublished">2019-10-28</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/10/28/编译安装C-库-boost/">编译安装C++库 boost</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        下载https://www.boost.org/users/download/
+解压解压到/opt/boost_1_71_0
+编译123cd /opt/boost_1_71_0sudo ./bootstrap.shsudo ./b2
+
+添加到CmakeLists12345678910ind_package(Boost REQUIRED COMPONENTS# regexfilesystem)...
+    
+
+        <a href="/2019/10/28/编译安装C-库-boost/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
             <article id="post-深度学习习题"
   class="article-card article-type-post" itemprop="blogPost">
 
@@ -524,51 +567,6 @@ Sample out:
     
 
         <a href="/2019/09/17/CentOS开启BBR加速/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-一键部署SS"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-09-17 09:48:15" datetime="2019-09-17T01:48:15.000Z"  itemprop="datePublished">2019-09-17</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/09/17/一键部署SS/">一键部署SS</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        下载脚本
-1wget --no-check-certificate -O shadowsocks-all.sh https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-all.sh
-
-权限
-1chmod +x shadowsocks-all.sh
-
-1./shadowsocks-all...
-    
-
-        <a href="/2019/09/17/一键部署SS/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
     </div>
