@@ -1,172 +1,47 @@
 <!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.9.0">
-    
 
-    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
 
-    
+  <meta name="description" content="Install1pip install tensorflow-gpu==2.0.0
+
+定义模型1.
+123456model = tf.keras.models.Sequential([  tf.keras.layers.Flatten(input_shape=(28, 28)),  tf.keras">
 
 
+	<meta name="keywords" content="deep learning, PyTorch, Python, Computer vision">
 
-    <meta charset="utf-8">
-    
-    
-    
-    
-    <title>Tensorflow 2.0 | BouSeng | What I cannot create, I do not understand</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <meta name="theme-color" content="#3F51B5">
-    
-    
-    <meta name="keywords" content>
-    <meta name="description" content="Install1pip install tensorflow-gpu==2.0.0  定义模型1. 123456model = tf.keras.models.Sequential([  tf.keras.layers.Flatten(input_shape=(28, 28)),  tf.keras.layers.Dense(128, activation=&apos;relu&apos;),  tf.keras.l">
-<meta name="keywords" content="deep learning, PyTorch, Python, Computer vision">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Tensorflow 2.0">
-<meta property="og:url" content="bouseng.com/2019/10/10/Tensorflow-2-0/index.html">
-<meta property="og:site_name" content="BouSeng">
-<meta property="og:description" content="Install1pip install tensorflow-gpu==2.0.0  定义模型1. 123456model = tf.keras.models.Sequential([  tf.keras.layers.Flatten(input_shape=(28, 28)),  tf.keras.layers.Dense(128, activation=&apos;relu&apos;),  tf.keras.l">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-10T07:21:40.068Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Tensorflow 2.0">
-<meta name="twitter:description" content="Install1pip install tensorflow-gpu==2.0.0  定义模型1. 123456model = tf.keras.models.Sequential([  tf.keras.layers.Flatten(input_shape=(28, 28)),  tf.keras.layers.Dense(128, activation=&apos;relu&apos;),  tf.keras.l">
-    
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
-    <script>window.lazyScripts=[]</script>
+<link rel="alternate" href="/atom.xml" title="BouSeng" type="application/atom+xml">
+<meta name="theme-color" content="#a1d0f6">
+<title>Tensorflow 2.0 - BouSeng</title>
+<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="stylesheet" href="/css/style.css">
+<nav class="main-nav">
+	
+	    <a href="/">← 主页</a>
+	
+	
+	    <a href="/about/">About</a>
+	
+	    <a href="/archives/">Archives</a>
+	
+	<a class="cta" href="/atom.xml" data-no-instant>订阅</a>
+</nav>
 
-    <!-- custom head -->
-    
-
-</head>
-
-<body>
-    <div id="loading" class="active"></div>
-
-    <aside id="menu" class="hide" >
-  <div class="inner flex-row-vertical">
-    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
-        <i class="icon icon-lg icon-close"></i>
-    </a>
-    <div class="brand-wrap" style="background-image:url(/img/feynman.png)">
-      <div class="brand">
-        <a href="/" class="avatar waves-effect waves-circle waves-light">
-          <img src="/img/avatar.jpg">
-        </a>
-        <hgroup class="introduce">
-          <h5 class="nickname">BouSeng Chan</h5>
-          <a href="mailto:c@bouseng.com" title="c@bouseng.com" class="mail">c@bouseng.com</a>
-        </hgroup>
-      </div>
-    </div>
-    <div class="scroll-wrap flex-col">
-      <ul class="nav">
+<section id="wrapper">
+    <article class="post">
+    <header>
         
-            <li class="waves-block waves-effect">
-              <a href="/"  >
-                <i class="icon icon-lg icon-home"></i>
-                主页
-              </a>
-            </li>
+            <h1>Tensorflow 2.0</h1>
         
-            <li class="waves-block waves-effect">
-              <a href="/archives"  >
-                <i class="icon icon-lg icon-archives"></i>
-                Archives
-              </a>
-            </li>
+        <h2 class="headline">Oct 10 2019
         
-            <li class="waves-block waves-effect">
-              <a href="https://github.com/yscoder" target="_blank" >
-                <i class="icon icon-lg icon-github"></i>
-                Github
-              </a>
-            </li>
-        
-      </ul>
-    </div>
-  </div>
-</aside>
-
-    <main id="main">
-        <header class="top-header" id="header">
-    <div class="flex-row">
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
-          <i class="icon icon-lg icon-navicon"></i>
-        </a>
-        <div class="flex-col header-title ellipsis">Tensorflow 2.0</div>
-        
-        <div class="search-wrap" id="search-wrap">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
-                <i class="icon icon-lg icon-chevron-left"></i>
-            </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
-                <i class="icon icon-lg icon-search"></i>
-            </a>
-        </div>
-        
-        
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
-            <i class="icon icon-lg icon-share-alt"></i>
-        </a>
-        
-    </div>
-</header>
-<header class="content-header post-header">
-
-    <div class="container fade-scale">
-        <h1 class="title">Tensorflow 2.0</h1>
-        <h5 class="subtitle">
-            
-                <time datetime="2019-10-10T02:11:09.000Z" itemprop="datePublished" class="page-time">
-  2019-10-10
-</time>
-
-
-            
-        </h5>
-    </div>
-
-    
-
-
-</header>
-
-
-<div class="container body-wrap">
-    
-    <aside class="post-widget">
-        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
-            <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Install"><span class="post-toc-number">1.</span> <span class="post-toc-text">Install</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#定义模型"><span class="post-toc-number">2.</span> <span class="post-toc-text">定义模型</span></a></li></ol>
-        </nav>
-    </aside>
-
-
-<article id="post-Tensorflow-2-0"
-  class="post-article article-type-post fade" itemprop="blogPost">
-
-    <div class="post-card">
-        <h1 class="post-card-title">Tensorflow 2.0</h1>
-        <div class="post-meta">
-            <time class="post-time" title="2019-10-10 10:11:09" datetime="2019-10-10T02:11:09.000Z"  itemprop="datePublished">2019-10-10</time>
-
-            
-
-
-            
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
-    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
-</span>
-
-
-        </div>
-        <div class="post-content" id="post-content" itemprop="postContent">
-            <h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install tensorflow-gpu==2.0.0</span><br></pre></td></tr></table></figure>
+        </h2>
+    </header>
+</article>
+<section id="post-body"><h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install tensorflow-gpu==2.0.0</span><br></pre></td></tr></table></figure>
 
 <h2 id="定义模型"><a href="#定义模型" class="headerlink" title="定义模型"></a>定义模型</h2><p>1.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">model = tf.keras.models.Sequential([</span><br><span class="line">  tf.keras.layers.Flatten(input_shape=(<span class="number">28</span>, <span class="number">28</span>)),</span><br><span class="line">  tf.keras.layers.Dense(<span class="number">128</span>, activation=<span class="string">'relu'</span>),</span><br><span class="line">  tf.keras.layers.Dropout(<span class="number">0.2</span>),</span><br><span class="line">  tf.keras.layers.Dense(<span class="number">10</span>, activation=<span class="string">'softmax'</span>)</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
@@ -174,273 +49,74 @@
 <p>2.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyModel</span><span class="params">(tf.keras.Model)</span>:</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">    super(MyModel, self).__init__()</span><br><span class="line">    self.conv1 = Conv2D(<span class="number">32</span>, <span class="number">3</span>, activation=<span class="string">'relu'</span>)</span><br><span class="line">    self.flatten = Flatten()</span><br><span class="line">    self.d1 = Dense(<span class="number">128</span>, activation=<span class="string">'relu'</span>)</span><br><span class="line">    self.d2 = Dense(<span class="number">10</span>, activation=<span class="string">'softmax'</span>)</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">call</span><span class="params">(self, x)</span>:</span></span><br><span class="line">    x = self.conv1(x)</span><br><span class="line">    x = self.flatten(x)</span><br><span class="line">    x = self.d1(x)</span><br><span class="line">    <span class="keyword">return</span> self.d2(x)</span><br><span class="line">model = MyModel()</span><br></pre></td></tr></table></figure>
 
+</section>
+    
 
+    <footer id="post-meta" class="clearfix">
+        <a href="/about/">
+        <img class="avatar" src="/images/avatar.png">
+        <div>
+            <span class="dark">BouSeng</span>
+            <span>What I cannot create, I do not understand</span>
         </div>
-
-        <blockquote class="post-copyright">
-    
-    <div class="content">
-        
-<span class="post-time">
-    最后更新时间：<time datetime="2019-10-10T07:21:40.068Z" itemprop="dateUpdated">2019-10-10 15:21:40</time>
-</span><br>
-
-
-        
-        <a href="/2019/10/10/Tensorflow-2-0/" target="_blank" rel="external">bouseng.com/2019/10/10/Tensorflow-2-0/</a>
-        
-    </div>
-    
-    <footer>
-        <a href="bouseng.com">
-            <img src="/img/avatar.jpg" alt="BouSeng Chan">
-            BouSeng Chan
         </a>
+        <section id="sharing">
+            <a title="Share to Twitter" class="twitter" href="https://twitter.com/intent/tweet?text=bouseng.com/2019/10/10/Tensorflow-2-0/ - Tensorflow 2.0 @"><span class="icon-twitter">tweet</span></a>
+            <a title="Share to Facebook" class="facebook" href="#" onclick="
+                window.open(
+                  'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+                  'facebook-share-dialog',
+                  'width=626,height=436');
+                return false;"><span class="icon-facebook-sign">Share</span>
+            </a>
+        </section>
     </footer>
-</blockquote>
-
-        
 
 
-        <div class="post-footer">
-            
-
-            
-<div class="page-share-wrap">
-    
-
-<div class="page-share" id="pageShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=bouseng.com/2019/10/10/Tensorflow-2-0/&title=《Tensorflow 2.0》 — BouSeng&pic=bouseng.com/img/avatar.jpg" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=bouseng.com/2019/10/10/Tensorflow-2-0/&title=《Tensorflow 2.0》 — BouSeng&source=" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=bouseng.com/2019/10/10/Tensorflow-2-0/" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Tensorflow 2.0》 — BouSeng&url=bouseng.com/2019/10/10/Tensorflow-2-0/&via=bouseng.com" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=bouseng.com/2019/10/10/Tensorflow-2-0/" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
+  <section id="comment">
+    <button class="btn" id="loadcmts" onclick="cmts.load();">加载评论</button>
+    <div id="gitment"></div>
+    <script src='/js/gitment.browser.js'></script>
+    <link rel="stylesheet" href=''>
+    <script>
+      var cmts={
+        load:function cmts(){
+          var gitment = new Gitment({
+          
+            id: "Tensorflow 2.0",
+          
+            owner: "",
+            repo: "",
+            oauth: {
+              client_id: "",
+              client_secret: "",
+            },
+          })
+          gitment.render('gitment');
+          var loadcmt = document.getElementById("loadcmts");
+          var imyourfather = loadcmt.parentNode;
+          imyourfather.removeChild(loadcmts)
+        }
+      }
+    </script>
+  </section>
 
 
-
-    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
-        <i class="icon icon-share-alt icon-lg"></i>
-    </a>
-</div>
-
-
-
-        </div>
-    </div>
-
-    
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/2019/10/16/Train-faster-PyTorch/" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">Train faster(PyTorch)</h4>
-      </a>
-    </div>
-  
-
-  
-    <div class="waves-block waves-effect next">
-      <a href="/2019/09/28/Passing-arguments-in-tkinter-s-protocol-method/" id="post-next" class="post-nav-link">
-        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Passing arguments in tkinter&#39;s protocol method</h4>
-      </a>
-    </div>
-  
-</nav>
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</article>
-
-
-
-</div>
-
-        <footer class="footer">
-    <div class="top">
-        
-<p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
-        站点总访客数：<span id="busuanzi_value_site_uv"></span>
-    </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
-        站点总访问量：<span id="busuanzi_value_site_pv"></span>
-    </span>
-</p>
-
-
-        <p>
-            
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
-        </p>
-    </div>
-    <div class="bottom">
-        <p><span>BouSeng Chan &copy; 2015 - 2020</span>
-            <span>
-                
-                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
-            </span>
-        </p>
-    </div>
+	<footer id="footer">
+	<div id="social">
+		<p class="small">©  BouSeng Chan| Powered by Hexo & 
+			<a href="https://github.com/F0r3at/Lights"> Lights</a>
+		</p>
+	</div>
 </footer>
 
-    </main>
-    <div class="mask" id="mask"></div>
-<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+</section>
+
+	<script src="//cdnjs.loli.net/ajax/libs/instantclick/3.0.1/instantclick.min.js" data-no-instant></script>
+	<script data-no-instant>
+		
+		InstantClick.init('mousedown');
+	</script>
 
 
 
-<div class="global-share" id="globalShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=bouseng.com/2019/10/10/Tensorflow-2-0/&title=《Tensorflow 2.0》 — BouSeng&pic=bouseng.com/img/avatar.jpg" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=bouseng.com/2019/10/10/Tensorflow-2-0/&title=《Tensorflow 2.0》 — BouSeng&source=" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=bouseng.com/2019/10/10/Tensorflow-2-0/" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Tensorflow 2.0》 — BouSeng&url=bouseng.com/2019/10/10/Tensorflow-2-0/&via=bouseng.com" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=bouseng.com/2019/10/10/Tensorflow-2-0/" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-<div class="page-modal wx-share" id="wxShare">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=bouseng.com/2019/10/10/Tensorflow-2-0/" alt="微信分享二维码">
-</div>
-
-
-
-
-    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
-<script>
-var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
-
-
-</script>
-
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
-
-
-<div class="search-panel" id="search-panel">
-    <ul class="search-result" id="search-result"></ul>
-</div>
-<template id="search-tpl">
-<li class="item">
-    <a href="{path}" class="waves-block waves-effect">
-        <div class="title ellipsis" title="{title}">{title}</div>
-        <div class="flex-row flex-middle">
-            <div class="tags ellipsis">
-                {tags}
-            </div>
-            <time class="flex-col time">{date}</time>
-        </div>
-    </a>
-</li>
-</template>
-
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
-
-
-
-
-
-
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-<script>
-(function() {
-    var OriginTitile = document.title, titleTime;
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            document.title = '已离线';
-            clearTimeout(titleTime);
-        } else {
-            document.title = '在线';
-            titleTime = setTimeout(function() {
-                document.title = OriginTitile;
-            },2000);
-        }
-    });
-})();
-</script>
-
-
-
-</body>
-</html>
