@@ -47,6 +47,16 @@
 
 <h2 id="ReLU"><a href="#ReLU" class="headerlink" title="ReLU"></a>ReLU</h2><p>Using <code>nn.ReLU(inplace=True)</code> might reduce memory usage, but it might also introduce an extra step of gradient calculation.</p>
 <h2 id="Half-Precision-Training"><a href="#Half-Precision-Training" class="headerlink" title="Half Precision Training"></a>Half Precision Training</h2><p>Use <code>APEX</code> for FP16 training: <a href="https://github.com/NVIDIA/apex" target="_blank" rel="noopener">https://github.com/NVIDIA/apex</a><br>APEX also supports multi-GPU parallel.</p>
+<h2 id="prefetch-generator"><a href="#prefetch-generator" class="headerlink" title="prefetch_generator"></a>prefetch_generator</h2><p>install</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install prefetch_generator</span><br></pre></td></tr></table></figure>
+
+<p>Usage</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader</span><br><span class="line"><span class="keyword">from</span> prefetch_generator <span class="keyword">import</span> BackgroundGenerator</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DataLoaderX</span><span class="params">(DataLoader)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__iter__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> BackgroundGenerator(super().__iter__())</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">train_loader = DataLoaderX(dataset=train_dataset,</span><br><span class="line">                                           batch_size=batch_size,</span><br><span class="line">                                           shuffle=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="「幽灵」批归一化"><a href="#「幽灵」批归一化" class="headerlink" title="「幽灵」批归一化"></a>「幽灵」批归一化</h2><p>批归一化（BN）似乎在批量大小为 32 的时候效果最好，而研究者的批大小为 512。此外，如果不想严重影响训练效果，那么他们就不能降低批量大小。因此，研究者将批归一化独立地应用到各批量数据的子集中。这一技术，就被称之为「幽灵」批归一化，它通常用于分布式训练中，但如果单节点运算的批量数据太大，那么也能用这样的技术。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://zhuanlan.zhihu.com/p/97190313" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/97190313</a></p>
 </section>
     
         
