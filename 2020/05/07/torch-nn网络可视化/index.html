@@ -4,7 +4,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
 
-  <meta name="description" content="12345678910111213141516171819202122import torch.nn as nnfrom PIL import Imagefrom torchvision import transforms as Timg_path =  [path to image]img = I">
+  <meta name="description" content="Conv2d
+12345678910111213141516171819202122import torch.nn as nnfrom PIL import Imagefrom torchvision import transforms as Timg_path =  [path to image]">
 
 
 	<meta name="keywords" content="deep learning, PyTorch, Python, Computer vision">
@@ -38,13 +39,21 @@
         </h2>
     </header>
 </article>
-<section id="post-body"><p><img src="https://s1.ax1x.com/2020/05/07/YZyAEj.jpg" alt="原图"></p>
+<section id="post-body"><h2 id="Conv2d"><a href="#Conv2d" class="headerlink" title="Conv2d"></a>Conv2d</h2><p><img src="https://s1.ax1x.com/2020/05/07/YZyAEj.jpg" alt="原图"></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> transforms <span class="keyword">as</span> T</span><br><span class="line"></span><br><span class="line">img_path =  [path to image]</span><br><span class="line">img = Image.open(img_path)</span><br><span class="line">transform = T.ToTensor()</span><br><span class="line">img_tensor = transform(img).unsqueeze(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">pool = nn.Conv2d(<span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>, stride=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">out = pool(img_tensor)</span><br><span class="line"></span><br><span class="line">to_pil = T.ToPILImage()</span><br><span class="line"></span><br><span class="line">print(out.shape)</span><br><span class="line">out = out.squeeze(<span class="number">0</span>)</span><br><span class="line">print(out.shape)</span><br><span class="line"></span><br><span class="line">img_pil = to_pil(out)</span><br><span class="line"></span><br><span class="line">img_pil.show()</span><br></pre></td></tr></table></figure>
 
 <p>nn.Conv2d(3, 4, 3, stride=2)<br><img src="https://s1.ax1x.com/2020/05/07/YZyEUs.png" alt="nn.Conv2d(3, 4, 3, stride=2)"></p>
 <p>nn.Conv2d(3, 3, 3, stride=2)<br><img src="https://s1.ax1x.com/2020/05/07/YZyV5n.png" alt="nn.Conv2d(3, 3, 3, stride=2)"></p>
 <p>nn.Conv2d(3, 3, 3, stride=3)<br><img src="https://s1.ax1x.com/2020/05/07/YZyFbQ.png" alt="nn.Conv2d(3, 3, 3, stride=3)">3</p>
 <p>nn.Conv2d(3, 3, 3, stride=3, padding=2)<br><img src="https://s1.ax1x.com/2020/05/07/YZyiDg.png" alt="nn.Conv2d(3, 3, 3, stride=3, padding=2)"></p>
+<h2 id="MaxPool2d"><a href="#MaxPool2d" class="headerlink" title="MaxPool2d"></a>MaxPool2d</h2><p>padding &lt; kernel size / 2<br>pad should be smaller than half of kernel size</p>
+<p><img src="https://s1.ax1x.com/2020/05/07/YZzaS1.png" alt="nn.MaxPool2d(kernel size=8, stride=4, padding=1)"><br>nn.MaxPool2d(kernel size=8, stride=4, padding=1)</p>
+<p><img src="https://s1.ax1x.com/2020/05/07/YZzdQx.png" alt="nn.MaxPool2d(kernel size=16, stride=4, padding=1)"><br>nn.MaxPool2d(kernel size=16, stride=4, padding=1)</p>
+<p><img src="https://s1.ax1x.com/2020/05/07/YZzNWR.png" alt="nn.MaxPool2d(kernel size=32, stride=4, padding=1)"><br>nn.MaxPool2d(kernel size=32, stride=4, padding=1)</p>
+<h2 id="AvgPool2d"><a href="#AvgPool2d" class="headerlink" title="AvgPool2d"></a>AvgPool2d</h2><p>pad should be smaller than half of kernel size</p>
+<p><img src="https://s1.ax1x.com/2020/05/07/Ye9rwT.png" alt="nn.AvgPool2d(kernel size=8, stride=4, padding=1)"><br>nn.AvgPool2d(kernel size=8, stride=4, padding=1)</p>
+<p><img src="https://s1.ax1x.com/2020/05/07/Ye9DmV.png" alt="nn.AvgPool2d(kernel size=16, stride=4, padding=1)"><br>nn.AvgPool2d(kernel size=16, stride=4, padding=1)</p>
+<p><img src="https://s1.ax1x.com/2020/05/07/Ye90O0.png" alt="nn.AvgPool2d(kernel size=32, stride=4, padding=1)"><br>nn.AvgPool2d(kernel size=32, stride=4, padding=1)</p>
 </section>
     
 
