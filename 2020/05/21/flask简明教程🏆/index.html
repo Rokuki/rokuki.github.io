@@ -76,7 +76,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取单个字段的值：request.form[字段名]</span></span><br><span class="line">name = request.form[<span class="string">'name'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取所有表单数据：request.form.to_dict()</span></span><br><span class="line">all_value = request.form.to_dict()</span><br></pre></td></tr></table></figure>
 
 <p>GET请求参数：<code>request.args</code></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取某个字段的值：request.args.get(字段名)</span></span><br><span class="line">name = request.args.get(<span class="string">'name'</span>)</span><br><span class="line">获取所有GET请求参数</span><br><span class="line">all_args = request.args</span><br></pre></td></tr></table></figure>
 
 </section>
     
