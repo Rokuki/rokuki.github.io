@@ -93,11 +93,11 @@
 <p>项目结构</p>
 <p>———— main.py</p>
 <p>———— applications</p>
-<p>————————app.py</p>
+<p>————————app1.py</p>
 <p>main.py</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.path.append(<span class="string">'applications'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> app <span class="keyword">import</span> app_name</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line">app.register_blueprint(app_name, url_prefix=<span class="string">'/app_name'</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.path.append(<span class="string">'applications'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> app1 <span class="keyword">import</span> app_name</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line">app.register_blueprint(app_name, url_prefix=<span class="string">'/app_name'</span>)</span><br></pre></td></tr></table></figure>
 
-<p>app.py</p>
+<p>app1.py</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Blueprint</span><br><span class="line"></span><br><span class="line">app_name = Blueprint(<span class="string">'app_name'</span>, __name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app_name.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">()</span>:</span></span><br><span class="line">  <span class="keyword">return</span> <span class="string">'hello blueprint'</span></span><br></pre></td></tr></table></figure>
 
 </section>
