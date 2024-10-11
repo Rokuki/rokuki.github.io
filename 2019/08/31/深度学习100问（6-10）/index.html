@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+
+  <meta name="description" content="6.什么是梯度消失问题？sigmod型函数的饱和性，使得饱和区的导数接近0.误差经过每一层传递不断衰减，当网络层级很深时候，梯度不断衰减，甚至消失，使得网络很难训练，这就是梯度消失问题，也叫梯度弥散问题。可通过使用ReLU等导数较大的激活函数。
+7.卷积神经网络中如何减少特征维度？① 池化层② 增加">
+
+
+	<meta name="keywords" content="deep learning, PyTorch, Python, Computer vision">
+
+<link rel="alternate" href="/atom.xml" title="BouSeng" type="application/atom+xml">
+<meta name="theme-color" content="#a1d0f6">
+<title>深度学习100问（6-10） - BouSeng</title>
+<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="stylesheet" href="/css/style.css">
+<nav class="main-nav">
+	
+	    <a href="/">← 主页</a>
+	
+	
+	    <a href="/about/">About</a>
+	
+	    <a href="/archives/">Archives</a>
+	
+	<a class="cta" href="/atom.xml" data-no-instant>订阅</a>
+</nav>
+
+<section id="wrapper">
+    <article class="post">
+    <header>
+        
+            <h1>深度学习100问（6-10）</h1>
+        
+        <h2 class="headline">Aug 31 2019
+        
+        </h2>
+    </header>
+</article>
+<section id="post-body"><h2 id="6-什么是梯度消失问题？"><a href="#6-什么是梯度消失问题？" class="headerlink" title="6.什么是梯度消失问题？"></a>6.什么是梯度消失问题？</h2><p>sigmod型函数的饱和性，使得饱和区的导数接近0.误差经过每一层传递不断衰减，当网络层级很深时候，梯度不断衰减，甚至消失，使得网络很难训练，这就是梯度消失问题，也叫梯度弥散问题。可通过使用ReLU等导数较大的激活函数。</p>
+<h2 id="7-卷积神经网络中如何减少特征维度？"><a href="#7-卷积神经网络中如何减少特征维度？" class="headerlink" title="7.卷积神经网络中如何减少特征维度？"></a>7.卷积神经网络中如何减少特征维度？</h2><p>① 池化层<br>② 增加卷积步长</p>
+<h2 id="8-什么是死亡ReLU问题？"><a href="#8-什么是死亡ReLU问题？" class="headerlink" title="8.什么是死亡ReLU问题？"></a>8.什么是死亡ReLU问题？</h2><p>如果参数在一次不恰当的更新后，第一个隐藏层中的某个ReLU神经元在所有训练数据上都不能被激活，那么这个神经元自身参数的梯度永远都会是0，在以后的训练过程中永远不能被激活。这种现象称为死亡ReLU问题(Dying ReLU Problem)。解决：使用LeakyReLu。</p>
+<h2 id="9-深度学习的主要目的"><a href="#9-深度学习的主要目的" class="headerlink" title="9.深度学习的主要目的"></a>9.深度学习的主要目的</h2><p>深度学习主要目的是从数据中自动学习到有效的特征表示。</p>
+<h2 id="10-深度学习的“深度”指的是"><a href="#10-深度学习的“深度”指的是" class="headerlink" title="10. 深度学习的“深度”指的是"></a>10. 深度学习的“深度”指的是</h2><p>所谓“深度”是指原始数据进行非线性特征转换的次数。如果把一个表示学习系统看成是有向图结构，深度也可以看作是从输入节点到输出节点所经过的最长路径的长度。</p>
+</section>
+    
+
+    <footer id="post-meta" class="clearfix">
+        <a href="/about/">
+        <img class="avatar" src="/images/avatar.png">
+        <div>
+            <span class="dark">BouSeng</span>
+            <span>What I cannot create, I do not understand</span>
+        </div>
+        </a>
+        <section id="sharing">
+            <a title="Share to Twitter" class="twitter" href="https://twitter.com/intent/tweet?text=bouseng.com/2019/08/31/深度学习100问（6-10）/ - 深度学习100问（6-10） @"><span class="icon-twitter">tweet</span></a>
+            <a title="Share to Facebook" class="facebook" href="#" onclick="
+                window.open(
+                  'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+                  'facebook-share-dialog',
+                  'width=626,height=436');
+                return false;"><span class="icon-facebook-sign">Share</span>
+            </a>
+        </section>
+    </footer>
+
+
+  <section id="comment">
+    <button class="btn" id="loadcmts" onclick="cmts.load();">加载评论</button>
+    <div id="gitment"></div>
+    <script src='/js/gitment.browser.js'></script>
+    <link rel="stylesheet" href=''>
+    <script>
+      var cmts={
+        load:function cmts(){
+          var gitment = new Gitment({
+          
+            id: "深度学习100问（6-10）",
+          
+            owner: "",
+            repo: "",
+            oauth: {
+              client_id: "",
+              client_secret: "",
+            },
+          })
+          gitment.render('gitment');
+          var loadcmt = document.getElementById("loadcmts");
+          var imyourfather = loadcmt.parentNode;
+          imyourfather.removeChild(loadcmts)
+        }
+      }
+    </script>
+  </section>
+
+
+	<footer id="footer">
+	<div id="social">
+		<p class="small">©  BouSeng Chan| Powered by Hexo & 
+			<a href="https://github.com/F0r3at/Lights"> Lights</a>
+		</p>
+	</div>
+</footer>
+
+</section>
+
+	<script src="//cdnjs.loli.net/ajax/libs/instantclick/3.0.1/instantclick.min.js" data-no-instant></script>
+	<script data-no-instant>
+		
+		InstantClick.init('mousedown');
+	</script>
+
+
+

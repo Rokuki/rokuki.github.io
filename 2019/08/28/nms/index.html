@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+
+  <meta name="description" content="NMS即non maximum suppression即非极大抑制，顾名思义就是抑制不是极大值的元素，搜索局部的极大值。在物体检测中，NMS 应用十分广泛，其目的是为了清除多余的框，找到最佳的物体检测的位置。
+
+
+dets:
+123456789import numpy as np# (x0, y0,">
+
+
+	<meta name="keywords" content="deep learning, PyTorch, Python, Computer vision">
+
+<link rel="alternate" href="/atom.xml" title="BouSeng" type="application/atom+xml">
+<meta name="theme-color" content="#a1d0f6">
+<title>nms - BouSeng</title>
+<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="stylesheet" href="/css/style.css">
+<nav class="main-nav">
+	
+	    <a href="/">← 主页</a>
+	
+	
+	    <a href="/about/">About</a>
+	
+	    <a href="/archives/">Archives</a>
+	
+	<a class="cta" href="/atom.xml" data-no-instant>订阅</a>
+</nav>
+
+<section id="wrapper">
+    <article class="post">
+    <header>
+        
+            <h1>nms</h1>
+        
+        <h2 class="headline">Aug 28 2019
+        
+        </h2>
+    </header>
+</article>
+<section id="post-body"><blockquote>
+<p>NMS即non maximum suppression即非极大抑制，顾名思义就是抑制不是极大值的元素，搜索局部的极大值。在物体检测中，NMS 应用十分广泛，其目的是为了清除多余的框，找到最佳的物体检测的位置。</p>
+</blockquote>
+<p><img src="https://s2.ax1x.com/2019/08/28/mTNLp4.png" alt="mTNLp4.png"></p>
+<p>dets:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># (x0, y0, x1, y1, score)</span></span><br><span class="line">dets = np.array([</span><br><span class="line">    [<span class="number">56</span>, <span class="number">24</span>, <span class="number">230</span>, <span class="number">210</span>, <span class="number">0.97</span>],</span><br><span class="line">    [<span class="number">50</span>, <span class="number">18</span>, <span class="number">222</span>, <span class="number">200</span>, <span class="number">0.88</span>],</span><br><span class="line">    [<span class="number">42</span>, <span class="number">30</span>, <span class="number">250</span>, <span class="number">240</span>, <span class="number">0.73</span>],</span><br><span class="line">    [<span class="number">82</span>, <span class="number">44</span>, <span class="number">310</span>, <span class="number">190</span>, <span class="number">0.5</span>]</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+
+<p>计算bbox面积</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">x0 = dets[:, <span class="number">0</span>]</span><br><span class="line">y0 = dets[:, <span class="number">1</span>]</span><br><span class="line">x1 = dets[:, <span class="number">2</span>]</span><br><span class="line">y1 = dets[:, <span class="number">3</span>]</span><br><span class="line">scores = dets[:, <span class="number">4</span>]</span><br><span class="line"></span><br><span class="line">areas = (x1 - x0 + <span class="number">1</span>) * (y1 - y0 + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># score排序，获取排序下标</span></span><br><span class="line">order = scores.argsort()[::<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
+
+<p>output</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>areas</span><br><span class="line">array([<span class="number">32725.</span>, <span class="number">31659.</span>, <span class="number">44099.</span>, <span class="number">33663.</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>order</span><br><span class="line">array([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">keep = []</span><br><span class="line">thresh = <span class="number">0.35</span></span><br><span class="line"><span class="keyword">while</span> order.size &gt; <span class="number">0</span> :</span><br><span class="line">    i = order[<span class="number">0</span>]</span><br><span class="line">    keep.append(i)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 求当前概率最大矩形框与其他矩形框的相交框的坐标</span></span><br><span class="line">    xx0 = np.maximum(x0[i], x0[order[<span class="number">1</span>:]])</span><br><span class="line">    yy0 = np.maximum(y0[i], y0[order[<span class="number">1</span>:]])</span><br><span class="line">    xx1 = np.minimum(x1[i], x1[order[<span class="number">1</span>:]])</span><br><span class="line">    yy1 = np.minimum(y1[i], y1[order[<span class="number">1</span>:]])</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算重叠面积</span></span><br><span class="line">    w = np.maximum(<span class="number">0.0</span>, xx1 - xx0 + <span class="number">1</span>)</span><br><span class="line">    h = np.maximum(<span class="number">0.0</span>, yy1 - yy0 + <span class="number">1</span>)</span><br><span class="line">    inter = w * h</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算IOU</span></span><br><span class="line">    overlap = inter / (areas[i] + areas[order[<span class="number">1</span>:]] - inter)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 找出交并比不大于阈值的矩形框索引</span></span><br><span class="line">    inds = np.where(overlap &lt;= thresh)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 更新order序列</span></span><br><span class="line">    order = order[inds + <span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+
+</section>
+    
+
+    <footer id="post-meta" class="clearfix">
+        <a href="/about/">
+        <img class="avatar" src="/images/avatar.png">
+        <div>
+            <span class="dark">BouSeng</span>
+            <span>What I cannot create, I do not understand</span>
+        </div>
+        </a>
+        <section id="sharing">
+            <a title="Share to Twitter" class="twitter" href="https://twitter.com/intent/tweet?text=bouseng.com/2019/08/28/nms/ - nms @"><span class="icon-twitter">tweet</span></a>
+            <a title="Share to Facebook" class="facebook" href="#" onclick="
+                window.open(
+                  'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+                  'facebook-share-dialog',
+                  'width=626,height=436');
+                return false;"><span class="icon-facebook-sign">Share</span>
+            </a>
+        </section>
+    </footer>
+
+
+  <section id="comment">
+    <button class="btn" id="loadcmts" onclick="cmts.load();">加载评论</button>
+    <div id="gitment"></div>
+    <script src='/js/gitment.browser.js'></script>
+    <link rel="stylesheet" href=''>
+    <script>
+      var cmts={
+        load:function cmts(){
+          var gitment = new Gitment({
+          
+            id: "nms",
+          
+            owner: "",
+            repo: "",
+            oauth: {
+              client_id: "",
+              client_secret: "",
+            },
+          })
+          gitment.render('gitment');
+          var loadcmt = document.getElementById("loadcmts");
+          var imyourfather = loadcmt.parentNode;
+          imyourfather.removeChild(loadcmts)
+        }
+      }
+    </script>
+  </section>
+
+
+	<footer id="footer">
+	<div id="social">
+		<p class="small">©  BouSeng Chan| Powered by Hexo & 
+			<a href="https://github.com/F0r3at/Lights"> Lights</a>
+		</p>
+	</div>
+</footer>
+
+</section>
+
+	<script src="//cdnjs.loli.net/ajax/libs/instantclick/3.0.1/instantclick.min.js" data-no-instant></script>
+	<script data-no-instant>
+		
+		InstantClick.init('mousedown');
+	</script>
+
+
+

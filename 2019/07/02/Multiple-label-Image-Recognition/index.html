@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+
+  <meta name="description" content="环境
+Python 3.7.3
+PyTorch 1.1.0
+
+Datasettrain.txt  格式：
+
+age: number
+sex: male/female
+mood: happy/calm/sad/angry
+
+1234561.jpg   25  male    happy   2.jpg">
+
+
+	<meta name="keywords" content="deep learning, PyTorch, Python, Computer vision">
+
+<link rel="alternate" href="/atom.xml" title="BouSeng" type="application/atom+xml">
+<meta name="theme-color" content="#a1d0f6">
+<title>Multiple-label Image Recognition - BouSeng</title>
+<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="stylesheet" href="/css/style.css">
+<nav class="main-nav">
+	
+	    <a href="/">← 主页</a>
+	
+	
+	    <a href="/about/">About</a>
+	
+	    <a href="/archives/">Archives</a>
+	
+	<a class="cta" href="/atom.xml" data-no-instant>订阅</a>
+</nav>
+
+<section id="wrapper">
+    <article class="post">
+    <header>
+        
+            <h1>Multiple-label Image Recognition</h1>
+        
+        <h2 class="headline">Jul 02 2019
+        
+        </h2>
+    </header>
+</article>
+<section id="post-body"><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
+<li>Python 3.7.3</li>
+<li>PyTorch 1.1.0</li>
+</ul>
+<h2 id="Dataset"><a href="#Dataset" class="headerlink" title="Dataset"></a>Dataset</h2><p>train.txt  格式：</p>
+<ol>
+<li>age: number</li>
+<li>sex: male/female</li>
+<li>mood: happy/calm/sad/angry</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1.jpg   25  male    happy   </span><br><span class="line">2.jpg   30  female  happy</span><br><span class="line">3.jpg   20  male    calm   </span><br><span class="line">4.jpg   26  male    sad</span><br><span class="line">5.jpg   60  female  angry</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>目录结构</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">--Dataset</span><br><span class="line">------train.txt</span><br><span class="line">------test.txt</span><br><span class="line">------val.txt</span><br><span class="line">------images</span><br><span class="line">----------1.jpg</span><br><span class="line">----------2.jpg</span><br><span class="line">----------3.jpg</span><br><span class="line">----------...</span><br></pre></td></tr></table></figure>
+
+<h2 id="Dataloader"><a href="#Dataloader" class="headerlink" title="Dataloader"></a>Dataloader</h2><p>定义data_to_dict</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">data_to_dict = &#123;</span><br><span class="line">    <span class="string">'female'</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="string">'male'</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">'happy'</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">'calm'</span>: <span class="number">3</span>,</span><br><span class="line">    <span class="string">'sad'</span>: <span class="number">4</span>,</span><br><span class="line">    <span class="string">'angry'</span>: <span class="number">5</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>PyTorch自定义数据集基本架构</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils <span class="keyword">import</span> data</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dset</span><span class="params">(data.Dataset)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, )</span>:</span></span><br><span class="line">        self.root = root</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span><span class="params">(self)</span>:</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self, idx)</span>:</span></span><br></pre></td></tr></table></figure>
+
+<p><code>def __init__()</code>部分，定义数据集路径、transforms，计算数据集大小</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, root, transforms=None)</span>:</span></span><br><span class="line">    self.root = root</span><br><span class="line">    <span class="keyword">if</span> transforms <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        nomalize = T.Normalize(mean = [<span class="number">0.485</span>, <span class="number">0.456</span>, <span class="number">0.406</span>],</span><br><span class="line">                                 std = [<span class="number">0.229</span>, <span class="number">0.224</span>, <span class="number">0.225</span>])</span><br><span class="line">        self.transforms = T.Compose([</span><br><span class="line">            T.Resize((<span class="number">256</span>,<span class="number">256</span>)),</span><br><span class="line">            T.RandomHorizontalFlip(),</span><br><span class="line">            T.RandomPerspective(distortion_scale=<span class="number">0.2</span>, p=<span class="number">0.2</span>),</span><br><span class="line">            T.ColorJitter(brightness=<span class="number">0.5</span>, contrast=<span class="number">0.5</span>, hue=<span class="number">0.5</span>),</span><br><span class="line">            T.RandomRotation(<span class="number">15</span>),</span><br><span class="line">            T.ToTensor(),</span><br><span class="line">            nomalize</span><br><span class="line">        ])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> open(root) <span class="keyword">as</span> lmfile:</span><br><span class="line">        self.numFileList = sum(<span class="number">1</span> <span class="keyword">for</span> _ <span class="keyword">in</span> lmfile)</span><br></pre></td></tr></table></figure>
+
+<p><code>def __len__()</code>返回数据集大小</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__len__</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> self.numFileList</span><br></pre></td></tr></table></figure>
+
+<p><code>def __getitem__()</code>每次返回一个sample，包含image、lables</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self, idx)</span>:</span></span><br><span class="line">    line = lc.getline(self.root, idx + <span class="number">1</span>)</span><br><span class="line">    line = line.rstrip(<span class="string">'\n'</span>)</span><br><span class="line">    file = line.split(<span class="string">' '</span>)</span><br><span class="line">    img_path = <span class="string">'/home/cbc/disk2/dataset/celeba/img_celeba/'</span>+file[<span class="number">0</span>]</span><br><span class="line">    data = Image.open(img_path)</span><br><span class="line">    data = self.transforms(data)</span><br><span class="line">    file = [x <span class="keyword">for</span> x <span class="keyword">in</span> file <span class="keyword">if</span> x != <span class="string">''</span>]</span><br><span class="line"></span><br><span class="line">    age = torch.tensor([float(file[<span class="number">1</span>])])</span><br><span class="line">    sex = torch.tensor([float((data_to_dict.get(file[<span class="number">2</span>]))])</span><br><span class="line">    mood = torch.tensor([float((data_to_dict.get(file[<span class="number">3</span>]))])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="string">'image'</span>: data,</span><br><span class="line">        <span class="string">'age'</span>: age,</span><br><span class="line">        <span class="string">'sex'</span>: sex,</span><br><span class="line">        <span class="string">'mood'</span>: mood</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="model"><a href="#model" class="headerlink" title="model"></a>model</h2></section>
+    
+        
+        <h2 class="footline">
+            <a href="/tags/PyTorch/#PyTorch">PyTorch</a>, <a href="/tags/Multiple-label/#Multiple-label">Multiple-label</a>
+        </h2>
+    
+
+    <footer id="post-meta" class="clearfix">
+        <a href="/about/">
+        <img class="avatar" src="/images/avatar.png">
+        <div>
+            <span class="dark">BouSeng</span>
+            <span>What I cannot create, I do not understand</span>
+        </div>
+        </a>
+        <section id="sharing">
+            <a title="Share to Twitter" class="twitter" href="https://twitter.com/intent/tweet?text=bouseng.com/2019/07/02/Multiple-label-Image-Recognition/ - Multiple-label Image Recognition @"><span class="icon-twitter">tweet</span></a>
+            <a title="Share to Facebook" class="facebook" href="#" onclick="
+                window.open(
+                  'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+                  'facebook-share-dialog',
+                  'width=626,height=436');
+                return false;"><span class="icon-facebook-sign">Share</span>
+            </a>
+        </section>
+    </footer>
+
+
+  <section id="comment">
+    <button class="btn" id="loadcmts" onclick="cmts.load();">加载评论</button>
+    <div id="gitment"></div>
+    <script src='/js/gitment.browser.js'></script>
+    <link rel="stylesheet" href=''>
+    <script>
+      var cmts={
+        load:function cmts(){
+          var gitment = new Gitment({
+          
+            id: "Multiple-label Image Recognition",
+          
+            owner: "",
+            repo: "",
+            oauth: {
+              client_id: "",
+              client_secret: "",
+            },
+          })
+          gitment.render('gitment');
+          var loadcmt = document.getElementById("loadcmts");
+          var imyourfather = loadcmt.parentNode;
+          imyourfather.removeChild(loadcmts)
+        }
+      }
+    </script>
+  </section>
+
+
+	<footer id="footer">
+	<div id="social">
+		<p class="small">©  BouSeng Chan| Powered by Hexo & 
+			<a href="https://github.com/F0r3at/Lights"> Lights</a>
+		</p>
+	</div>
+</footer>
+
+</section>
+
+	<script src="//cdnjs.loli.net/ajax/libs/instantclick/3.0.1/instantclick.min.js" data-no-instant></script>
+	<script data-no-instant>
+		
+		InstantClick.init('mousedown');
+	</script>
+
+
+

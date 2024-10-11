@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+
+  <meta name="description" content="训练1234python legacy/train.py \--pipeline_config_path $CONFIG_FILE_DIR \--output_directory $OUTPUT_DIR \--train_dir $TRAINING_DIR
+
+导出tflite_graph.pb123">
+
+
+	<meta name="keywords" content="deep learning, PyTorch, Python, Computer vision">
+
+<link rel="alternate" href="/atom.xml" title="BouSeng" type="application/atom+xml">
+<meta name="theme-color" content="#a1d0f6">
+<title>Tensorflow lite on android - BouSeng</title>
+<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="stylesheet" href="/css/style.css">
+<nav class="main-nav">
+	
+	    <a href="/">← 主页</a>
+	
+	
+	    <a href="/about/">About</a>
+	
+	    <a href="/archives/">Archives</a>
+	
+	<a class="cta" href="/atom.xml" data-no-instant>订阅</a>
+</nav>
+
+<section id="wrapper">
+    <article class="post">
+    <header>
+        
+            <h1>Tensorflow lite on android</h1>
+        
+        <h2 class="headline">Jul 15 2019
+        
+        </h2>
+    </header>
+</article>
+<section id="post-body"><h2 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">python legacy/train.py \</span><br><span class="line">--pipeline_config_path $CONFIG_FILE_DIR \</span><br><span class="line">--output_directory $OUTPUT_DIR \</span><br><span class="line">--train_dir $TRAINING_DIR</span><br></pre></td></tr></table></figure>
+
+<h2 id="导出tflite-graph-pb"><a href="#导出tflite-graph-pb" class="headerlink" title="导出tflite_graph.pb"></a>导出tflite_graph.pb</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">object_detection/export_tflite_ssd_graph.py \</span><br><span class="line">--pipeline_config_path=$CONFIG_FILE \</span><br><span class="line">--trained_checkpoint_prefix=$CHECKPOINT_PATH \</span><br><span class="line">--output_directory=$OUTPUT_DIR \</span><br><span class="line">--add_postprocessing_op=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="安装bazel"><a href="#安装bazel" class="headerlink" title="安装bazel"></a>安装bazel</h2><p>下载<a href="https://github.com/bazelbuild/bazel/releases" target="_blank" rel="noopener">bazel</a></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod +x bazel-<span class="xml"><span class="tag">&lt;<span class="name">version</span>&gt;</span>-installer-linux-x86_64.sh</span></span><br><span class="line">./bazel-&lt;version&gt;-installer-linux-x86_64.sh --user</span><br></pre></td></tr></table></figure>
+
+<p>~/.bashrc</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=<span class="string">"<span class="variable">$PATH</span>:<span class="variable">$HOME</span>/bin"</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="编译转换工具"><a href="#编译转换工具" class="headerlink" title="编译转换工具"></a>编译转换工具</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> tensorflow/   </span><br><span class="line">bazel build tensorflow/python/tools:freeze_graph</span><br><span class="line">bazel build tensorflow/contrib/lite/toco:toco</span><br></pre></td></tr></table></figure>
+
+<h2 id="tflite-graph-pb-转-detect-tflite"><a href="#tflite-graph-pb-转-detect-tflite" class="headerlink" title="tflite_graph.pb 转 detect.tflite"></a>tflite_graph.pb 转 detect.tflite</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">bazel run -c opt tensorflow/lite/toco:toco -- \</span><br><span class="line">--input_file=<span class="regexp">/home/</span>cbc/disk2/tensorflow-models/research/object_detection/inference_graph/face_organs_ssd_tflite_18704/tflite_graph.pb \</span><br><span class="line">--output_file=<span class="regexp">/home/</span>cbc/detect.tflite \</span><br><span class="line">--input_shapes=<span class="number">1</span>,<span class="number">300</span>,<span class="number">300</span>,<span class="number">3</span> \</span><br><span class="line">--input_arrays=normalized_input_image_tensor \</span><br><span class="line">--output_arrays=<span class="string">'TFLite_Detection_PostProcess'</span>,<span class="string">'TFLite_Detection_PostProcess:1'</span>,<span class="string">'TFLite_Detection_PostProcess:2'</span>,<span class="string">'TFLite_Detection_PostProcess:3'</span> \</span><br><span class="line">--inference_type=FLOAT \</span><br><span class="line">--mean_values=<span class="number">128</span> \</span><br><span class="line">--std_values=<span class="number">128</span> \</span><br><span class="line">--change_concat_input_ranges=<span class="literal">false</span> \</span><br><span class="line">--allow_custom_ops</span><br></pre></td></tr></table></figure>
+
+<p>取消下载coco_ssd_mobilenet</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 在Module:app的build.gradle里，注释掉  apply from:&apos;download_model.gradle&apos;</span><br><span class="line">//apply from:&apos;download_model.gradle&apos;</span><br></pre></td></tr></table></figure>
+
+<p>修改DetectorActivity.java的<code>TF_OD_API_IS_QUANTIZED</code>为false</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private static final boolean TF_OD_API_IS_QUANTIZED = false;</span><br></pre></td></tr></table></figure>
+
+</section>
+    
+        
+        <h2 class="footline">
+            <a href="/tags/tensorflow-lite/#tensorflow lite">tensorflow lite</a>, <a href="/tags/android/#android">android</a>
+        </h2>
+    
+
+    <footer id="post-meta" class="clearfix">
+        <a href="/about/">
+        <img class="avatar" src="/images/avatar.png">
+        <div>
+            <span class="dark">BouSeng</span>
+            <span>What I cannot create, I do not understand</span>
+        </div>
+        </a>
+        <section id="sharing">
+            <a title="Share to Twitter" class="twitter" href="https://twitter.com/intent/tweet?text=bouseng.com/2019/07/15/Tensorflow-lite-on-android/ - Tensorflow lite on android @"><span class="icon-twitter">tweet</span></a>
+            <a title="Share to Facebook" class="facebook" href="#" onclick="
+                window.open(
+                  'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+                  'facebook-share-dialog',
+                  'width=626,height=436');
+                return false;"><span class="icon-facebook-sign">Share</span>
+            </a>
+        </section>
+    </footer>
+
+
+  <section id="comment">
+    <button class="btn" id="loadcmts" onclick="cmts.load();">加载评论</button>
+    <div id="gitment"></div>
+    <script src='/js/gitment.browser.js'></script>
+    <link rel="stylesheet" href=''>
+    <script>
+      var cmts={
+        load:function cmts(){
+          var gitment = new Gitment({
+          
+            id: "Tensorflow lite on android",
+          
+            owner: "",
+            repo: "",
+            oauth: {
+              client_id: "",
+              client_secret: "",
+            },
+          })
+          gitment.render('gitment');
+          var loadcmt = document.getElementById("loadcmts");
+          var imyourfather = loadcmt.parentNode;
+          imyourfather.removeChild(loadcmts)
+        }
+      }
+    </script>
+  </section>
+
+
+	<footer id="footer">
+	<div id="social">
+		<p class="small">©  BouSeng Chan| Powered by Hexo & 
+			<a href="https://github.com/F0r3at/Lights"> Lights</a>
+		</p>
+	</div>
+</footer>
+
+</section>
+
+	<script src="//cdnjs.loli.net/ajax/libs/instantclick/3.0.1/instantclick.min.js" data-no-instant></script>
+	<script data-no-instant>
+		
+		InstantClick.init('mousedown');
+	</script>
+
+
+

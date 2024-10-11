@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+
+  <meta name="description" content="安装samba
+1sudo apitude install samba
+
+修改配置文件
+1sudo nano /etc/samba/smb.conf
+
+在末尾加入
+12345678910111213[share]    comment = samba home directory    path =">
+
+
+	<meta name="keywords" content="deep learning, PyTorch, Python, Computer vision">
+
+<link rel="alternate" href="/atom.xml" title="BouSeng" type="application/atom+xml">
+<meta name="theme-color" content="#a1d0f6">
+<title>Ubuntu 安装文件共享服务samba - BouSeng</title>
+<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="stylesheet" href="/css/style.css">
+<nav class="main-nav">
+	
+	    <a href="/">← 主页</a>
+	
+	
+	    <a href="/about/">About</a>
+	
+	    <a href="/archives/">Archives</a>
+	
+	<a class="cta" href="/atom.xml" data-no-instant>订阅</a>
+</nav>
+
+<section id="wrapper">
+    <article class="post">
+    <header>
+        
+            <h1>Ubuntu 安装文件共享服务samba</h1>
+        
+        <h2 class="headline">Jul 03 2019
+        
+        </h2>
+    </header>
+</article>
+<section id="post-body"><ol>
+<li><p>安装samba</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apitude install samba</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/samba/smb.conf</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在末尾加入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[share]</span><br><span class="line">    comment = samba home directory</span><br><span class="line">    path = /home/cbc/Download</span><br><span class="line">    public = yes</span><br><span class="line">    browseable = yes</span><br><span class="line">    public = yes</span><br><span class="line">    read only = no</span><br><span class="line">    valid users = root</span><br><span class="line">    create mask = 0777</span><br><span class="line">    directory mask = 0777</span><br><span class="line">    force user = nobody</span><br><span class="line">    force group = nogroup</span><br><span class="line">    available = yes</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">testparm</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加用户root并设置密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo smbpasswd -a root</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重启samba</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/smbd restart</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看ip</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifconfig</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试访问:smb://局域网ip</p>
+</li>
+</ol>
+<p>假如拒绝连接,log(/var/log/samba)出现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[2016/10/16 11:53:26.411122,  0] ../lib/util/fault.c:79(fault_report)</span><br><span class="line">  INTERNAL ERROR: Signal 11 in pid 5251 (4.5.0)</span><br><span class="line">  Please read the Trouble-Shooting section of the Samba HOWTO</span><br><span class="line">[2016/10/16 11:53:26.411150,  0] ../lib/util/fault.c:81(fault_report)</span><br></pre></td></tr></table></figure>
+
+<p>fix: 降级libtevent</p>
+<p><a href="https://packages.ubuntu.com/trusty/amd64/libtevent0/download" target="_blank" rel="noopener">https://packages.ubuntu.com/trusty/amd64/libtevent0/download</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg -i libtevent0_0.9.28-0ubuntu0.14.04.1_amd64.deb</span><br></pre></td></tr></table></figure>
+
+</section>
+    
+        
+        <h2 class="footline">
+            <a href="/tags/ubuntu/#ubuntu">ubuntu</a>, <a href="/tags/samba/#samba">samba</a>
+        </h2>
+    
+
+    <footer id="post-meta" class="clearfix">
+        <a href="/about/">
+        <img class="avatar" src="/images/avatar.png">
+        <div>
+            <span class="dark">BouSeng</span>
+            <span>What I cannot create, I do not understand</span>
+        </div>
+        </a>
+        <section id="sharing">
+            <a title="Share to Twitter" class="twitter" href="https://twitter.com/intent/tweet?text=bouseng.com/2019/07/03/Ubuntu-安装文件共享服务samba/ - Ubuntu 安装文件共享服务samba @"><span class="icon-twitter">tweet</span></a>
+            <a title="Share to Facebook" class="facebook" href="#" onclick="
+                window.open(
+                  'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+                  'facebook-share-dialog',
+                  'width=626,height=436');
+                return false;"><span class="icon-facebook-sign">Share</span>
+            </a>
+        </section>
+    </footer>
+
+
+  <section id="comment">
+    <button class="btn" id="loadcmts" onclick="cmts.load();">加载评论</button>
+    <div id="gitment"></div>
+    <script src='/js/gitment.browser.js'></script>
+    <link rel="stylesheet" href=''>
+    <script>
+      var cmts={
+        load:function cmts(){
+          var gitment = new Gitment({
+          
+            id: "Ubuntu 安装文件共享服务samba",
+          
+            owner: "",
+            repo: "",
+            oauth: {
+              client_id: "",
+              client_secret: "",
+            },
+          })
+          gitment.render('gitment');
+          var loadcmt = document.getElementById("loadcmts");
+          var imyourfather = loadcmt.parentNode;
+          imyourfather.removeChild(loadcmts)
+        }
+      }
+    </script>
+  </section>
+
+
+	<footer id="footer">
+	<div id="social">
+		<p class="small">©  BouSeng Chan| Powered by Hexo & 
+			<a href="https://github.com/F0r3at/Lights"> Lights</a>
+		</p>
+	</div>
+</footer>
+
+</section>
+
+	<script src="//cdnjs.loli.net/ajax/libs/instantclick/3.0.1/instantclick.min.js" data-no-instant></script>
+	<script data-no-instant>
+		
+		InstantClick.init('mousedown');
+	</script>
+
+
+

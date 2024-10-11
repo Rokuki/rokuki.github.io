@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+
+  <meta name="description" content="import123456import randomimport globimport tablesimport csvimport numpy as npimport cv2
+
+读取images、labels12345678910111213hdf5_path = &#39;blindness.hdf5&#39;t">
+
+
+	<meta name="keywords" content="deep learning, PyTorch, Python, Computer vision">
+
+<link rel="alternate" href="/atom.xml" title="BouSeng" type="application/atom+xml">
+<meta name="theme-color" content="#a1d0f6">
+<title>保存图片数据集为hdf5格式 - BouSeng</title>
+<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="stylesheet" href="/css/style.css">
+<nav class="main-nav">
+	
+	    <a href="/">← 主页</a>
+	
+	
+	    <a href="/about/">About</a>
+	
+	    <a href="/archives/">Archives</a>
+	
+	<a class="cta" href="/atom.xml" data-no-instant>订阅</a>
+</nav>
+
+<section id="wrapper">
+    <article class="post">
+    <header>
+        
+            <h1>保存图片数据集为hdf5格式</h1>
+        
+        <h2 class="headline">Jul 24 2019
+        
+        </h2>
+    </header>
+</article>
+<section id="post-body"><h2 id="import"><a href="#import" class="headerlink" title="import"></a>import</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> glob</span><br><span class="line"><span class="keyword">import</span> tables</span><br><span class="line"><span class="keyword">import</span> csv</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> cv2</span><br></pre></td></tr></table></figure>
+
+<h2 id="读取images、labels"><a href="#读取images、labels" class="headerlink" title="读取images、labels"></a>读取images、labels</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">hdf5_path = <span class="string">'blindness.hdf5'</span></span><br><span class="line">train_csv = <span class="string">'/home/cbc/disk2/dataset/kaggle/blindness/train.csv'</span></span><br><span class="line"></span><br><span class="line">filelist = []</span><br><span class="line"><span class="keyword">with</span> open(train_csv) <span class="keyword">as</span> f:</span><br><span class="line">    f_csv = csv.reader(f)</span><br><span class="line">    <span class="keyword">for</span> row <span class="keyword">in</span> f_csv:</span><br><span class="line">        filelist.append(row)</span><br><span class="line">filelist = filelist[<span class="number">1</span>:]</span><br><span class="line"></span><br><span class="line">print(filelist[<span class="number">0</span>])</span><br><span class="line">addrs = [<span class="string">'/home/cbc/disk2/dataset/kaggle/blindness/images/train/%s.png'</span> % i[<span class="number">0</span>] <span class="keyword">for</span> i <span class="keyword">in</span> filelist]</span><br><span class="line">labels = [i[<span class="number">1</span>] <span class="keyword">for</span> i <span class="keyword">in</span> filelist]</span><br></pre></td></tr></table></figure>
+
+<h2 id="shuffle"><a href="#shuffle" class="headerlink" title="shuffle"></a>shuffle</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">c = list(zip(addrs, labels))</span><br><span class="line">random.shuffle(c)</span><br><span class="line">addrs, labels = zip(*c)</span><br></pre></td></tr></table></figure>
+
+<h2 id="划分训练集、验证集"><a href="#划分训练集、验证集" class="headerlink" title="划分训练集、验证集"></a>划分训练集、验证集</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">train_addrs = addrs[<span class="number">0</span>:int(<span class="number">0.8</span>*len(addrs))]</span><br><span class="line">train_labels = labels[<span class="number">0</span>:int(<span class="number">0.8</span>*len(labels))]</span><br><span class="line">val_addrs = addrs[int(<span class="number">0.8</span>*len(addrs)):]</span><br><span class="line">val_labels = labels[int(<span class="number">0.8</span>*len(addrs)):]</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建hdf5"><a href="#创建hdf5" class="headerlink" title="创建hdf5"></a>创建hdf5</h2><p><code>create_earray</code>创建空<code>train_img array</code>，<code>create_array</code>创建<code>train_labels</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">img_dtype = tables.UInt8Atom()</span><br><span class="line">data_shape = (<span class="number">0</span>, <span class="number">3</span>, <span class="number">300</span>, <span class="number">300</span>)</span><br><span class="line"><span class="comment"># tensorflow: data_shape = (0, 300, 300, 3)</span></span><br><span class="line"></span><br><span class="line">hdf5_file = tables.open_file(hdf5_path, mode=<span class="string">'w'</span>)</span><br><span class="line">train_storage = hdf5_file.create_earray(hdf5_file.root, <span class="string">'train_img'</span>, img_dtype, shape=data_shape)</span><br><span class="line">val_storage = hdf5_file.create_earray(hdf5_file.root, <span class="string">'val_img'</span>, img_dtype, shape=data_shape)</span><br><span class="line">mean_storage = hdf5_file.create_earray(hdf5_file.root, <span class="string">'train_mean'</span>, img_dtype, shape=data_shape)</span><br><span class="line">hdf5_file.create_array(hdf5_file.root, <span class="string">'train_labels'</span>, train_labels)</span><br><span class="line">hdf5_file.create_array(hdf5_file.root, <span class="string">'val_labels'</span>, val_labels)</span><br></pre></td></tr></table></figure>
+
+<h2 id="写入数据"><a href="#写入数据" class="headerlink" title="写入数据"></a>写入数据</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">mean = np.zeros(data_shape[<span class="number">1</span>:], np.float32)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(train_addrs)):</span><br><span class="line">    <span class="comment"># print how many images are saved every 1000 images</span></span><br><span class="line">    <span class="keyword">if</span> i % <span class="number">1000</span> == <span class="number">0</span> <span class="keyword">and</span> i &gt; <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">print</span> (<span class="string">'Train data: %d/%d'</span> % (i, len(train_addrs)))</span><br><span class="line">    addr = train_addrs[i]</span><br><span class="line">    img = cv2.imread(addr)</span><br><span class="line">    img = cv2.resize(img, (<span class="number">300</span>, <span class="number">300</span>), interpolation=cv2.INTER_CUBIC)</span><br><span class="line">    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)</span><br><span class="line">    img = np.rollaxis(img, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">    train_storage.append(img[<span class="literal">None</span>])</span><br><span class="line">    mean += img / float(len(train_labels))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(val_addrs)):</span><br><span class="line">    <span class="keyword">if</span> i % <span class="number">1000</span> == <span class="number">0</span> <span class="keyword">and</span> i &gt; <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">print</span> (<span class="string">'Validation data: &#123;&#125;/&#123;&#125;'</span>.format(i, len(val_addrs)))</span><br><span class="line">    addr = val_addrs[i]</span><br><span class="line">    img = cv2.imread(addr)</span><br><span class="line">    img = cv2.resize(img, (<span class="number">300</span>, <span class="number">300</span>), interpolation=cv2.INTER_CUBIC)</span><br><span class="line">    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)</span><br><span class="line"></span><br><span class="line">    img = np.rollaxis(img, <span class="number">2</span>)</span><br><span class="line">    val_storage.append(img[<span class="literal">None</span>])</span><br></pre></td></tr></table></figure>
+
+<h2 id="保存"><a href="#保存" class="headerlink" title="保存"></a>保存</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mean_storage.append(mean[<span class="literal">None</span>])</span><br><span class="line">hdf5_file.close()</span><br></pre></td></tr></table></figure>
+
+<h2 id="完整code"><a href="#完整code" class="headerlink" title="完整code"></a>完整code</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding:utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> glob</span><br><span class="line"><span class="keyword">import</span> tables</span><br><span class="line"><span class="keyword">import</span> csv</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"></span><br><span class="line">hdf5_path = <span class="string">'blindness.hdf5'</span></span><br><span class="line">train_csv = <span class="string">'/home/cbc/disk2/dataset/kaggle/blindness/train.csv'</span></span><br><span class="line"></span><br><span class="line">filelist = []</span><br><span class="line"><span class="keyword">with</span> open(train_csv) <span class="keyword">as</span> f:</span><br><span class="line">    f_csv = csv.reader(f)</span><br><span class="line">    <span class="keyword">for</span> row <span class="keyword">in</span> f_csv:</span><br><span class="line">        filelist.append(row)</span><br><span class="line">filelist = filelist[<span class="number">1</span>:]</span><br><span class="line"></span><br><span class="line">print(filelist[<span class="number">0</span>])</span><br><span class="line">addrs = [<span class="string">'/home/cbc/disk2/dataset/kaggle/blindness/images/train/%s.png'</span> % i[<span class="number">0</span>] <span class="keyword">for</span> i <span class="keyword">in</span> filelist]</span><br><span class="line">labels = [i[<span class="number">1</span>] <span class="keyword">for</span> i <span class="keyword">in</span> filelist]</span><br><span class="line"></span><br><span class="line">c = list(zip(addrs, labels))</span><br><span class="line">random.shuffle(c)</span><br><span class="line">addrs, labels = zip(*c)</span><br><span class="line"></span><br><span class="line">train_addrs = addrs[<span class="number">0</span>:int(<span class="number">0.8</span>*len(addrs))]</span><br><span class="line">train_labels = labels[<span class="number">0</span>:int(<span class="number">0.8</span>*len(labels))]</span><br><span class="line">val_addrs = addrs[int(<span class="number">0.8</span>*len(addrs)):]</span><br><span class="line">val_labels = labels[int(<span class="number">0.8</span>*len(addrs)):]</span><br><span class="line"></span><br><span class="line">img_dtype = tables.UInt8Atom()</span><br><span class="line">data_shape = (<span class="number">0</span>, <span class="number">3</span>, <span class="number">300</span>, <span class="number">300</span>)</span><br><span class="line"></span><br><span class="line">hdf5_file = tables.open_file(hdf5_path, mode=<span class="string">'w'</span>)</span><br><span class="line">train_storage = hdf5_file.create_earray(hdf5_file.root, <span class="string">'train_img'</span>, img_dtype, shape=data_shape)</span><br><span class="line">val_storage = hdf5_file.create_earray(hdf5_file.root, <span class="string">'val_img'</span>, img_dtype, shape=data_shape)</span><br><span class="line">mean_storage = hdf5_file.create_earray(hdf5_file.root, <span class="string">'train_mean'</span>, img_dtype, shape=data_shape)</span><br><span class="line">hdf5_file.create_array(hdf5_file.root, <span class="string">'train_labels'</span>, train_labels)</span><br><span class="line">hdf5_file.create_array(hdf5_file.root, <span class="string">'val_labels'</span>, val_labels)</span><br><span class="line"></span><br><span class="line">mean = np.zeros(data_shape[<span class="number">1</span>:], np.float32)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(train_addrs)):</span><br><span class="line">    <span class="comment"># print how many images are saved every 1000 images</span></span><br><span class="line">    <span class="keyword">if</span> i % <span class="number">1000</span> == <span class="number">0</span> <span class="keyword">and</span> i &gt; <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">print</span> (<span class="string">'Train data: %d/%d'</span> % (i, len(train_addrs)))</span><br><span class="line">    addr = train_addrs[i]</span><br><span class="line">    img = cv2.imread(addr)</span><br><span class="line">    img = cv2.resize(img, (<span class="number">300</span>, <span class="number">300</span>), interpolation=cv2.INTER_CUBIC)</span><br><span class="line">    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)</span><br><span class="line">    img = np.rollaxis(img, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">    train_storage.append(img[<span class="literal">None</span>])</span><br><span class="line">    mean += img / float(len(train_labels))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(val_addrs)):</span><br><span class="line">    <span class="keyword">if</span> i % <span class="number">1000</span> == <span class="number">0</span> <span class="keyword">and</span> i &gt; <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">print</span> (<span class="string">'Validation data: &#123;&#125;/&#123;&#125;'</span>.format(i, len(val_addrs)))</span><br><span class="line">    addr = val_addrs[i]</span><br><span class="line">    img = cv2.imread(addr)</span><br><span class="line">    img = cv2.resize(img, (<span class="number">300</span>, <span class="number">300</span>), interpolation=cv2.INTER_CUBIC)</span><br><span class="line">    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)</span><br><span class="line"></span><br><span class="line">    img = np.rollaxis(img, <span class="number">2</span>)</span><br><span class="line">    val_storage.append(img[<span class="literal">None</span>])</span><br><span class="line"></span><br><span class="line">mean_storage.append(mean[<span class="literal">None</span>])</span><br><span class="line">hdf5_file.close()</span><br></pre></td></tr></table></figure>
+
+<p>参考：</p>
+<p><a href="http://machinelearninguru.com/deep_learning/data_preparation/hdf5/hdf5.html" target="_blank" rel="noopener">Saving and loading a large number of images (data) into a single HDF5 file</a></p>
+</section>
+    
+        
+        <h2 class="footline">
+            <a href="/tags/tricks/#tricks">tricks</a>
+        </h2>
+    
+
+    <footer id="post-meta" class="clearfix">
+        <a href="/about/">
+        <img class="avatar" src="/images/avatar.png">
+        <div>
+            <span class="dark">BouSeng</span>
+            <span>What I cannot create, I do not understand</span>
+        </div>
+        </a>
+        <section id="sharing">
+            <a title="Share to Twitter" class="twitter" href="https://twitter.com/intent/tweet?text=bouseng.com/2019/07/24/保存图片数据集为hdf5格式/ - 保存图片数据集为hdf5格式 @"><span class="icon-twitter">tweet</span></a>
+            <a title="Share to Facebook" class="facebook" href="#" onclick="
+                window.open(
+                  'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+                  'facebook-share-dialog',
+                  'width=626,height=436');
+                return false;"><span class="icon-facebook-sign">Share</span>
+            </a>
+        </section>
+    </footer>
+
+
+  <section id="comment">
+    <button class="btn" id="loadcmts" onclick="cmts.load();">加载评论</button>
+    <div id="gitment"></div>
+    <script src='/js/gitment.browser.js'></script>
+    <link rel="stylesheet" href=''>
+    <script>
+      var cmts={
+        load:function cmts(){
+          var gitment = new Gitment({
+          
+            id: "保存图片数据集为hdf5格式",
+          
+            owner: "",
+            repo: "",
+            oauth: {
+              client_id: "",
+              client_secret: "",
+            },
+          })
+          gitment.render('gitment');
+          var loadcmt = document.getElementById("loadcmts");
+          var imyourfather = loadcmt.parentNode;
+          imyourfather.removeChild(loadcmts)
+        }
+      }
+    </script>
+  </section>
+
+
+	<footer id="footer">
+	<div id="social">
+		<p class="small">©  BouSeng Chan| Powered by Hexo & 
+			<a href="https://github.com/F0r3at/Lights"> Lights</a>
+		</p>
+	</div>
+</footer>
+
+</section>
+
+	<script src="//cdnjs.loli.net/ajax/libs/instantclick/3.0.1/instantclick.min.js" data-no-instant></script>
+	<script data-no-instant>
+		
+		InstantClick.init('mousedown');
+	</script>
+
+
+

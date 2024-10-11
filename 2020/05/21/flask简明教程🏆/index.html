@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+
+  <meta name="description" content="搭建Flask
+最小flask应用123456789from flask import Flaskapp = Flask(__name__)@app.route(&#34;/&#34;)def hello():    return &#34;&amp;lt;h1 style=&#39;color:blue&#39;&amp;gt;Hello There!">
+
+
+	<meta name="keywords" content="deep learning, PyTorch, Python, Computer vision">
+
+<link rel="alternate" href="/atom.xml" title="BouSeng" type="application/atom+xml">
+<meta name="theme-color" content="#a1d0f6">
+<title>flask简明教程🏆 - BouSeng</title>
+<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="stylesheet" href="/css/style.css">
+<nav class="main-nav">
+	
+	    <a href="/">← 主页</a>
+	
+	
+	    <a href="/about/">About</a>
+	
+	    <a href="/archives/">Archives</a>
+	
+	<a class="cta" href="/atom.xml" data-no-instant>订阅</a>
+</nav>
+
+<section id="wrapper">
+    <article class="post">
+    <header>
+        
+            <h1>flask简明教程🏆</h1>
+        
+        <h2 class="headline">May 21 2020
+        
+        </h2>
+    </header>
+</article>
+<section id="post-body"><p><a href="https://bouseng.com/2019/12/30/%E6%90%AD%E5%BB%BAFlask/" target="_blank">搭建Flask</a></p>
+<h2 id="最小flask应用"><a href="#最小flask应用" class="headerlink" title="最小flask应用"></a>最小flask应用</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route("/")</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"&lt;h1 style='color:blue'&gt;Hello There!&lt;/h1&gt;"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    app.run(host=<span class="string">'0.0.0.0'</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="简单GET-POST请求"><a href="#简单GET-POST请求" class="headerlink" title="简单GET/POST请求"></a>简单GET/POST请求</h2><p>GET</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route("/hello", methods=['GET'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello_get</span><span class="params">()</span>:</span></span><br><span class="line">  <span class="keyword">return</span> <span class="string">'hello'</span></span><br></pre></td></tr></table></figure>
+
+<p>POST</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route("/hello", methods=['POST'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello_post</span><span class="params">()</span>:</span></span><br><span class="line">  img = request.files[<span class="string">'img'</span>] <span class="comment"># 接受文件</span></span><br><span class="line">  img.save(<span class="string">'./save.jpg'</span>)</span><br><span class="line">  <span class="keyword">return</span> <span class="string">'success'</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="return-类型"><a href="#return-类型" class="headerlink" title="return 类型"></a>return 类型</h2><blockquote>
+<p>return类型支持字符串/json/元组/Response对象/重定向类型redirect。还可以附带状态码</p>
+</blockquote>
+<p>返回字符串</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="string">'str'</span></span><br></pre></td></tr></table></figure>
+
+<p>json</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> jsonify</span><br><span class="line">...</span><br><span class="line"><span class="meta">@app.route("/hello", methods=['GET'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello_get</span><span class="params">()</span>:</span></span><br><span class="line">  <span class="keyword">return</span> jsonify(&#123;<span class="string">'code'</span>:<span class="number">200</span>, <span class="string">'msg'</span>: <span class="string">'hello'</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>元组,元组内容包括三个参数,<code>response(响应体)</code>,<code>status_code(状态码)</code>,<code>headers(响应头)</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route("/hello")</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">()</span>:</span></span><br><span class="line">    json_dict = &#123;</span><br><span class="line">    	<span class="string">'msg'</span>: <span class="string">'hello'</span>，</span><br><span class="line">		  <span class="string">'code'</span>: <span class="number">200</span></span><br><span class="line">		&#125;</span><br><span class="line">    data = json.dumps(json_dict)</span><br><span class="line">    <span class="keyword">return</span> data, <span class="number">200</span>, &#123;<span class="string">"ContentType"</span>:<span class="string">"application/json"</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Response对象</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> make_response</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route("/hello")</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">()</span>:</span></span><br><span class="line">  response=make_response(<span class="string">'say hello!'</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> response</span><br></pre></td></tr></table></figure>
+
+<p>重定向类型redirect</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> redirect</span><br><span class="line">...</span><br><span class="line"><span class="meta">@app.route("/hello")</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">()</span>:</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> redirect(<span class="string">'http://bouseng.com'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>附带状态码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route("/hello")</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">()</span>:</span></span><br><span class="line">  <span class="keyword">return</span> <span class="string">'hello'</span>, <span class="number">200</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="request"><a href="#request" class="headerlink" title="request"></a>request</h2><p>导入request</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> request</span><br></pre></td></tr></table></figure>
+
+<p>POST表单数据：<code>request.form</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取单个字段的值：request.form[字段名]</span></span><br><span class="line">name = request.form[<span class="string">'name'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取所有表单数据：request.form.to_dict()</span></span><br><span class="line">all_value = request.form.to_dict()</span><br></pre></td></tr></table></figure>
+
+<p>GET请求参数：<code>request.args</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取某个字段的值：request.args.get(字段名)</span></span><br><span class="line">name = request.args.get(<span class="string">'name'</span>)</span><br><span class="line">获取所有GET请求参数</span><br><span class="line">all_args = request.args</span><br></pre></td></tr></table></figure>
+
+<h2 id="接收POST图片处理"><a href="#接收POST图片处理" class="headerlink" title="接收POST图片处理"></a>接收POST图片处理</h2><p>转为base64</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/pic2base64', methods=['POST'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pic2base64</span><span class="params">()</span>:</span></span><br><span class="line">    pic = request.files[<span class="string">'pic'</span>]</span><br><span class="line">    base64_data = base64.b64encode(pic.read())</span><br></pre></td></tr></table></figure>
+
+<p>转为cv2格式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/pic2cv', methods=['POST'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pic2base64</span><span class="params">()</span>:</span></span><br><span class="line">    pic = request.files[<span class="string">'pic'</span>]</span><br><span class="line">    cv_image = cv2.imdecode(np.fromstring(pic.read(), np.uint8), cv2.IMREAD_COLOR)</span><br></pre></td></tr></table></figure>
+
+<p>转为PIL格式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/pic2pil', methods=['POST'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pic2base64</span><span class="params">()</span>:</span></span><br><span class="line">    pic = request.files[<span class="string">'pic'</span>]</span><br><span class="line">    pil_image = Image.open(pic.stream).convert(<span class="string">'RGB'</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="解决跨域"><a href="#解决跨域" class="headerlink" title="解决跨域"></a>解决跨域</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">after_request</span><span class="params">(response)</span>:</span></span><br><span class="line">    response.headers[<span class="string">'Access-Control-Allow-Origin'</span>] = <span class="string">'*'</span></span><br><span class="line">    response.headers[<span class="string">'Access-Control-Allow-Methods'</span>] = <span class="string">'PUT,GET,POST,DELETE'</span></span><br><span class="line">    response.headers[<span class="string">'Access-Control-Allow-Headers'</span>] = <span class="string">'Content-Type,Authorization'</span></span><br><span class="line">    response.headers[<span class="string">'X-Content-Type-Options'</span>] = <span class="string">'nosniff'</span></span><br><span class="line">    <span class="keyword">return</span> response</span><br><span class="line"></span><br><span class="line">app.after_request(after_request)</span><br></pre></td></tr></table></figure>
+
+<h2 id="blueprint"><a href="#blueprint" class="headerlink" title="blueprint"></a>blueprint</h2><p>合理使用blueprint，将程序各api模块化，使得程序不会臃肿不堪。</p>
+<p>项目结构</p>
+<p>———— main.py</p>
+<p>———— applications</p>
+<p>————————app1.py</p>
+<p>main.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.path.append(<span class="string">'applications'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> app1 <span class="keyword">import</span> app_name</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line">app.register_blueprint(app_name, url_prefix=<span class="string">'/app_name'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>app1.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Blueprint</span><br><span class="line"></span><br><span class="line">app_name = Blueprint(<span class="string">'app_name'</span>, __name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app_name.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">()</span>:</span></span><br><span class="line">  <span class="keyword">return</span> <span class="string">'hello blueprint'</span></span><br></pre></td></tr></table></figure>
+
+</section>
+    
+        
+        <h2 class="footline">
+            <a href="/tags/flask/#flask">flask</a>
+        </h2>
+    
+
+    <footer id="post-meta" class="clearfix">
+        <a href="/about/">
+        <img class="avatar" src="/images/avatar.png">
+        <div>
+            <span class="dark">BouSeng</span>
+            <span>What I cannot create, I do not understand</span>
+        </div>
+        </a>
+        <section id="sharing">
+            <a title="Share to Twitter" class="twitter" href="https://twitter.com/intent/tweet?text=bouseng.com/2020/05/21/flask简明教程🏆/ - flask简明教程🏆 @"><span class="icon-twitter">tweet</span></a>
+            <a title="Share to Facebook" class="facebook" href="#" onclick="
+                window.open(
+                  'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+                  'facebook-share-dialog',
+                  'width=626,height=436');
+                return false;"><span class="icon-facebook-sign">Share</span>
+            </a>
+        </section>
+    </footer>
+
+
+  <section id="comment">
+    <button class="btn" id="loadcmts" onclick="cmts.load();">加载评论</button>
+    <div id="gitment"></div>
+    <script src='/js/gitment.browser.js'></script>
+    <link rel="stylesheet" href=''>
+    <script>
+      var cmts={
+        load:function cmts(){
+          var gitment = new Gitment({
+          
+            id: "flask简明教程🏆",
+          
+            owner: "",
+            repo: "",
+            oauth: {
+              client_id: "",
+              client_secret: "",
+            },
+          })
+          gitment.render('gitment');
+          var loadcmt = document.getElementById("loadcmts");
+          var imyourfather = loadcmt.parentNode;
+          imyourfather.removeChild(loadcmts)
+        }
+      }
+    </script>
+  </section>
+
+
+	<footer id="footer">
+	<div id="social">
+		<p class="small">©  BouSeng Chan| Powered by Hexo & 
+			<a href="https://github.com/F0r3at/Lights"> Lights</a>
+		</p>
+	</div>
+</footer>
+
+</section>
+
+	<script src="//cdnjs.loli.net/ajax/libs/instantclick/3.0.1/instantclick.min.js" data-no-instant></script>
+	<script data-no-instant>
+		
+		InstantClick.init('mousedown');
+	</script>
+
+
+

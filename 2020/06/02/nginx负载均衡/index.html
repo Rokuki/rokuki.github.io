@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+
+  <meta name="description" content="环境：ubuntu使用框架：flask+nginx
+
+主服务器
+副服务器
+
+nginx配置路径：/etc/nginx/sites-enabled/server
+主服务器配置设置backupserver
+12345upstream backupserver &amp;#123;         server ">
+
+
+	<meta name="keywords" content="deep learning, PyTorch, Python, Computer vision">
+
+<link rel="alternate" href="/atom.xml" title="BouSeng" type="application/atom+xml">
+<meta name="theme-color" content="#a1d0f6">
+<title>nginx负载均衡 - BouSeng</title>
+<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="stylesheet" href="/css/style.css">
+<nav class="main-nav">
+	
+	    <a href="/">← 主页</a>
+	
+	
+	    <a href="/about/">About</a>
+	
+	    <a href="/archives/">Archives</a>
+	
+	<a class="cta" href="/atom.xml" data-no-instant>订阅</a>
+</nav>
+
+<section id="wrapper">
+    <article class="post">
+    <header>
+        
+            <h1>nginx负载均衡</h1>
+        
+        <h2 class="headline">Jun 02 2020
+        
+        </h2>
+    </header>
+</article>
+<section id="post-body"><p>环境：ubuntu<br>使用框架：flask+nginx</p>
+<ul>
+<li>主服务器</li>
+<li>副服务器</li>
+</ul>
+<p>nginx配置路径：<br>/etc/nginx/sites-enabled/server</p>
+<h2 id="主服务器配置"><a href="#主服务器配置" class="headerlink" title="主服务器配置"></a>主服务器配置</h2><p>设置backupserver</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">upstream backupserver &#123;</span><br><span class="line">         server 主服务器ip:443;</span><br><span class="line">         server 副服务器ip:443;</span><br><span class="line">         keepalive 60;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>默认https配置</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">   listen 443;</span><br><span class="line">   server_name _;</span><br><span class="line">   ssl on;</span><br><span class="line">   ssl_certificate [pem文件路径];</span><br><span class="line">   ssl_certificate_key [key文件路径];</span><br><span class="line">   ssl_session_timeout  5m;</span><br><span class="line">   ssl_protocols  SSLv2 SSLv3 TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">   ssl_ciphers  ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;</span><br><span class="line">   ssl_prefer_server_ciphers   on;</span><br><span class="line"></span><br><span class="line">   location / &#123;</span><br><span class="line">        include uwsgi_params;</span><br><span class="line">        uwsgi_pass unix:[flask sock 文件路径];</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>http配置(http不设置负载均衡)</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">  listen 80;</span><br><span class="line">  server_name _;</span><br><span class="line"></span><br><span class="line">  location / &#123;</span><br><span class="line">        include uwsgi_params;</span><br><span class="line">        uwsgi_pass unix:[flask sock 文件路径];</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>负载均衡配置</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 443;</span><br><span class="line">    <span class="comment"># listen [::]:443 default_server;</span></span><br><span class="line">    server_name 主服务器域名;</span><br><span class="line">    ssl on;</span><br><span class="line">    ssl_certificate [pem文件路径];</span><br><span class="line">    ssl_certificate_key [key文件路径];</span><br><span class="line">    ssl_session_timeout  5m;</span><br><span class="line">    ssl_protocols  SSLv2 SSLv3 TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">    ssl_ciphers  ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;</span><br><span class="line">    ssl_prefer_server_ciphers   on;</span><br><span class="line">    client_max_body_size 5M;</span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass https://backupserver;</span><br><span class="line">        proxy_http_version 1.1;</span><br><span class="line">        proxy_set_header Connection "";</span><br><span class="line">        proxy_connect_timeout 75;</span><br><span class="line">        proxy_read_timeout 300;</span><br><span class="line">        proxy_send_timeout 300;</span><br><span class="line">        proxy_buffer_size 64k;</span><br><span class="line">        proxy_buffers   4 64k;</span><br><span class="line">        proxy_busy_buffers_size 128k;</span><br><span class="line">        proxy_temp_file_write_size 128k;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="副服务器配置"><a href="#副服务器配置" class="headerlink" title="副服务器配置"></a>副服务器配置</h2><p>http配置</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name 副服务器域名;</span><br><span class="line">    return 301 https://副服务器域名$request_uri;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>https配置</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 443;</span><br><span class="line">    server_name _;</span><br><span class="line">    ssl on;</span><br><span class="line">    ssl_certificate [pem文件路径];</span><br><span class="line">    ssl_certificate_key [key文件路径];</span><br><span class="line">    ssl_session_timeout  5m;</span><br><span class="line">    ssl_protocols  SSLv2 SSLv3 TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">    ssl_ciphers  ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;</span><br><span class="line">    ssl_prefer_server_ciphers   on;</span><br><span class="line">    client_max_body_size 5M;</span><br><span class="line">    location / &#123;</span><br><span class="line">        include uwsgi_params;</span><br><span class="line">        uwsgi_pass unix:[flask sock 文件路径];</span><br><span class="line">        proxy_http_version 1.1;</span><br><span class="line">        proxy_set_header Connection "";</span><br><span class="line">        proxy_connect_timeout 75;</span><br><span class="line">        proxy_read_timeout 300;</span><br><span class="line">        proxy_send_timeout 300;</span><br><span class="line">        proxy_buffer_size 64k;</span><br><span class="line">        proxy_buffers   4 64k;</span><br><span class="line">        proxy_busy_buffers_size 128k;</span><br><span class="line">        proxy_temp_file_write_size 128k;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 配置无需负载均衡的api</span></span><br><span class="line">    location /api/dog_classification/recognition &#123;</span><br><span class="line">        proxy_pass https://主服务器域名;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>至此配置完成，只需两个服务器中的api路径相同即可进行负载均衡，如果不需要负载均衡，则需要在副服务器配置，以免出现404.</p>
+</section>
+    
+
+    <footer id="post-meta" class="clearfix">
+        <a href="/about/">
+        <img class="avatar" src="/images/avatar.png">
+        <div>
+            <span class="dark">BouSeng</span>
+            <span>What I cannot create, I do not understand</span>
+        </div>
+        </a>
+        <section id="sharing">
+            <a title="Share to Twitter" class="twitter" href="https://twitter.com/intent/tweet?text=bouseng.com/2020/06/02/nginx负载均衡/ - nginx负载均衡 @"><span class="icon-twitter">tweet</span></a>
+            <a title="Share to Facebook" class="facebook" href="#" onclick="
+                window.open(
+                  'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+                  'facebook-share-dialog',
+                  'width=626,height=436');
+                return false;"><span class="icon-facebook-sign">Share</span>
+            </a>
+        </section>
+    </footer>
+
+
+  <section id="comment">
+    <button class="btn" id="loadcmts" onclick="cmts.load();">加载评论</button>
+    <div id="gitment"></div>
+    <script src='/js/gitment.browser.js'></script>
+    <link rel="stylesheet" href=''>
+    <script>
+      var cmts={
+        load:function cmts(){
+          var gitment = new Gitment({
+          
+            id: "nginx负载均衡",
+          
+            owner: "",
+            repo: "",
+            oauth: {
+              client_id: "",
+              client_secret: "",
+            },
+          })
+          gitment.render('gitment');
+          var loadcmt = document.getElementById("loadcmts");
+          var imyourfather = loadcmt.parentNode;
+          imyourfather.removeChild(loadcmts)
+        }
+      }
+    </script>
+  </section>
+
+
+	<footer id="footer">
+	<div id="social">
+		<p class="small">©  BouSeng Chan| Powered by Hexo & 
+			<a href="https://github.com/F0r3at/Lights"> Lights</a>
+		</p>
+	</div>
+</footer>
+
+</section>
+
+	<script src="//cdnjs.loli.net/ajax/libs/instantclick/3.0.1/instantclick.min.js" data-no-instant></script>
+	<script data-no-instant>
+		
+		InstantClick.init('mousedown');
+	</script>
+
+
+

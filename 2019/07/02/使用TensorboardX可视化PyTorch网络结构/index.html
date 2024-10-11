@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+
+  <meta name="description" content="安装TensorboardX1pip install tensorboardX
+
+可视化resnet1812345678910import torchimport torch.nn as nnfrom tensorboardX import SummaryWriterfrom torchvision">
+
+
+	<meta name="keywords" content="deep learning, PyTorch, Python, Computer vision">
+
+<link rel="alternate" href="/atom.xml" title="BouSeng" type="application/atom+xml">
+<meta name="theme-color" content="#a1d0f6">
+<title>使用TensorboardX可视化PyTorch网络结构 - BouSeng</title>
+<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="stylesheet" href="/css/style.css">
+<nav class="main-nav">
+	
+	    <a href="/">← 主页</a>
+	
+	
+	    <a href="/about/">About</a>
+	
+	    <a href="/archives/">Archives</a>
+	
+	<a class="cta" href="/atom.xml" data-no-instant>订阅</a>
+</nav>
+
+<section id="wrapper">
+    <article class="post">
+    <header>
+        
+            <h1>使用TensorboardX可视化PyTorch网络结构</h1>
+        
+        <h2 class="headline">Jul 02 2019
+        
+        </h2>
+    </header>
+</article>
+<section id="post-body"><h2 id="安装TensorboardX"><a href="#安装TensorboardX" class="headerlink" title="安装TensorboardX"></a>安装TensorboardX</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install tensorboardX</span><br></pre></td></tr></table></figure>
+
+<h2 id="可视化resnet18"><a href="#可视化resnet18" class="headerlink" title="可视化resnet18"></a>可视化resnet18</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">from</span> tensorboardX <span class="keyword">import</span> SummaryWriter</span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> models                        <span class="comment"># 导入模型</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">dummy_input = torch.rand(<span class="number">13</span>, <span class="number">1</span>, <span class="number">28</span>, <span class="number">28</span>)     <span class="comment"># 假设输入13张1*28*28的图片</span></span><br><span class="line">model = models.resnet18(pretrained=<span class="literal">False</span>)</span><br><span class="line"><span class="keyword">with</span> SummaryWriter(comment=<span class="string">'mixNet'</span>) <span class="keyword">as</span> w:</span><br><span class="line">    w.add_graph(model, (dummy_input, ))</span><br></pre></td></tr></table></figure>
+
+</section>
+    
+        
+        <h2 class="footline">
+            <a href="/tags/PyTorch/#PyTorch">PyTorch</a>, <a href="/tags/tensorboardX/#tensorboardX">tensorboardX</a>
+        </h2>
+    
+
+    <footer id="post-meta" class="clearfix">
+        <a href="/about/">
+        <img class="avatar" src="/images/avatar.png">
+        <div>
+            <span class="dark">BouSeng</span>
+            <span>What I cannot create, I do not understand</span>
+        </div>
+        </a>
+        <section id="sharing">
+            <a title="Share to Twitter" class="twitter" href="https://twitter.com/intent/tweet?text=bouseng.com/2019/07/02/使用TensorboardX可视化PyTorch网络结构/ - 使用TensorboardX可视化PyTorch网络结构 @"><span class="icon-twitter">tweet</span></a>
+            <a title="Share to Facebook" class="facebook" href="#" onclick="
+                window.open(
+                  'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+                  'facebook-share-dialog',
+                  'width=626,height=436');
+                return false;"><span class="icon-facebook-sign">Share</span>
+            </a>
+        </section>
+    </footer>
+
+
+  <section id="comment">
+    <button class="btn" id="loadcmts" onclick="cmts.load();">加载评论</button>
+    <div id="gitment"></div>
+    <script src='/js/gitment.browser.js'></script>
+    <link rel="stylesheet" href=''>
+    <script>
+      var cmts={
+        load:function cmts(){
+          var gitment = new Gitment({
+          
+            id: "使用TensorboardX可视化PyTorch网络结构",
+          
+            owner: "",
+            repo: "",
+            oauth: {
+              client_id: "",
+              client_secret: "",
+            },
+          })
+          gitment.render('gitment');
+          var loadcmt = document.getElementById("loadcmts");
+          var imyourfather = loadcmt.parentNode;
+          imyourfather.removeChild(loadcmts)
+        }
+      }
+    </script>
+  </section>
+
+
+	<footer id="footer">
+	<div id="social">
+		<p class="small">©  BouSeng Chan| Powered by Hexo & 
+			<a href="https://github.com/F0r3at/Lights"> Lights</a>
+		</p>
+	</div>
+</footer>
+
+</section>
+
+	<script src="//cdnjs.loli.net/ajax/libs/instantclick/3.0.1/instantclick.min.js" data-no-instant></script>
+	<script data-no-instant>
+		
+		InstantClick.init('mousedown');
+	</script>
+
+
+
