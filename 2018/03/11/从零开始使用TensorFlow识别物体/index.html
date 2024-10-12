@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+
+  <meta name="description" content="在win10安装gpu版TensorFlow安装cuda9.0将以下路径进入环境变量PATH中
+123C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\binC:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\lib\x64">
+
+
+<link rel="alternate" href="/atom.xml" title="BouSeng" type="application/atom+xml">
+<meta name="theme-color" content="#a1d0f6">
+<title>从零开始使用TensorFlow检测目标物体 - BouSeng</title>
+<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+<link rel="shortcut icon" href="/favicon.png">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<nav class="main-nav">
+	
+	    <a href="/">← Home</a>
+	
+	
+	    <a href="/about/">About</a>
+	
+	    <a href="/archives/">Archives</a>
+	
+	<a class="cta" href="/atom.xml" data-no-instant>Subscribe</a>
+</nav>
+
+<section id="wrapper">
+    <article class="post">
+    <header>
+        
+            <h1>从零开始使用TensorFlow检测目标物体</h1>
+        
+        <h2 class="headline">Mar 11 2018
+        
+        </h2>
+    </header>
+</article>
+<section id="post-body"><h2 id="在win10安装gpu版TensorFlow"><a href="#在win10安装gpu版TensorFlow" class="headerlink" title="在win10安装gpu版TensorFlow"></a>在win10安装gpu版TensorFlow</h2><h3 id="安装cuda9-0"><a href="#安装cuda9-0" class="headerlink" title="安装cuda9.0"></a>安装cuda9.0</h3><p>将以下路径进入环境变量PATH中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0</span><br><span class="line">C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\bin</span><br><span class="line">C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\lib\x64</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+
+<h3 id="安装TensorFlow"><a href="#安装TensorFlow" class="headerlink" title="安装TensorFlow"></a>安装TensorFlow</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install tf-nightly-gpu</span><br></pre></td></tr></table></figure>
+<p>安装完成后，检测下cuda是否可用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ python</span><br><span class="line">$ import tensorflow as tf</span><br></pre></td></tr></table></figure>
+<p>假如显示cudart64_XX.dll失败，则卸载当前cuda，并下载对应版本号的cuda，若显示缺少cudnn，则继续下一步。</p>
+<h3 id="安装cudnn"><a href="#安装cudnn" class="headerlink" title="安装cudnn"></a>安装cudnn</h3><p>下载cudnn并解压到cuda目录下</p>
+<h3 id="测试TensorFlow-gpu是否安装成功"><a href="#测试TensorFlow-gpu是否安装成功" class="headerlink" title="测试TensorFlow-gpu是否安装成功"></a>测试TensorFlow-gpu是否安装成功</h3><p>进入python，执行以下代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line"></span><br><span class="line">a = tf.constant([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], shape=[2, 3], name=&#x27;a&#x27;)</span><br><span class="line">b = tf.constant([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], shape=[3, 2], name=&#x27;b&#x27;)</span><br><span class="line">c = tf.matmul(a, b)</span><br><span class="line"></span><br><span class="line">sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))</span><br><span class="line"></span><br><span class="line">print sess.run(c)</span><br></pre></td></tr></table></figure>
+<p>出现xxx则表明安装成功。</p>
+<h2 id="下载TensorFlow-Object-Detection-API"><a href="#下载TensorFlow-Object-Detection-API" class="headerlink" title="下载TensorFlow Object Detection API"></a>下载TensorFlow Object Detection API</h2><p>作为当下深度学习的热门框架，TensorFlow提供了许多现成的深度网络结构，免去开发者构建底层网络的烦恼，大大降低了开发难度，这里我们使用的是Object Detection（对象检测模型）</p>
+<p>下载<a target="_blank" rel="noopener" href="https://github.com/tensorflow/models">TensorFlow models</a><br>下载完成后将tensorflow的models安装到计算机中。通过cd命令进入到d:&#x2F;tensorflow&#x2F;models&#x2F;research 目录，执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python setup.py install</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="安装protobuf"><a href="#安装protobuf" class="headerlink" title="安装protobuf"></a>安装protobuf</h3><p>下载protobuf<br>加入以下路径到环境变量PATH中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:\TensorFlow\protobuf-3.4.0\bin</span><br></pre></td></tr></table></figure>
+<p>添加环境变量proto_path</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:\TensorFlow\protobuf-3.4.0\bin\protoc.exe</span><br></pre></td></tr></table></figure>
+
+<p>编译protobuf库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protoc object_detection/protos/*.proto --python_out=.</span><br></pre></td></tr></table></figure>
+
+<p>创建PYTHONPATH变量，将models和slim加入其中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">d:/tensorflow/models/research</span><br><span class="line">d:/tensorflow/models/research/slim</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="安装labelImg"><a href="#安装labelImg" class="headerlink" title="安装labelImg"></a>安装labelImg</h3><p>labelImg用于在训练数据集图片中标注要识别的物体，并生成相关的xml文件</p>
+<p>1.下载<a target="_blank" rel="noopener" href="https://github.com/tzutalin/labelImg">labelImg</a>,解压到TensorFlow目录下<br>2.安装PyQt5</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install PyQt5</span><br></pre></td></tr></table></figure>
+<p>3.安装PyQt5_tools</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pyqt5-tools</span><br></pre></td></tr></table></figure>
+<p>4.安装lxml</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install lxml</span><br></pre></td></tr></table></figure>
+<p>5.pyrcc编译资源文件<br>进入labelImg文件夹，执行以下命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyrcc5 -o resources.py resources.qrc</span><br></pre></td></tr></table></figure>
+<p>6.测试是否安装成功</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python labelImg.py</span><br></pre></td></tr></table></figure>
+<p>弹出窗口，安装已成功。</p>
+<p><img src="/images/labelImg.png"></p>
+<h3 id="图像标注"><a href="#图像标注" class="headerlink" title="图像标注"></a>图像标注</h3><p><img src="/images/labelImg2.png"></p>
+<h3 id="xml转csv"><a href="#xml转csv" class="headerlink" title="xml转csv"></a>xml转csv</h3><p>下载<a target="_blank" rel="noopener" href="https://github.com/datitran/raccoon_dataset">raccoon_dataset</a>，并解压到与object_detection同一级目录下。使用xml_to_csv.py，修改其中的image_path为训练集路径，运行该文件生成训练集数据csv</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def main():</span><br><span class="line">    # image_path = os.path.join(os.getcwd(), &#x27;annotations&#x27;)</span><br><span class="line">    image_path = r&#x27;C:\Users\mkind\Desktop\training_data\xml\train&#x27;</span><br><span class="line">    xml_df = xml_to_csv(image_path)</span><br><span class="line">    xml_df.to_csv(&#x27;car_plate_train_labels.csv&#x27;, index=None)</span><br><span class="line">    print(&#x27;Successfully converted xml to csv.&#x27;)</span><br></pre></td></tr></table></figure>
+<p>测试集同理：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def main():</span><br><span class="line">    # image_path = os.path.join(os.getcwd(), &#x27;annotations&#x27;)</span><br><span class="line">    image_path = r&#x27;C:\Users\mkind\Desktop\training_data\xml\test&#x27;</span><br><span class="line">    xml_df = xml_to_csv(image_path)</span><br><span class="line">    xml_df.to_csv(&#x27;car_plate_test_labels.csv&#x27;, index=None)</span><br><span class="line">    print(&#x27;Successfully converted xml to csv.&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/xml_to_csv.png"></p>
+<h3 id="csv转record"><a href="#csv转record" class="headerlink" title="csv转record"></a>csv转record</h3><p>打开raccoon_dataset下的generate_tfrecord.py，这里需要做一些修改，首先要保证Object Detection导入成功，加入以下代码就可以导入上一级目录的的object detection</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import sys </span><br><span class="line">sys.path.append(&#x27;../&#x27;) </span><br></pre></td></tr></table></figure>
+<p>修改33行左右的label，就是在标注训练集时所添加的label</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># TO-DO replace this with label map</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">class_text_to_int</span>(<span class="params">row_label</span>):</span><br><span class="line">    <span class="keyword">if</span> row_label == <span class="string">&#x27;car plate&#x27;</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+<p>修改训练集图片路径</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>(<span class="params">_</span>):</span><br><span class="line">    writer = tf.python_io.TFRecordWriter(FLAGS.output_path)</span><br><span class="line">    <span class="comment"># path = os.path.join(os.getcwd(), &#x27;images&#x27;)</span></span><br><span class="line">    path = <span class="string">r&#x27;C:\Users\mkind\Desktop\training_data\test&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>运行generate_tfrecord.py，此时csv将会被转为record</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:\TensorFlow\raccoon_dataset&gt;python generate_tfrecord.py --csv_input=car_plate_test_labels.csv --output_path=car_plate_test_labels.record</span><br></pre></td></tr></table></figure>
+<p>转换成功：<br><img src="/images/csv_to_record.png"></p>
+<p>训练集也同样按照以上步骤生成car_plate_train_labels.record。</p>
+<p>这样就得到了训练与测试所需要的car_plate_test_labels.record、car_plate_train_labels.record。</p>
+<h3 id="创建label-map-pbtxt"><a href="#创建label-map-pbtxt" class="headerlink" title="创建label_map.pbtxt"></a>创建label_map.pbtxt</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">item &#123;</span><br><span class="line">  id: 1</span><br><span class="line">  name: &#x27;car plate&#x27;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h2><h3 id="下载预训练模型"><a href="#下载预训练模型" class="headerlink" title="下载预训练模型"></a>下载预训练模型</h3><p><a target="_blank" rel="noopener" href="http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_coco_11_06_2017.tar.gz">ssd_mobilenet_v1_coco_11_06_2017.tar.gz</a><br>解压到object_detection目录下</p>
+<h3 id="修改ssd-mobilenet-v1-pets-config"><a href="#修改ssd-mobilenet-v1-pets-config" class="headerlink" title="修改ssd_mobilenet_v1_pets.config"></a>修改ssd_mobilenet_v1_pets.config</h3><p>打开object_detection\samples\configs下的ssd_mobilenet_v1_pets.config<br>修改如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">fine_tune_checkpoint: &quot;D:/TensorFlow/models/research/object_detection/ssd_mobilenet_v1_coco_11_06_2017/model.ckpt&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">train_input_reader: &#123;</span><br><span class="line">  tf_record_input_reader &#123;</span><br><span class="line">    input_path: &quot;C:/Users/mkind/Desktop/training_data/car_plate_train_labels.record&quot;</span><br><span class="line">  &#125;</span><br><span class="line">  label_map_path: &quot;C:/Users/mkind/Desktop/training_data/label_map.pbtxt&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">eval_config: &#123;</span><br><span class="line">  num_examples: 40</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">eval_input_reader: &#123;</span><br><span class="line">  tf_record_input_reader &#123;</span><br><span class="line">    input_path: &quot;C:/Users/mkind/Desktop/training_data/car_plate_test_labels.record&quot;</span><br><span class="line">  &#125;</span><br><span class="line">  label_map_path: &quot;C:/Users/mkind/Desktop/training_data/label_map.pbtxt&quot;</span><br><span class="line">  shuffle: false</span><br><span class="line">  num_readers: 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意路径分隔符为”&#x2F;“而不是”&quot;，否则会出现（(unicode error) ‘unicodeescape’ codec can’t decode bytes in position 2-3: truncated \UXXXXXXXX escap<br>）的错误</p>
+<h3 id="开始训练"><a href="#开始训练" class="headerlink" title="开始训练"></a>开始训练</h3><p>到目前为止，准备训练的文件就有</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ssd_mobilenet_v1_pets.config</span><br><span class="line">label_map.pbtxt</span><br><span class="line">car_plate_test_labels.record</span><br><span class="line">car_plate_train_labels.record</span><br></pre></td></tr></table></figure>
+<p>进入d:&#x2F;TensorFlow&#x2F;models&#x2F;research<br>运行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">python object_detection/train.py --logtostderr --pipeline_config_path=C:/Users/mkind/Desktop/training_data/ssd_mobilenet_v1_pets.config --train_dir=D:\train_dir</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>pipeline_config_path：config文件路径<br>train_dir：存放训练生成文件的目标目录</p>
+<p><img src="/images/training.png"></p>
+<h3 id="生成pb"><a href="#生成pb" class="headerlink" title="生成pb"></a>生成pb</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python object_detection/export_inference_graph.py --input_type image_tensor --pipeline_config_path C:/Users/mkind/Desktop/training_data/ssd_mobilenet_v1_pets.config --trained_checkpoint_prefix  d:/train_dir/model.ckpt-10028 --output_directory D:/train_dir/result</span><br></pre></td></tr></table></figure>
+<p>pipeline_config_path:config文件<br>trained_checkpoint_prefix：model.ckpt位置<br>output_directory：输出pb位置</p>
+<h2 id="可能出现的错误"><a href="#可能出现的错误" class="headerlink" title="可能出现的错误"></a>可能出现的错误</h2><h3 id="TensorFlow-Models-ImportError-No-module-named-‘deployment’"><a href="#TensorFlow-Models-ImportError-No-module-named-‘deployment’" class="headerlink" title="TensorFlow Models:ImportError: No module named ‘deployment’"></a>TensorFlow Models:ImportError: No module named ‘deployment’</h3><p>解决：加入环境变量</p>
+<h3 id="Check-failed-stream-parent-GetConvolveAlgorithms-algorithms"><a href="#Check-failed-stream-parent-GetConvolveAlgorithms-algorithms" class="headerlink" title="Check failed: stream-&gt;parent()-&gt;GetConvolveAlgorithms(&amp;algorithms)"></a>Check failed: stream-&gt;parent()-&gt;GetConvolveAlgorithms(&amp;algorithms)</h3><p>原因：cudnn版本与cuda不对应<br>解决：重新下载<a target="_blank" rel="noopener" href="https://developer.nvidia.com/cudnn">cudnn</a></p>
+<h3 id="OOM-when-allocating-tensor-with-shape"><a href="#OOM-when-allocating-tensor-with-shape" class="headerlink" title="OOM when allocating tensor with shape"></a>OOM when allocating tensor with shape</h3><p>原因：GPU内存不足，batch size太大。<br>解决：修改ssd_mobilenet_v1_pets.config中的batch size</p>
+</section>
+    
+
+    <footer id="post-meta" class="clearfix">
+        <a href="/about/">
+        <img class="avatar" src="/images/avatar.png">
+        <div>
+            <span class="dark">BouSeng</span>
+            <span></span>
+        </div>
+        </a>
+        <section id="sharing">
+            <a title="Share to Twitter" class="twitter" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=http://bouseng.com/2018/03/11/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BD%BF%E7%94%A8TensorFlow%E8%AF%86%E5%88%AB%E7%89%A9%E4%BD%93/ - 从零开始使用TensorFlow检测目标物体 @"><span class="icon-twitter">tweet</span></a>
+            <a title="Share to Facebook" class="facebook" href="#" onclick="
+                window.open(
+                  'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+                  'facebook-share-dialog',
+                  'width=626,height=436');
+                return false;"><span class="icon-facebook-sign">Share</span>
+            </a>
+        </section>
+    </footer>
+
+
+  <section id="comment">
+    <button class="btn" id="loadcmts" onclick="cmts.load();">Load Comments</button>
+    <div id="gitment"></div>
+    <script src='/js/gitment.browser.js'></script>
+    <link rel="stylesheet" href=''>
+    <script>
+      var cmts={
+        load:function cmts(){
+          var gitment = new Gitment({
+          
+            id: "从零开始使用TensorFlow检测目标物体",
+          
+            owner: "",
+            repo: "",
+            oauth: {
+              client_id: "",
+              client_secret: "",
+            },
+          })
+          gitment.render('gitment');
+          var loadcmt = document.getElementById("loadcmts");
+          var imyourfather = loadcmt.parentNode;
+          imyourfather.removeChild(loadcmts)
+        }
+      }
+    </script>
+  </section>
+
+
+	<footer id="footer">
+	<div id="social">
+		<p class="small">©  BouSeng| Powered by Hexo & 
+			<a target="_blank" rel="noopener" href="https://github.com/F0r3at/Lights"> Lights</a>
+		</p>
+	</div>
+</footer>
+
+</section>
+
+	<script src="//cdnjs.loli.net/ajax/libs/instantclick/3.0.1/instantclick.min.js" data-no-instant></script>
+	<script data-no-instant>
+		
+		InstantClick.init('mousedown');
+	</script>
+
+
+

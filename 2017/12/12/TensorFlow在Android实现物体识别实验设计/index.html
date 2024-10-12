@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+
+  <meta name="description" content="目录：一. Tensorflow的安装及识别模型的训练二. 识别api在Flask上的搭建三. Android端的拍照识别">
+
+
+<link rel="alternate" href="/atom.xml" title="BouSeng" type="application/atom+xml">
+<meta name="theme-color" content="#a1d0f6">
+<title>TensorFlow在Android实现物体识别实验设计 - BouSeng</title>
+<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+<link rel="shortcut icon" href="/favicon.png">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<nav class="main-nav">
+	
+	    <a href="/">← Home</a>
+	
+	
+	    <a href="/about/">About</a>
+	
+	    <a href="/archives/">Archives</a>
+	
+	<a class="cta" href="/atom.xml" data-no-instant>Subscribe</a>
+</nav>
+
+<section id="wrapper">
+    <article class="post">
+    <header>
+        
+            <h1>TensorFlow在Android实现物体识别实验设计</h1>
+        
+        <h2 class="headline">Dec 12 2017
+        
+        </h2>
+    </header>
+</article>
+<section id="post-body"><p><img src="/images/TensorFlow.jpg"></p>
+<h1 id="目录："><a href="#目录：" class="headerlink" title="目录："></a>目录：</h1><p>一. Tensorflow的安装及识别模型的训练<br>二. 识别api在Flask上的搭建<br>三. Android端的拍照识别</p>
+<span id="more"></span>
+
+<h2 id="Tensorflow的安装及识别模型的训练"><a href="#Tensorflow的安装及识别模型的训练" class="headerlink" title="Tensorflow的安装及识别模型的训练"></a>Tensorflow的安装及识别模型的训练</h2><p>——基于谷歌Inception-v3模型</p>
+<h3 id="项目目录结构"><a href="#项目目录结构" class="headerlink" title="项目目录结构"></a>项目目录结构</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">-training</span><br><span class="line">    -training_data  //存放训练数据集文件夹</span><br><span class="line">        -10000   //label为10000的图片文件夹</span><br><span class="line">        -10003</span><br><span class="line">        -10004</span><br><span class="line">        ……</span><br><span class="line">    -model   // 存放inception-v3模型</span><br><span class="line">    -bottleneck  // 存放模型瓶颈层的特征结果</span><br><span class="line">        -10000   //label为10000的图片文件夹</span><br><span class="line">        -10003</span><br><span class="line">        -10004</span><br><span class="line">        ……</span><br><span class="line">    -retrain.py  //训练程序</span><br><span class="line">    -collect_training_data.py   //收集样本数据程序</span><br><span class="line">    -dictionay.txt  //翻译字典文件</span><br><span class="line">    -output_graph.pb //生成的模型文件</span><br><span class="line">    -output_label.txt  // 生成的label文件</span><br></pre></td></tr></table></figure>
+
+<h3 id="主要步骤"><a href="#主要步骤" class="headerlink" title="主要步骤"></a>主要步骤</h3><ul>
+<li>收集训练数据，以唯一label命名文件夹，如：</li>
+</ul>
+<p><img src="/images/label.png"></p>
+<p>并生成dictionary.txt，作为识别结果的翻译文件</p>
+<ul>
+<li><p>安装tensorflow</p>
+</li>
+<li><p>使用tensorflow的image_retraining demo对样本进行训练，生成output_graph.pb和output_lable.txt 【<a target="_blank" rel="noopener" href="https://github.com/tensorflow/tensorflow/tree/master/tensorflow/examples/image_retraining">demo地址</a>】</p>
+</li>
+<li><p>对训练完成的模型进行测试，尝试提高识别率</p>
+</li>
+</ul>
+<h4 id="收集训练数据"><a href="#收集训练数据" class="headerlink" title="收集训练数据"></a>收集训练数据</h4><p>主要注意： </p>
+<ul>
+<li>收集数据时，样本数量在20个以上，否则可能会导致一些错误。 </li>
+<li>以英文或数字的形式作为id来命名文件夹(retrain demo不支持中文) </li>
+<li>生成id-名称对应的dictionary.txt文件，作为识别结果的翻译文件</li>
+</ul>
+<p>collect_training_data.py</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"># coding=utf-8</span><br><span class="line"># 收集植物图片</span><br><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">import requests</span><br><span class="line">import os</span><br><span class="line">import random</span><br><span class="line"></span><br><span class="line">sess = requests.session()</span><br><span class="line">refer = &#x27;http://www.plantphoto.cn/sp/&#x27;</span><br><span class="line">get_pic = &#x27;http://www.plantphoto.cn/ashx/getphotopage.ashx&#x27;</span><br><span class="line">data_path = &#x27;training_data/&#x27;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def save_imgs(url, path):</span><br><span class="line">    header = &#123;</span><br><span class="line">        &quot;Accept&quot;: &quot;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8&quot;,</span><br><span class="line">        &quot;Connection&quot;: &quot;keep-alive&quot;,</span><br><span class="line">        &quot;Host&quot;: &quot;img.plantphoto.cn&quot;,</span><br><span class="line">        &quot;Referer&quot;: refer + path,</span><br><span class="line">        &quot;User-Agent&quot;: &quot;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.81 &quot;</span><br><span class="line">                      &quot;Safari/537.36&quot;,</span><br><span class="line">    &#125;</span><br><span class="line">    local_filename = url.split(&#x27;/&#x27;)[-1]</span><br><span class="line">    print(&quot;Download Image File=&quot;, local_filename)</span><br><span class="line">    try:</span><br><span class="line">        r = requests.get(url, headers=header, stream=True)  # here we need to set stream = True parameter</span><br><span class="line">        with open(data_path + path + &#x27;/&#x27; + local_filename, &#x27;wb&#x27;) as f:</span><br><span class="line">            for chunk in r.iter_content(chunk_size=1024):</span><br><span class="line">                if chunk:  # filter out keep-alive new chunks</span><br><span class="line">                    f.write(chunk)</span><br><span class="line">                    f.flush()</span><br><span class="line">            f.close()</span><br><span class="line">    except:</span><br><span class="line">        print(u&#x27;保存图片失败&#x27;)</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    file = open(&#x27;dictionary.txt&#x27;, &#x27;w&#x27;)</span><br><span class="line">    for time in range(200):                     # 循环收集200次</span><br><span class="line">        i = str(random.randint(10000, 99999))   # 生成随机植物cid</span><br><span class="line">        a = range(1, 3)                         # 收集两页数据</span><br><span class="line">        name = &#x27;&#x27;</span><br><span class="line">        for page in reversed(a):</span><br><span class="line">            new_url = get_pic + &#x27;?page=&#x27; + str(page) + &#x27;&amp;n=2&amp;group=sp&amp;cid=&#x27; + i</span><br><span class="line">            header = &#123;</span><br><span class="line">                &#x27;Accept&#x27;: &#x27;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8&#x27;,</span><br><span class="line">                &#x27;Accept-Encoding&#x27;: &#x27;gzip, deflate, sdch&#x27;,</span><br><span class="line">                &#x27;Accept-Language&#x27;: &#x27;zh-CN,zh;q=0.8,zh-TW;q=0.6&#x27;,</span><br><span class="line">                &#x27;Connection&#x27;: &#x27;keep-alive&#x27;,</span><br><span class="line">                &#x27;Host&#x27;: &#x27;www.plantphoto.cn&#x27;,</span><br><span class="line">                &#x27;Cookie&#x27;: &#x27;AJSTAT_ok_pages=1; AJSTAT_ok_times=4; &#x27;</span><br><span class="line">                          &#x27;__tins__2318434=%7B%22sid%22%3A%201512994067786%2C%20%22vd%22%3A%201%2C%20%22expires%22%3A&#x27;</span><br><span class="line">                          &#x27;%201512995867786%7D; __51cke__=; __51laig__=4&#x27;,</span><br><span class="line">                &#x27;Cache-Control&#x27;: &#x27;max-age=0&#x27;,</span><br><span class="line">                &#x27;Upgrade-Insecure-Requests&#x27;: &#x27;1&#x27;,</span><br><span class="line">                &#x27;User-Agent&#x27;: &#x27;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) &#x27;</span><br><span class="line">                              &#x27;Chrome/58.0.3029.81 Safari/537.36 &#x27;</span><br><span class="line">            &#125;</span><br><span class="line">            response = requests.get(new_url, headers=header).content</span><br><span class="line">            soup = BeautifulSoup(response, &#x27;lxml&#x27;)</span><br><span class="line">            imgs = soup.find_all(&#x27;img&#x27;)</span><br><span class="line">            if imgs.__len__() &gt; 10:    # 确保样本数量不小于20</span><br><span class="line">                path = data_path + i</span><br><span class="line">                name = imgs[0][&#x27;alt&#x27;].encode(&#x27;utf-8&#x27;)</span><br><span class="line">                if not os.path.exists(path):</span><br><span class="line">                    os.mkdir(path)</span><br><span class="line">                for j in imgs:</span><br><span class="line">                    save_imgs(j[&#x27;src&#x27;], i)</span><br><span class="line">            else:</span><br><span class="line">                # 第二页图片数量不足10张</span><br><span class="line">                break</span><br><span class="line">        file.write(i + &#x27;,&#x27; + name + &#x27;\n&#x27;)</span><br><span class="line">    file.close()</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/dictionary.png"></p>
+<h4 id="Tensorflow在Ubuntu16-04上的安装"><a href="#Tensorflow在Ubuntu16-04上的安装" class="headerlink" title="Tensorflow在Ubuntu16.04上的安装"></a>Tensorflow在Ubuntu16.04上的安装</h4><p>使用pip安装cpu版本tensorflow</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip install --upgrade https://ci.tensorflow.org/view/tf-nightly/job/tf-nightly-linux/TF_BUILD_IS_OPT=OPT,TF_BUILD_IS_PIP=PIP,TF_BUILD_PYTHON_VERSION=PYTHON2,label=cpu-slave/lastSuccessfulBuild/artifact/pip_test/whl/tf_nightly-1.head-cp27-none-linux_x86_64.whl</span><br></pre></td></tr></table></figure>
+
+<p>tensorflow最新版本地址可在此查看<br><a target="_blank" rel="noopener" href="https://github.com/tensorflow/tensorflow">tensorflow</a> </p>
+<p>测试tensorflow是否安装成功：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ python</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; import tensorflow as tf</span><br><span class="line">&gt;&gt;&gt; hello = tf.constant(&#x27;Hello, TensorFlow!&#x27;)</span><br><span class="line">&gt;&gt;&gt; sess = tf.Session()</span><br><span class="line">&gt;&gt;&gt; print sess.run(hello)</span><br><span class="line">Hello, TensorFlow!</span><br></pre></td></tr></table></figure>
+
+<p>安装pillow(图像处理库，用于对识别图像的旋转等操作)</p>
+<blockquote>
+<p>sudo pip install pillow</p>
+</blockquote>
+<p>安装numpy(一种开源的数值计算扩展，这里用于计算图像旋转数据)</p>
+<blockquote>
+<p>sudo pip install numpy</p>
+</blockquote>
+<p>安装opencv(著名图像处理视觉库，这里用于对识别图像的模糊和旋转处理)</p>
+<blockquote>
+<p>sudo pip install opencv</p>
+</blockquote>
+<h4 id="开始训练"><a href="#开始训练" class="headerlink" title="开始训练"></a>开始训练</h4><p>下载tensorflow retrain<br>demo中的retrain.py到项目根目录中,<a target="_blank" rel="noopener" href="https://github.com/tensorflow/tensorflow/blob/master/tensorflow/examples/image_retraining/retrain.py">下载地址</a></p>
+<p>打开终端，输入以下命令即进入训练过程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python ./retrain.py --bottleneck_dir bottleneck --how_many_training_steps 4000 --model_dir model --output_graph output_graph.pb --output_labels output_labels.txt --image_dir training_data/</span><br></pre></td></tr></table></figure>
+
+<style>
+table th:first-of-type {
+    width: 180px;
+}
+table th:nth-of-type(2){
+    width: 50px
+}
+</style>
+
+
+<p>可选参数：<br>使用时在参数名称前加”- -“，如”- -output_graph”</p>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th align="center">值类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>image_dir</td>
+<td align="center">str</td>
+<td></td>
+<td>训练数据集所在的目录</td>
+</tr>
+<tr>
+<td>output_graph</td>
+<td align="center">str</td>
+<td>&#x2F;tmp&#x2F;output_graph.pb</td>
+<td>训练生成的模型保存位置</td>
+</tr>
+<tr>
+<td>output_labels</td>
+<td align="center">str</td>
+<td>&#x2F;tmp&#x2F;output_labels.txt</td>
+<td>训练生成的标签保存位置，本例为output_labels.txt</td>
+</tr>
+<tr>
+<td>summaries_dir</td>
+<td align="center">str</td>
+<td>&#x2F;tmp&#x2F;retrain_logs</td>
+<td>TensorBoard的日志摘要的保存位置</td>
+</tr>
+<tr>
+<td>how_many_training_steps</td>
+<td align="center">int</td>
+<td>4000</td>
+<td>训练步数</td>
+</tr>
+<tr>
+<td>learning_rate</td>
+<td align="center">float</td>
+<td>0.01</td>
+<td>学习率</td>
+</tr>
+<tr>
+<td>testing_percentage</td>
+<td align="center">int</td>
+<td>10</td>
+<td>测试集的百分比</td>
+</tr>
+<tr>
+<td>validation_percentage</td>
+<td align="center">int</td>
+<td>10</td>
+<td>验证集的百分比</td>
+</tr>
+<tr>
+<td>eval_step_interval</td>
+<td align="center">int</td>
+<td>10</td>
+<td>训练结果评估的时间间隔</td>
+</tr>
+<tr>
+<td>train_batch_size</td>
+<td align="center">int</td>
+<td>100</td>
+<td>一次训练的图像的数量</td>
+</tr>
+<tr>
+<td>validation_batch_size</td>
+<td align="center">int</td>
+<td>100</td>
+<td>一次验证图像数量</td>
+</tr>
+<tr>
+<td>print_misclassified_test_images</td>
+<td align="center">bool</td>
+<td>False</td>
+<td>打印输出所有错误分类的测试图像列表</td>
+</tr>
+<tr>
+<td>model_dir</td>
+<td align="center">str</td>
+<td>&#x2F;tmp&#x2F;imagenet</td>
+<td>存放inception-v3模型</td>
+</tr>
+<tr>
+<td>bottleneck_dir</td>
+<td align="center">str</td>
+<td>&#x2F;tmp&#x2F;bottleneck</td>
+<td>缓存的瓶颈层值的文件路径</td>
+</tr>
+<tr>
+<td>final_tensor_name</td>
+<td align="center">str</td>
+<td>final_result</td>
+<td>重新训练的图像中输出的分类层名字，将会在get_tensor_by_name时使用</td>
+</tr>
+<tr>
+<td>flip_left_right</td>
+<td align="center">bool</td>
+<td>False</td>
+<td>是否随机水平翻转训练图像的一半</td>
+</tr>
+<tr>
+<td>random_crop</td>
+<td align="center">int</td>
+<td>0</td>
+<td>随机裁剪训练图像的百分比</td>
+</tr>
+<tr>
+<td>random_scale</td>
+<td align="center">int</td>
+<td>0</td>
+<td>随机缩放训练图像的百分比</td>
+</tr>
+<tr>
+<td>random_brightness</td>
+<td align="center">int</td>
+<td>0</td>
+<td>随机调整亮度</td>
+</tr>
+<tr>
+<td>architecture</td>
+<td align="center">str</td>
+<td>inception_v3</td>
+<td>图像分类模型，默认为inception-v3，inception-v3是使用最多的图像模型，但也是最慢的</td>
+</tr>
+</tbody></table>
+<p>开始训练后，会自动下载一个inception-2015-12-05.tgz的文件，约88MB</p>
+<blockquote>
+<p>本例训练样本为植物，共有12种，共计472个图像数据，训练过程所用时间约为20分钟</p>
+</blockquote>
+<p>最终训练结果： Final test accuracy &#x3D; 72.7% (N&#x3D;55)</p>
+<p>训练完成后，项目根目录会生成output_labels.txt与ouput_graph.pb</p>
+<h4 id="测试："><a href="#测试：" class="headerlink" title="测试："></a>测试：</h4><p>test.py</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br></pre></td><td class="code"><pre><span class="line">#coding=utf-8</span><br><span class="line">import cv2</span><br><span class="line">import math</span><br><span class="line">import numpy as np</span><br><span class="line">from PIL import Image</span><br><span class="line">from PIL.ExifTags import TAGS</span><br><span class="line">import tensorflow as tf</span><br><span class="line"></span><br><span class="line"># 加载dictionary.txt</span><br><span class="line">dictionary = &#123;&#125;</span><br><span class="line">ftotal = open(&#x27;./dictionary.txt&#x27;, &#x27;r&#x27;)</span><br><span class="line">line = ftotal.readline()</span><br><span class="line">while line:</span><br><span class="line">    totaltree = line.replace(&#x27;\r\n&#x27;, &#x27;&#x27;).replace(&#x27;\n&#x27;, &#x27;&#x27;).split(&#x27;,&#x27;)</span><br><span class="line">    dictionary[totaltree[0]] = totaltree[1].decode(&quot;utf-8&quot;)</span><br><span class="line">    line = ftotal.readline()</span><br><span class="line">ftotal.close()</span><br><span class="line"></span><br><span class="line"># 加载识别标签</span><br><span class="line">labels = []</span><br><span class="line">for label in tf.gfile.GFile(&quot;output_labels.txt&quot;):</span><br><span class="line">    labels.append(label.rstrip())</span><br><span class="line"></span><br><span class="line"># 加载Graph</span><br><span class="line">with tf.gfile.FastGFile(&quot;output_graph.pb&quot;, &#x27;rb&#x27;) as f:</span><br><span class="line">    graph_def = tf.GraphDef()</span><br><span class="line">    graph_def.ParseFromString(f.read())</span><br><span class="line">    tf.import_graph_def(graph_def, name=&#x27;&#x27;)</span><br><span class="line"></span><br><span class="line">sess = tf.Session()</span><br><span class="line">softmax_tensor = sess.graph.get_tensor_by_name(&#x27;final_result:0&#x27;)</span><br><span class="line"></span><br><span class="line"># 植物识别，返回识别结果字符串</span><br><span class="line">def plantRecognition(plantFile):</span><br><span class="line"></span><br><span class="line">    # 打开植物图片进行识别</span><br><span class="line">    image = tf.gfile.FastGFile(plantFile, &#x27;rb&#x27;).read()</span><br><span class="line">    predict = sess.run(softmax_tensor, &#123;&#x27;DecodeJpeg/contents:0&#x27;: image&#125;)</span><br><span class="line"></span><br><span class="line">    # 根据分类概率进行排序</span><br><span class="line">    top = predict[0].argsort()[-len(predict[0]):][::-1]</span><br><span class="line"></span><br><span class="line">    result = &#x27;&#x27;</span><br><span class="line">    count = 8</span><br><span class="line">    for index in top:</span><br><span class="line">        human_string = dictionary[labels[index]]</span><br><span class="line">        score = predict[0][index]</span><br><span class="line"></span><br><span class="line">        # 识别率低于0.01即跳出</span><br><span class="line">        if score &lt; 0.0099:</span><br><span class="line">            break</span><br><span class="line"></span><br><span class="line">        # 拼写识别结果</span><br><span class="line">        temp = human_string + &#x27;:&#x27; + &#x27;%(p).2f&#x27;%&#123;&#x27;p&#x27;:score * 100&#125; + &#x27;%&#x27;</span><br><span class="line">        result += temp + &#x27;\n&#x27;</span><br><span class="line"></span><br><span class="line">        count -= 1</span><br><span class="line">        if count == 0:</span><br><span class="line">            break</span><br><span class="line"></span><br><span class="line">    print(result)</span><br><span class="line">    return result</span><br><span class="line"></span><br><span class="line"># 图片按中心点旋转</span><br><span class="line">def rotate_about_center(src, angle, scale=1.):</span><br><span class="line">    if angle == 0:</span><br><span class="line">        return src</span><br><span class="line"></span><br><span class="line">    w = src.shape[1]</span><br><span class="line">    h = src.shape[0]</span><br><span class="line">    rangle = np.deg2rad(angle)  # angle in radians</span><br><span class="line">    # now calculate new image width and height</span><br><span class="line">    nw = (abs(np.sin(rangle)*h) + abs(np.cos(rangle)*w))*scale</span><br><span class="line">    nh = (abs(np.cos(rangle)*h) + abs(np.sin(rangle)*w))*scale</span><br><span class="line">    # ask OpenCV for the rotation matrix</span><br><span class="line">    rot_mat = cv2.getRotationMatrix2D((nw*0.5, nh*0.5), angle, scale)</span><br><span class="line">    # calculate the move from the old center to the new center combined</span><br><span class="line">    # with the rotation</span><br><span class="line">    rot_move = np.dot(rot_mat, np.array([(nw-w)*0.5, (nh-h)*0.5,0]))</span><br><span class="line">    # the move only affects the translation, so update the translation</span><br><span class="line">    # part of the transform</span><br><span class="line">    rot_mat[0,2] += rot_move[0]</span><br><span class="line">    rot_mat[1,2] += rot_move[1]</span><br><span class="line">    return cv2.warpAffine(src, rot_mat, (int(math.ceil(nw)), int(math.ceil(nh))), flags=cv2.INTER_LANCZOS4)</span><br><span class="line"></span><br><span class="line"># 对图像进行模糊处理，提高识别率</span><br><span class="line">def GaussianBlur(imagefile):</span><br><span class="line"></span><br><span class="line">    rotateangle = get_Rotate_Angle(imagefile)</span><br><span class="line">    img = cv2.imread(imagefile)</span><br><span class="line">    kernel_size = (5, 5)</span><br><span class="line">    sigma = 3</span><br><span class="line">    newimg = cv2.GaussianBlur(img, kernel_size, sigma)</span><br><span class="line">    res = rotate_about_center(newimg, rotateangle)</span><br><span class="line">    cv2.imwrite(imagefile, res);</span><br><span class="line"></span><br><span class="line"># 获取图片旋转角度</span><br><span class="line">def get_Rotate_Angle(fname):</span><br><span class="line">    try:</span><br><span class="line">        img = Image.open(fname)</span><br><span class="line">        if hasattr(img, &#x27;_getexif&#x27;):</span><br><span class="line">            exifinfo = img._getexif()</span><br><span class="line">            if exifinfo != None:</span><br><span class="line">                for tag, value in exifinfo.items():</span><br><span class="line">                    decoded = TAGS.get(tag, tag)</span><br><span class="line">                    if decoded == &#x27;Orientation&#x27;:</span><br><span class="line">                        if value == 6:</span><br><span class="line">                            return 270</span><br><span class="line">                        else:</span><br><span class="line">                            return 0</span><br><span class="line">    except IOError:</span><br><span class="line">        print &#x27;IOError&#x27;</span><br><span class="line">    return 0</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    plantRecognition(&#x27;测试图片路径&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>测试图片:</p>
+<p><img src="/images/test_tensorflow_pic.jpg"></p>
+<p>测试结果：</p>
+<ul>
+<li><p>芫荽:52.84%</p>
+</li>
+<li><p>裂叶铁线莲:26.60%</p>
+</li>
+<li><p>日本蓝盆花:11.06%</p>
+</li>
+<li><p>菱叶崖爬藤:4.37%</p>
+</li>
+<li><p>麒麟掌:2.93%</p>
+</li>
+<li><p>九味一枝蒿:1.34%</p>
+</li>
+</ul>
+<h2 id="识别api在Flask上的搭建"><a href="#识别api在Flask上的搭建" class="headerlink" title="识别api在Flask上的搭建"></a>识别api在Flask上的搭建</h2><p>服务器： Ubuntu 16.04 64位</p>
+<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>首先安装项目所需的组件:pip,dev,nginx。python2下安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install python-pip python-dev nginx</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>python3</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install python3-pip python3-dev nginx</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装python虚拟环境"><a href="#安装python虚拟环境" class="headerlink" title="安装python虚拟环境"></a>安装python虚拟环境</h3><blockquote>
+<p>virtualenv 是一个创建隔绝的Python环境的工具。virtualenv创建一个包含所有必要的可执行文件的文件夹，用来使用Python工程所需的包。</p>
+</blockquote>
+<p>同样，python2下是</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip install virtualenv</span><br></pre></td></tr></table></figure>
+
+<p>python3</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip3 install virtualenv</span><br></pre></td></tr></table></figure>
+
+<p>在&#x2F;home目录下创建项目</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /home</span><br><span class="line">mkdir tensorflow</span><br><span class="line">cd tensorflow</span><br></pre></td></tr></table></figure>
+
+<p>在tensorflow下创建虚拟环境tensorflowenv</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">virtualenv tensorflowenv</span><br></pre></td></tr></table></figure>
+
+<p>进入虚拟环境</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source tensorflowenv/bin/activate</span><br></pre></td></tr></table></figure>
+
+<p>此时出现 (tensorflowenv) root@:&#x2F;home&#x2F;tensorflow#表明已进入虚拟环境 </p>
+<h3 id="配置Flask应用"><a href="#配置Flask应用" class="headerlink" title="配置Flask应用"></a>配置Flask应用</h3><h4 id="安装-Flask-and-uWSGI"><a href="#安装-Flask-and-uWSGI" class="headerlink" title="安装 Flask and uWSGI"></a>安装 Flask and uWSGI</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install uwsgi flask</span><br></pre></td></tr></table></figure>
+
+<p>创建一个Hello world</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano ~/tensorflow/tensorflow.py</span><br></pre></td></tr></table></figure>
+
+<p>tensorflow.py</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">from flask import Flask</span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">@app.route(&quot;/&quot;)</span><br><span class="line">def hello():</span><br><span class="line">    return &quot;&lt;h1 style=&#x27;color:blue&#x27;&gt;Hello World!&lt;/h1&gt;&quot;</span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    app.run(host=&#x27;0.0.0.0&#x27;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="配置WSGI"><a href="#配置WSGI" class="headerlink" title="配置WSGI"></a>配置WSGI</h4><p>创建一个wsgi.py</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano ~/tensorflow/wsgi.py</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from tensorflow import app</span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure>
+
+<p>退出虚拟环境</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deactivate</span><br></pre></td></tr></table></figure>
+
+<p>创建uWSGI配置文件tensorflow.ini</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano ~/tensorflow/tensorflow.ini</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[uwsgi]</span><br><span class="line">module = wsgi:app</span><br><span class="line">daemonize = /var/log/uwsgi.log</span><br><span class="line"></span><br><span class="line">master = true</span><br><span class="line">processes = 5</span><br><span class="line"></span><br><span class="line">socket = tensorflow.sock</span><br><span class="line">chmod-socket = 666</span><br><span class="line">vacuum = true</span><br><span class="line"></span><br><span class="line">die-on-term = true</span><br></pre></td></tr></table></figure>
+
+<h4 id="配置systemd"><a href="#配置systemd" class="headerlink" title="配置systemd"></a>配置systemd</h4><p>创建tensorflow.service</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/systemd/system/tensorflow.service</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=uWSGI instance to serve tensorflow</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">User=root</span><br><span class="line">Group=www-data</span><br><span class="line">WorkingDirectory=/home/tensorflow</span><br><span class="line">Environment=&quot;PATH=/home/tensorflow/tensorflowenv/bin&quot;</span><br><span class="line">ExecStart=/home/tensorflow/tensorflowenv/bin/uwsgi --ini tensorflow.ini</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<p>现在可以启动uWSGI服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start tensorflow</span><br><span class="line">sudo systemctl enable tensorflow</span><br></pre></td></tr></table></figure>
+
+<h4 id="配置Nginx代理"><a href="#配置Nginx代理" class="headerlink" title="配置Nginx代理"></a>配置Nginx代理</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/nginx/sites-available/tensorflow</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name 服务器IP;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        include uwsgi_params;</span><br><span class="line">        uwsgi_pass unix:/home/tensorflow/tensorflow.sock;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>开启创建的Nginx服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s /etc/nginx/sites-available/tensorflow /etc/nginx/sites-enabled</span><br></pre></td></tr></table></figure>
+
+<p>检查Nginx配置是否有错误</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nginx -t</span><br></pre></td></tr></table></figure>
+
+<p>重启Nginx</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart nginx</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ufw allow &#x27;Nginx Full&#x27;</span><br></pre></td></tr></table></figure>
+
+<h4 id="测试Flask是否部署成功"><a href="#测试Flask是否部署成功" class="headerlink" title="测试Flask是否部署成功"></a>测试Flask是否部署成功</h4><p>访问<a target="_blank" rel="noopener" href="http://server_domain_or_ip/">http://server_domain_or_IP</a> 查看是否部署成功</p>
+<h3 id="安装tensorflow-numpy-pillow-opencv"><a href="#安装tensorflow-numpy-pillow-opencv" class="headerlink" title="安装tensorflow,numpy,pillow,opencv"></a>安装tensorflow,numpy,pillow,opencv</h3><p>安装步骤详情见<a href="#Tensorflow%E5%9C%A8Ubuntu16-04%E4%B8%8A%E7%9A%84%E5%AE%89%E8%A3%85">1.1.2.2<br>Tensorflow在Ubuntu16.04上的安装</a></p>
+<blockquote>
+<p>注意，由于flask是在安装在虚拟环境下，因此这里的TensorFlow也必须安装在虚拟环境下</p>
+</blockquote>
+<p>进入虚拟环境：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source tensorflowenv/bin/activate</span><br></pre></td></tr></table></figure>
+<p>tensorflow在虚拟环境下的安装需要加–ignore-installed参数，否则在识别时可能会提示no module named TensorFlow错误<br>示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip install --ignore-installed --upgrade https://ci.tensorflow.org/view/tf-nightly/job/tf-nightly-linux/TF_BUILD_IS_OPT=OPT,TF_BUILD_IS_PIP=PIP,TF_BUILD_PYTHON_VERSION=PYTHON2,label=cpu-slave/lastSuccessfulBuild/artifact/pip_test/whl/tf_nightly-1.head-cp27-none-linux_x86_64.whl</span><br></pre></td></tr></table></figure>
+
+<h3 id="上传模型"><a href="#上传模型" class="headerlink" title="上传模型"></a>上传模型</h3><p>上传训练生成的dictionary.txt 、 output_labels.txt 、 output_graph.pb<br>三个文件到~&#x2F;tensorflow&#x2F;中</p>
+<h3 id="编写flask主程序tensorflow-py"><a href="#编写flask主程序tensorflow-py" class="headerlink" title="编写flask主程序tensorflow.py"></a>编写flask主程序tensorflow.py</h3><p>tensorflow.py</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br></pre></td><td class="code"><pre><span class="line">#coding=utf-8</span><br><span class="line"></span><br><span class="line">import sys</span><br><span class="line">import os</span><br><span class="line">default_encoding = &#x27;utf-8&#x27;</span><br><span class="line">if sys.getdefaultencoding() != default_encoding:</span><br><span class="line">    reload(sys)</span><br><span class="line">    sys.setdefaultencoding(default_encoding)</span><br><span class="line"></span><br><span class="line">import cv2</span><br><span class="line">import math</span><br><span class="line">import numpy as np</span><br><span class="line">from PIL import Image</span><br><span class="line">from PIL.ExifTags import TAGS</span><br><span class="line">import tensorflow as tf</span><br><span class="line">from flask import Flask, request, jsonify</span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">#加载识别标签翻译字典</span><br><span class="line">dictionary = &#123;&#125;</span><br><span class="line">ftotal = open(&#x27;./dictionarys.txt&#x27;, &#x27;r&#x27;)</span><br><span class="line">line = ftotal.readline()</span><br><span class="line">while line:</span><br><span class="line">    totaltree = line.replace(&#x27;\r\n&#x27;, &#x27;&#x27;).replace(&#x27;\n&#x27;, &#x27;&#x27;).split(&#x27;,&#x27;)</span><br><span class="line">    dictionary[totaltree[0]] = totaltree[1].decode(&quot;utf-8&quot;)</span><br><span class="line">    line = ftotal.readline()</span><br><span class="line">ftotal.close()</span><br><span class="line"></span><br><span class="line">#加载识别标签</span><br><span class="line">labels = []</span><br><span class="line">for label in tf.gfile.GFile(&quot;output_labels.txt&quot;):</span><br><span class="line">    labels.append(label.rstrip())</span><br><span class="line"></span><br><span class="line"># 加载Graph</span><br><span class="line">with tf.gfile.FastGFile(&quot;output_graph.pb&quot;, &#x27;rb&#x27;) as f:</span><br><span class="line">    graph_def = tf.GraphDef()</span><br><span class="line">    graph_def.ParseFromString(f.read())</span><br><span class="line">    tf.import_graph_def(graph_def, name=&#x27;&#x27;)</span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/upload&#x27;, methods=[&#x27;GET&#x27;, &#x27;POST&#x27;])</span><br><span class="line">def upload():</span><br><span class="line">    if request.method == &#x27;POST&#x27;:</span><br><span class="line">        file = request.files[&#x27;file&#x27;]</span><br><span class="line"></span><br><span class="line">        #构建图片文件存储路径</span><br><span class="line">        photofile = &#x27;/home/plant/uploadPhoto/&#x27; + file.filename</span><br><span class="line"></span><br><span class="line">        #保存图片文件</span><br><span class="line">        file.save(photofile)</span><br><span class="line"></span><br><span class="line">        GaussianBlur(photofile)</span><br><span class="line"></span><br><span class="line">        return plantRecognition(photofile)</span><br><span class="line">        #返回植物图片识别结果</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">#植物识别，返回识别结果字符串</span><br><span class="line">def plantRecognition(plantFile):</span><br><span class="line"></span><br><span class="line">    sess = tf.Session()</span><br><span class="line">    softmax_tensor = sess.graph.get_tensor_by_name(&#x27;final_result:0&#x27;)</span><br><span class="line">    #打开植物图片进行识别</span><br><span class="line">    image = tf.gfile.FastGFile(plantFile, &#x27;rb&#x27;).read()</span><br><span class="line">    predict = sess.run(softmax_tensor, &#123;&#x27;DecodeJpeg/contents:0&#x27;: image&#125;)</span><br><span class="line"></span><br><span class="line">    #根据分类概率进行排序</span><br><span class="line">    top = predict[0].argsort()[-len(predict[0]):][::-1]</span><br><span class="line"></span><br><span class="line">    if os.path.exists(plantFile):</span><br><span class="line">        os.remove(plantFile)</span><br><span class="line">        # 识别后移除文件，节省服务器存储空间</span><br><span class="line">    result = []</span><br><span class="line">    item = &#123;&#125;</span><br><span class="line">    count = 8</span><br><span class="line">    for index in top:</span><br><span class="line">        human_string = dictionary[labels[index]].decode(&quot;utf-8&quot;)</span><br><span class="line">        score = predict[0][index]</span><br><span class="line"></span><br><span class="line">        #识别率低于0.01即跳出</span><br><span class="line">        if score &lt; 0.0099:</span><br><span class="line">            break</span><br><span class="line"></span><br><span class="line">        item[&#x27;name&#x27;] = human_string.decode(&quot;utf-8&quot;)</span><br><span class="line">        item[&#x27;possibility&#x27;] = &#x27;%(p).2f&#x27;%&#123;&#x27;p&#x27;:score * 100&#125; + &#x27;%&#x27;</span><br><span class="line">        result.append(item)</span><br><span class="line">        item = &#123;&#125;</span><br><span class="line">        #只返回识别前8个结果</span><br><span class="line">        count -= 1</span><br><span class="line">        if count == 0:</span><br><span class="line">            break</span><br><span class="line">    # 返回json化的识别数据</span><br><span class="line">    return jsonify(&#123;&#x27;data&#x27;:result&#125;)</span><br><span class="line"></span><br><span class="line">#图片按中心点旋转</span><br><span class="line">def rotate_about_center(src, angle, scale=1.):</span><br><span class="line">    if angle == 0:</span><br><span class="line">        return src</span><br><span class="line"></span><br><span class="line">    w = src.shape[1]</span><br><span class="line">    h = src.shape[0]</span><br><span class="line">    rangle = np.deg2rad(angle)  # angle in radians</span><br><span class="line">    # now calculate new image width and height</span><br><span class="line">    nw = (abs(np.sin(rangle)*h) + abs(np.cos(rangle)*w))*scale</span><br><span class="line">    nh = (abs(np.cos(rangle)*h) + abs(np.sin(rangle)*w))*scale</span><br><span class="line">     # ask OpenCV for the rotation matrix</span><br><span class="line">    rot_mat = cv2.getRotationMatrix2D((nw*0.5, nh*0.5), angle, scale)</span><br><span class="line">    # calculate the move from the old center to the new center combined</span><br><span class="line">    # with the rotation</span><br><span class="line">    rot_move = np.dot(rot_mat, np.array([(nw-w)*0.5, (nh-h)*0.5,0]))</span><br><span class="line">    # the move only affects the translation, so update the translation</span><br><span class="line">    # part of the transform</span><br><span class="line">    rot_mat[0,2] += rot_move[0]</span><br><span class="line">    rot_mat[1,2] += rot_move[1]</span><br><span class="line">    return cv2.warpAffine(src, rot_mat, (int(math.ceil(nw)), int(math.ceil(nh))), flags=cv2.INTER_LANCZOS4)</span><br><span class="line"></span><br><span class="line">#图片高斯模糊处理</span><br><span class="line">def GaussianBlur(imagefile):</span><br><span class="line"></span><br><span class="line">    rotateangle = get_Rotate_Angle(imagefile)</span><br><span class="line"></span><br><span class="line">    img = cv2.imread(imagefile)</span><br><span class="line">    kernel_size = (5, 5)</span><br><span class="line">    sigma = 3</span><br><span class="line">    newimg = cv2.GaussianBlur(img, kernel_size, sigma)</span><br><span class="line">    res = rotate_about_center(newimg, rotateangle)</span><br><span class="line"></span><br><span class="line">    cv2.imwrite(imagefile, res);</span><br><span class="line"></span><br><span class="line">#获取图片旋转角度</span><br><span class="line">def get_Rotate_Angle(fname):</span><br><span class="line">    try:</span><br><span class="line">        img = Image.open(fname)</span><br><span class="line">        if hasattr(img, &#x27;_getexif&#x27;):</span><br><span class="line">            exifinfo = img._getexif()</span><br><span class="line">            if exifinfo != None:</span><br><span class="line">                for tag, value in exifinfo.items():</span><br><span class="line">                    decoded = TAGS.get(tag, tag)</span><br><span class="line"></span><br><span class="line">                    if decoded == &#x27;Orientation&#x27;:</span><br><span class="line"></span><br><span class="line">                        if value == 6:</span><br><span class="line">                            return 270</span><br><span class="line">                        else:</span><br><span class="line">                            return 0</span><br><span class="line">    except IOError:</span><br><span class="line">        print &#x27;IOERROR &#x27; + fname</span><br><span class="line">    return 0</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    app.run(host=&#x27;0.0.0.0&#x27;, port=80)</span><br></pre></td></tr></table></figure>
+
+<h3 id="api测试结果"><a href="#api测试结果" class="headerlink" title="api测试结果"></a>api测试结果</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;data&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;name&quot;: &quot;\u82ab\u837d&quot;, </span><br><span class="line">      &quot;possibility&quot;: &quot;52.84%&quot;</span><br><span class="line">    &#125;, </span><br><span class="line">    &#123;</span><br><span class="line">      &quot;name&quot;: &quot;\u88c2\u53f6\u94c1\u7ebf\u83b2&quot;, </span><br><span class="line">      &quot;possibility&quot;: &quot;26.60%&quot;</span><br><span class="line">    &#125;, </span><br><span class="line">    &#123;</span><br><span class="line">      &quot;name&quot;: &quot;\u65e5\u672c\u84dd\u76c6\u82b1&quot;, </span><br><span class="line">      &quot;possibility&quot;: &quot;11.06%&quot;</span><br><span class="line">    &#125;, </span><br><span class="line">    &#123;</span><br><span class="line">      &quot;name&quot;: &quot;\u83f1\u53f6\u5d16\u722c\u85e4&quot;, </span><br><span class="line">      &quot;possibility&quot;: &quot;4.37%&quot;</span><br><span class="line">    &#125;, </span><br><span class="line">    &#123;</span><br><span class="line">      &quot;name&quot;: &quot;\u9e92\u9e9f\u638c&quot;, </span><br><span class="line">      &quot;possibility&quot;: &quot;2.93%&quot;</span><br><span class="line">    &#125;, </span><br><span class="line">    &#123;</span><br><span class="line">      &quot;name&quot;: &quot;\u4e5d\u5473\u4e00\u679d\u84bf&quot;, </span><br><span class="line">      &quot;possibility&quot;: &quot;1.34%&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Android端的拍照识别"><a href="#Android端的拍照识别" class="headerlink" title="Android端的拍照识别"></a>Android端的拍照识别</h2><p><img src="/images/android_tensorflow.png"></p>
+<h3 id="拍照"><a href="#拍照" class="headerlink" title="拍照"></a>拍照</h3><p>android拍照的第三方库十分多，好用的也不少，这里用的是natario1的CameraView <a target="_blank" rel="noopener" href="https://github.com/natario1/CameraView">CameraView地址</a></p>
+<p>这里使用了retrofit+rxJava作网络请求</p>
+<p>CameraView提供了一个cameraListener监听拍照点击行为</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">cameraView.addCameraListener(<span class="keyword">new</span> <span class="title class_">CameraListener</span>() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onPictureTaken</span><span class="params">(<span class="type">byte</span>[] picture)</span> &#123;</span><br><span class="line">                CameraUtils.decodeBitmap(picture, <span class="keyword">new</span> <span class="title class_">CameraUtils</span>.BitmapCallback() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onBitmapReady</span><span class="params">(Bitmap bitmap)</span> &#123;</span><br><span class="line">                        <span class="type">File</span> <span class="variable">file</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(saveBitmapToLocalDir(bitmap)); <span class="comment">//将bitmap保存到本地路径</span></span><br><span class="line">                        <span class="type">RequestBody</span> <span class="variable">requestBody</span> <span class="operator">=</span> RequestBody.create(MediaType.parse(<span class="string">&quot;multipart/form-data&quot;</span>),file);</span><br><span class="line">                        MultipartBody.<span class="type">Part</span> <span class="variable">body</span> <span class="operator">=</span> MultipartBody.Part.createFormData(<span class="string">&quot;file&quot;</span>,file.getName(),requestBody);</span><br><span class="line">                        <span class="type">PlantApplication</span> <span class="variable">plantApplication</span> <span class="operator">=</span> PlantApplication.create(context);</span><br><span class="line">                        <span class="type">PlantService</span> <span class="variable">plantService</span> <span class="operator">=</span> plantApplication.getPlantService();</span><br><span class="line">                        <span class="type">Disposable</span> <span class="variable">disposable</span> <span class="operator">=</span> plantService.recognition(PlantFactory.UPLOAD_PLANT_PIC,body)</span><br><span class="line">                                .observeOn(AndroidSchedulers.mainThread())</span><br><span class="line">                                .subscribeOn(plantApplication.subscribeScheduler())</span><br><span class="line">                                .subscribe(<span class="keyword">new</span> <span class="title class_">Consumer</span>&lt;RecognitionResponse&gt;() &#123;</span><br><span class="line">                                    <span class="meta">@Override</span></span><br><span class="line">                                    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">accept</span><span class="params">(RecognitionResponse recognitionResponse)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">                                        <span class="comment">// 获取数据成功</span></span><br><span class="line">                                        List&lt;RecognitionResult&gt; resultList = recognitionResponse.getList();</span><br><span class="line">                                        ......</span><br><span class="line">                                    &#125;</span><br><span class="line">                                &#125;, <span class="keyword">new</span> <span class="title class_">Consumer</span>&lt;Throwable&gt;() &#123;</span><br><span class="line">                                    <span class="meta">@Override</span></span><br><span class="line">                                    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">accept</span><span class="params">(Throwable throwable)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">                                        Toast.makeText(context,throwable.toString(),Toast.LENGTH_LONG).show();</span><br><span class="line">                                    &#125;</span><br><span class="line">                                &#125;);</span><br><span class="line">                        compositeDisposable.add(disposable);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="PlantApplication-java"><a href="#PlantApplication-java" class="headerlink" title="PlantApplication.java"></a>PlantApplication.java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> android.app.Application;</span><br><span class="line"><span class="keyword">import</span> android.content.Context;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.mikepenz.iconics.Iconics;</span><br><span class="line"><span class="keyword">import</span> com.treecute.plant.data.GoodsFactory;</span><br><span class="line"><span class="keyword">import</span> com.treecute.plant.data.GoodsService;</span><br><span class="line"><span class="keyword">import</span> com.treecute.plant.data.PlantFactory;</span><br><span class="line"><span class="keyword">import</span> com.treecute.plant.data.PlantService;</span><br><span class="line"><span class="keyword">import</span> com.treecute.plant.data.UserFactory;</span><br><span class="line"><span class="keyword">import</span> com.treecute.plant.data.UserService;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> io.reactivex.Scheduler;</span><br><span class="line"><span class="keyword">import</span> io.reactivex.schedulers.Schedulers;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by mkind on 2017/11/21 0021.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PlantApplication</span> <span class="keyword">extends</span> <span class="title class_">Application</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> PlantService plantService;</span><br><span class="line">    <span class="keyword">private</span> Scheduler scheduler;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onCreate</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.onCreate();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> PlantApplication <span class="title function_">get</span><span class="params">(Context context)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (PlantApplication) context.getApplicationContext();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> PlantApplication <span class="title function_">create</span><span class="params">(Context context)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> PlantApplication.get(context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> PlantService <span class="title function_">getPlantService</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (plantService==<span class="literal">null</span>)&#123;</span><br><span class="line">            plantService = PlantFactory.create();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> plantService;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Scheduler <span class="title function_">subscribeScheduler</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (scheduler==<span class="literal">null</span>)&#123;</span><br><span class="line">            scheduler = Schedulers.io();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> scheduler;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setPlantService</span><span class="params">(PlantService plantService)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.plantService = plantService;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setScheduler</span><span class="params">(Scheduler scheduler)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.scheduler = scheduler;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>PlantService</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">PlantService</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建post图片接口</span></span><br><span class="line">    <span class="meta">@Multipart</span> <span class="meta">@POST</span> Observable&lt;RecognitionResponse&gt; <span class="title function_">recognition</span><span class="params">(<span class="meta">@Url</span> String url, <span class="meta">@Part</span> MultipartBody.Part file)</span>;</span><br><span class="line">   </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>PlantFactory</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PlantFactory</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">BASE_URL</span> <span class="operator">=</span> <span class="string">&quot;http://120.25.1.26:97/&quot;</span>;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">UPLOAD_PLANT_PIC</span> <span class="operator">=</span> <span class="string">&quot;http://120.25.1.26/upload&quot;</span>;</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> PlantService <span class="title function_">create</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">Retrofit</span> <span class="variable">retrofit</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Retrofit</span>.Builder()</span><br><span class="line">                .baseUrl(BASE_URL)</span><br><span class="line">                .addConverterFactory(GsonConverterFactory.create())</span><br><span class="line">                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())</span><br><span class="line">                .build();</span><br><span class="line">        <span class="keyword">return</span> retrofit.create(PlantService.class);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>最终效果：</p>
+<p><img src="/images/recognize2.jpg"></p>
+<p><img src="/images/recognize1.jpg"></p>
+</section>
+    
+
+    <footer id="post-meta" class="clearfix">
+        <a href="/about/">
+        <img class="avatar" src="/images/avatar.png">
+        <div>
+            <span class="dark">BouSeng</span>
+            <span></span>
+        </div>
+        </a>
+        <section id="sharing">
+            <a title="Share to Twitter" class="twitter" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=http://bouseng.com/2017/12/12/TensorFlow%E5%9C%A8Android%E5%AE%9E%E7%8E%B0%E7%89%A9%E4%BD%93%E8%AF%86%E5%88%AB%E5%AE%9E%E9%AA%8C%E8%AE%BE%E8%AE%A1/ - TensorFlow在Android实现物体识别实验设计 @"><span class="icon-twitter">tweet</span></a>
+            <a title="Share to Facebook" class="facebook" href="#" onclick="
+                window.open(
+                  'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+                  'facebook-share-dialog',
+                  'width=626,height=436');
+                return false;"><span class="icon-facebook-sign">Share</span>
+            </a>
+        </section>
+    </footer>
+
+
+  <section id="comment">
+    <button class="btn" id="loadcmts" onclick="cmts.load();">Load Comments</button>
+    <div id="gitment"></div>
+    <script src='/js/gitment.browser.js'></script>
+    <link rel="stylesheet" href=''>
+    <script>
+      var cmts={
+        load:function cmts(){
+          var gitment = new Gitment({
+          
+            id: "TensorFlow在Android实现物体识别实验设计",
+          
+            owner: "",
+            repo: "",
+            oauth: {
+              client_id: "",
+              client_secret: "",
+            },
+          })
+          gitment.render('gitment');
+          var loadcmt = document.getElementById("loadcmts");
+          var imyourfather = loadcmt.parentNode;
+          imyourfather.removeChild(loadcmts)
+        }
+      }
+    </script>
+  </section>
+
+
+	<footer id="footer">
+	<div id="social">
+		<p class="small">©  BouSeng| Powered by Hexo & 
+			<a target="_blank" rel="noopener" href="https://github.com/F0r3at/Lights"> Lights</a>
+		</p>
+	</div>
+</footer>
+
+</section>
+
+	<script src="//cdnjs.loli.net/ajax/libs/instantclick/3.0.1/instantclick.min.js" data-no-instant></script>
+	<script data-no-instant>
+		
+		InstantClick.init('mousedown');
+	</script>
+
+
+
